@@ -1293,6 +1293,7 @@ bool FormulaCompiler::IsMatrixFunction( OpCode eOpCode )
         case ocLet :
         case ocWrapCols :
         case ocWrapRows :
+        case ocRegexExtract :
             return true;
         default:
         {
@@ -1792,6 +1793,7 @@ void FormulaCompiler::Factor()
                 case ocToRow:
                 case ocWrapCols:
                 case ocWrapRows:
+                case ocRegexExtract:
                     mpArr->SetDynamicArrayFunction( true);
                 break;
                 default:

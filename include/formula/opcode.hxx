@@ -555,8 +555,15 @@ enum OpCode : sal_uInt16
         ocUnique            = 517,
         ocWrapCols          = 518,
         ocWrapRows          = 519,
-        ocUDExternal        = 520, /* User-defined external function */
-        ocStopTwoParameters = 521, /* last function with two or more parameters' OpCode + 1 */
+        ocValueToText       = 520,
+        ocArrayToText       = 521,
+        ocPercentOf         = 522,
+        ocRegexTest         = 523,
+        ocRegexExtract      = 524,
+        ocRegexReplace      = 525,
+        ocTrimRange         = 526,
+        ocUDExternal        = 527, /* User-defined external function */
+        ocStopTwoParameters = 528, /* last function with two or more parameters' OpCode + 1 */
 
         ocStopFunction      = ocStopTwoParameters,  /* last function's OpCode + 1 */
         ocLastOpcodeId      = ocStopFunction - 1, /* last OpCode */
@@ -1064,6 +1071,13 @@ inline std::string OpCodeEnumToString(OpCode eCode)
     case ocLet: return "Let";
     case ocWrapCols: return "WrapCols";
     case ocWrapRows: return "WrapRows";
+    case ocValueToText: return "ValueToText";
+    case ocArrayToText: return "ArrayToText";
+    case ocPercentOf: return "PercentOf";
+    case ocRegexTest: return "RegexTest";
+    case ocRegexExtract: return "RegexExtract";
+    case ocRegexReplace: return "RegexReplace";
+    case ocTrimRange: return "TrimRange";
     case ocTTT: return "TTT";
     case ocDebugVar: return "DebugVar";
     case ocDataToken1: return "DataToken1";

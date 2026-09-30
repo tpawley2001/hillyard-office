@@ -637,6 +637,13 @@ const XclFunctionInfo saFuncTable_2024[] =
     EXC_FUNCENTRY_V_VR(  ocToRow,      1,  3,  0,  "TOROW" ),
     EXC_FUNCENTRY_V_VR(  ocWrapCols,   2,  3,  0,  "WRAPCOLS"),
     EXC_FUNCENTRY_V_VR(  ocWrapRows,   2,  3,  0,  "WRAPROWS"),
+    EXC_FUNCENTRY_V_VR(  ocValueToText,   1,  2,  0,  "VALUETOTEXT" ),
+    EXC_FUNCENTRY_V_VR(  ocArrayToText,   1,  2,  0,  "ARRAYTOTEXT" ),
+    EXC_FUNCENTRY_V_VR(  ocPercentOf,     2,  2,  0,  "PERCENTOF" ),
+    EXC_FUNCENTRY_V_VR(  ocRegexTest,     2,  3,  0,  "REGEXTEST" ),
+    EXC_FUNCENTRY_V_VR(  ocRegexExtract,  2,  4,  0,  "REGEXEXTRACT" ),
+    EXC_FUNCENTRY_V_VR(  ocRegexReplace,  3,  5,  0,  "REGEXREPLACE" ),
+    EXC_FUNCENTRY_V_VR(  ocTrimRange,     1,  3,  0,  "TRIMRANGE" ),
 };
 
 #define EXC_FUNCENTRY_ODF( opcode, minparam, maxparam, flags, asciiname ) \

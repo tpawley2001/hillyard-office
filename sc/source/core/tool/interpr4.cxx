@@ -4003,6 +4003,8 @@ bool IsErrFunc(OpCode oc)
         case ocIfs_MS:
         case ocSwitch_MS:
         case ocXLookup:
+        case ocValueToText:     // renders an error value as its text
+        case ocArrayToText:
             return true;
         default:
             return false;
@@ -4178,6 +4180,13 @@ StackVar ScInterpreter::Interpret()
                     case ocLet              : ScLet();                      break;
                     case ocWrapCols         : ScWrapCols();                 break;
                     case ocWrapRows         : ScWrapRows();                 break;
+                    case ocValueToText      : ScValueToText();       break;
+                    case ocArrayToText      : ScArrayToText();       break;
+                    case ocPercentOf        : ScPercentOf();         break;
+                    case ocRegexTest        : ScRegexTest();         break;
+                    case ocRegexExtract     : ScRegexExtract();      break;
+                    case ocRegexReplace     : ScRegexReplace();      break;
+                    case ocTrimRange        : ScTrimRange();         break;
                     case ocTrue             : ScTrue();                     break;
                     case ocFalse            : ScFalse();                    break;
                     case ocGetActDate       : ScGetActDate();               break;

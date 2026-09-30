@@ -809,6 +809,13 @@ ScFunctionList::ScFunctionList( bool bEnglishFunctionNames )
         { ocUnique, ENTRY(ocUNIQUE_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_UNIQUE_MS, 3, { 0, 1, 1 }, 0 },
         { ocWrapCols, ENTRY(ocWRAPCOLS_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_WRAPCOLS_MS, 3, { 0, 1, 1 }, 0 },
         { ocWrapRows, ENTRY(ocWRAPROWS_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_WRAPROWS_MS, 3, { 0, 1, 1 }, 0 },
+        { ocValueToText, ENTRY(ocVALUETOTEXT_ARY), 0, ID_FUNCTION_GRP_TEXT, HID_FUNC_VALUETOTEXT_MS, 2, { 0, 1 }, 0 },
+        { ocArrayToText, ENTRY(ocARRAYTOTEXT_ARY), 0, ID_FUNCTION_GRP_TEXT, HID_FUNC_ARRAYTOTEXT_MS, 2, { 0, 1 }, 0 },
+        { ocPercentOf, ENTRY(ocPERCENTOF_ARY), 0, ID_FUNCTION_GRP_MATH, HID_FUNC_PERCENTOF_MS, 2, { 0, 0 }, 0 },
+        { ocRegexTest, ENTRY(ocREGEXTEST_ARY), 0, ID_FUNCTION_GRP_TEXT, HID_FUNC_REGEXTEST_MS, 3, { 0, 0, 1 }, 0 },
+        { ocRegexExtract, ENTRY(ocREGEXEXTRACT_ARY), 0, ID_FUNCTION_GRP_TEXT, HID_FUNC_REGEXEXTRACT_MS, 4, { 0, 0, 1, 1 }, 0 },
+        { ocRegexReplace, ENTRY(ocREGEXREPLACE_ARY), 0, ID_FUNCTION_GRP_TEXT, HID_FUNC_REGEXREPLACE_MS, 5, { 0, 0, 0, 1, 1 }, 0 },
+        { ocTrimRange, ENTRY(ocTRIMRANGE_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_TRIMRANGE_MS, 3, { 0, 1, 1 }, 0 },
     };
 
     ScFuncDesc* pDesc = nullptr;

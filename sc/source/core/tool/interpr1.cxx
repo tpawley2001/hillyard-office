@@ -12322,6 +12322,458 @@ void ScInterpreter::ScRegex()
     PushString( aResult);
 }
 
+namespace {
+
+/** Text of one array element the way Excel's VALUETOTEXT and ARRAYTOTEXT
+    write it. Strict format quotes text so the result reads back as a formula
+    constant; concise format leaves it bare. */
+OUString lcl_ExcelValueText(const ScMatrix& rMat, SCSIZE nC, SCSIZE nR, bool bStrict,
+                            ScInterpreterContext& rContext)
+{
+    const FormulaError nErr = rMat.GetErrorIfNotString(nC, nR);
+    if (nErr != FormulaError::NONE)
+        return ScGlobal::GetErrorString(nErr);
+    if (rMat.IsEmpty(nC, nR))
+        return OUString();
+    if (rMat.IsStringOrEmpty(nC, nR))
+    {
+        const OUString aStr = rMat.GetString(nC, nR).getString();
+        if (!bStrict)
+            return aStr;
+        return "\"" + aStr.replaceAll("\"", "\"\"") + "\"";
+    }
+    if (rMat.IsBoolean(nC, nR))
+        return ScCompiler::GetNativeSymbol(rMat.GetDouble(nC, nR) != 0.0 ? ocTrue : ocFalse);
+    return rMat.GetString(rContext, nC, nR).getString();
+}
+
+/** Excel's case_sensitivity argument: 0 (default) sensitive, 1 insensitive. */
+bool lcl_RegexCaseFlag(double fCase, bool& rInsensitive)
+{
+    if (fCase == 0.0)
+        rInsensitive = false;
+    else if (fCase == 1.0)
+        rInsensitive = true;
+    else
+        return false;
+    return true;
+}
+
+}
+
+namespace {
+
+bool lcl_MakeExcelRegexMatcher(const OUString& rPattern, bool bInsensitive,
+                               std::unique_ptr<icu::RegexMatcher>& rMatcher)
+{
+    const icu::UnicodeString aIcuExpression(
+        false, reinterpret_cast<const UChar*>(rPattern.getStr()), rPattern.getLength());
+    UErrorCode status = U_ZERO_ERROR;
+    rMatcher.reset(new icu::RegexMatcher(aIcuExpression, bInsensitive ? UREGEX_CASE_INSENSITIVE : 0, status));
+    if (U_FAILURE(status))
+        return false;
+    // Same guard against pathological patterns as REGEX().
+    rMatcher->setTimeLimit(23*1000, status);
+    return true;
+}
+
+}
+
+void ScInterpreter::ScValueToText()
+{
+    sal_uInt8 nParamCount = GetByte();
+    if (!MustHaveParamCount(nParamCount, 1, 2))
+        return;
+    const double fFormat = nParamCount == 2 ? GetDoubleWithDefault(0.0) : 0.0;
+    if (fFormat != 0.0 && fFormat != 1.0)
+    {
+        PushIllegalArgument();
+        return;
+    }
+    if (GetStackType() == svDoubleRef)
+    {
+        // A range argument is intersected with the formula position, as for
+        // any scalar parameter.
+        ScAddress aAdr;
+        if (!PopDoubleRefOrSingleRef(aAdr))
+        {
+            PushError(nGlobalError);
+            return;
+        }
+        PushSingleRef(aAdr.Col(), aAdr.Row(), aAdr.Tab());
+    }
+    // Errors are values here: VALUETOTEXT(#N/A) is the text "#N/A".
+    if (GetStackType() == svError)
+    {
+        PopError();
+        const FormulaError nErr = nGlobalError;
+        nGlobalError = FormulaError::NONE;
+        PushString(ScGlobal::GetErrorString(nErr));
+        return;
+    }
+    ScMatrixRef pMat = GetMatrix();
+    if (!pMat)
+    {
+        PushError(nGlobalError != FormulaError::NONE ? nGlobalError : FormulaError::IllegalArgument);
+        return;
+    }
+    nGlobalError = FormulaError::NONE;
+    PushString(lcl_ExcelValueText(*pMat, 0, 0, fFormat == 1.0, mrContext));
+}
+
+void ScInterpreter::ScArrayToText()
+{
+    sal_uInt8 nParamCount = GetByte();
+    if (!MustHaveParamCount(nParamCount, 1, 2))
+        return;
+    const double fFormat = nParamCount == 2 ? GetDoubleWithDefault(0.0) : 0.0;
+    if (fFormat != 0.0 && fFormat != 1.0)
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const bool bStrict = fFormat == 1.0;
+    ScMatrixRef pMat = GetMatrix();
+    if (!pMat)
+    {
+        PushError(nGlobalError != FormulaError::NONE ? nGlobalError : FormulaError::IllegalArgument);
+        return;
+    }
+    // Element errors are rendered as text, not propagated.
+    nGlobalError = FormulaError::NONE;
+    SCSIZE nC, nR;
+    pMat->GetDimensions(nC, nR);
+    OUStringBuffer aBuf;
+    if (bStrict)
+        aBuf.append('{');
+    for (SCSIZE r = 0; r < nR; ++r)
+    {
+        if (r > 0)
+            aBuf.append(bStrict ? u";" : u", ");
+        for (SCSIZE c = 0; c < nC; ++c)
+        {
+            if (c > 0)
+                aBuf.append(bStrict ? u"," : u", ");
+            const OUString aItem = lcl_ExcelValueText(*pMat, c, r, bStrict, mrContext);
+            if (!CheckStringResultLen(aBuf, aItem.getLength()))
+            {
+                PushError(GetError());
+                return;
+            }
+            aBuf.append(aItem);
+        }
+    }
+    if (bStrict)
+        aBuf.append('}');
+    PushString(aBuf.makeStringAndClear());
+}
+
+void ScInterpreter::ScPercentOf()
+{
+    if (!MustHaveParamCount(GetByte(), 2))
+        return;
+    // Sum only numbers, as SUM does for ranges; an error anywhere propagates.
+    auto sumOf = [this](double& rSum) -> bool
+    {
+        ScMatrixRef pMat = GetMatrix();
+        if (!pMat || nGlobalError != FormulaError::NONE)
+            return false;
+        SCSIZE nC, nR;
+        pMat->GetDimensions(nC, nR);
+        KahanSum aSum = 0.0;
+        for (SCSIZE r = 0; r < nR; ++r)
+            for (SCSIZE c = 0; c < nC; ++c)
+            {
+                if (pMat->IsStringOrEmpty(c, r))
+                    continue;
+                const FormulaError nErr = pMat->GetError(c, r);
+                if (nErr != FormulaError::NONE)
+                {
+                    SetError(nErr);
+                    return false;
+                }
+                aSum += pMat->GetDouble(c, r);
+            }
+        rSum = aSum.get();
+        return true;
+    };
+    double fAll = 0.0, fSubset = 0.0;
+    if (!sumOf(fAll) || !sumOf(fSubset))
+    {
+        PushError(nGlobalError != FormulaError::NONE ? nGlobalError : FormulaError::IllegalArgument);
+        return;
+    }
+    if (fAll == 0.0)
+    {
+        PushError(FormulaError::DivisionByZero);
+        return;
+    }
+    nFuncFmtType = SvNumFormatType::PERCENT;
+    PushDouble(fSubset / fAll);
+}
+
+void ScInterpreter::ScRegexTest()
+{
+    sal_uInt8 nParamCount = GetByte();
+    if (!MustHaveParamCount(nParamCount, 2, 3))
+        return;
+    bool bInsensitive = false;
+    if (nParamCount == 3 && !lcl_RegexCaseFlag(GetDoubleWithDefault(0.0), bInsensitive))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const OUString aPattern = GetString().getString();
+    const OUString aText = GetString().getString();
+    if (nGlobalError != FormulaError::NONE)
+    {
+        PushError(nGlobalError);
+        return;
+    }
+    std::unique_ptr<icu::RegexMatcher> pMatcher;
+    if (!lcl_MakeExcelRegexMatcher(aPattern, bInsensitive, pMatcher))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const icu::UnicodeString aIcuText(false, reinterpret_cast<const UChar*>(aText.getStr()), aText.getLength());
+    pMatcher->reset(aIcuText);
+    UErrorCode status = U_ZERO_ERROR;
+    const bool bFound = pMatcher->find(status);
+    if (U_FAILURE(status))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    nFuncFmtType = SvNumFormatType::LOGICAL;
+    PushInt(bFound ? 1 : 0);
+}
+
+void ScInterpreter::ScRegexExtract()
+{
+    sal_uInt8 nParamCount = GetByte();
+    if (!MustHaveParamCount(nParamCount, 2, 4))
+        return;
+    bool bInsensitive = false;
+    if (nParamCount == 4 && !lcl_RegexCaseFlag(GetDoubleWithDefault(0.0), bInsensitive))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const double fMode = nParamCount >= 3 ? GetDoubleWithDefault(0.0) : 0.0;
+    if (fMode != 0.0 && fMode != 1.0 && fMode != 2.0)
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const OUString aPattern = GetString().getString();
+    const OUString aText = GetString().getString();
+    if (nGlobalError != FormulaError::NONE)
+    {
+        PushError(nGlobalError);
+        return;
+    }
+    std::unique_ptr<icu::RegexMatcher> pMatcher;
+    if (!lcl_MakeExcelRegexMatcher(aPattern, bInsensitive, pMatcher))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const icu::UnicodeString aIcuText(false, reinterpret_cast<const UChar*>(aText.getStr()), aText.getLength());
+    pMatcher->reset(aIcuText);
+    UErrorCode status = U_ZERO_ERROR;
+    auto toOUString = [](const icu::UnicodeString& r)
+    { return OUString(reinterpret_cast<const sal_Unicode*>(r.getBuffer()), r.length()); };
+
+    std::vector<OUString> aResults;
+    if (fMode == 1.0)
+    {
+        while (pMatcher->find(status) && U_SUCCESS(status))
+            aResults.push_back(toOUString(pMatcher->group(status)));
+    }
+    else if (pMatcher->find(status) && U_SUCCESS(status))
+    {
+        if (fMode == 0.0)
+            aResults.push_back(toOUString(pMatcher->group(status)));
+        else
+            for (sal_Int32 i = 1; i <= pMatcher->groupCount(); ++i)
+                aResults.push_back(toOUString(pMatcher->group(i, status)));
+    }
+    if (U_FAILURE(status))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    if (aResults.empty())
+    {
+        PushNA();
+        return;
+    }
+    if (fMode == 0.0)
+    {
+        PushString(aResults.front());
+        return;
+    }
+    // All matches run down a column; the groups of one match run across a row.
+    const bool bRow = fMode == 2.0;
+    ScMatrixRef pResMat = bRow ? GetNewMat(aResults.size(), 1, /*bEmpty*/true)
+                               : GetNewMat(1, aResults.size(), /*bEmpty*/true);
+    if (!pResMat)
+    {
+        PushIllegalArgument();
+        return;
+    }
+    for (size_t i = 0; i < aResults.size(); ++i)
+        pResMat->PutString(mrStrPool.intern(aResults[i]), bRow ? i : 0, bRow ? 0 : i);
+    PushMatrix(pResMat);
+}
+
+void ScInterpreter::ScRegexReplace()
+{
+    sal_uInt8 nParamCount = GetByte();
+    if (!MustHaveParamCount(nParamCount, 3, 5))
+        return;
+    bool bInsensitive = false;
+    if (nParamCount == 5 && !lcl_RegexCaseFlag(GetDoubleWithDefault(0.0), bInsensitive))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const double fOccurrence = nParamCount >= 4 ? GetDoubleWithDefault(0.0) : 0.0;
+    if (fOccurrence != ::rtl::math::approxFloor(fOccurrence)
+        || std::abs(fOccurrence) > SAL_MAX_INT32)
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const sal_Int32 nOccurrence = static_cast<sal_Int32>(fOccurrence);
+    const OUString aReplacement = GetString().getString();
+    const OUString aPattern = GetString().getString();
+    const OUString aText = GetString().getString();
+    if (nGlobalError != FormulaError::NONE)
+    {
+        PushError(nGlobalError);
+        return;
+    }
+    std::unique_ptr<icu::RegexMatcher> pMatcher;
+    if (!lcl_MakeExcelRegexMatcher(aPattern, bInsensitive, pMatcher))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const icu::UnicodeString aIcuText(false, reinterpret_cast<const UChar*>(aText.getStr()), aText.getLength());
+    const icu::UnicodeString aIcuReplacement(
+        false, reinterpret_cast<const UChar*>(aReplacement.getStr()), aReplacement.getLength());
+    pMatcher->reset(aIcuText);
+    UErrorCode status = U_ZERO_ERROR;
+    icu::UnicodeString aReplaced;
+    if (nOccurrence == 0)
+        aReplaced = pMatcher->replaceAll(aIcuReplacement, status);
+    else
+    {
+        // Count matches first so a negative occurrence can count from the end.
+        sal_Int32 nTotal = 0;
+        while (pMatcher->find(status) && U_SUCCESS(status))
+            ++nTotal;
+        const sal_Int32 nTarget = nOccurrence > 0 ? nOccurrence : nTotal + nOccurrence + 1;
+        if (U_FAILURE(status) || nTarget < 1 || nTarget > nTotal)
+        {
+            if (U_FAILURE(status))
+                PushIllegalArgument();
+            else
+                PushString(aText);   // no such match: text unchanged
+            return;
+        }
+        pMatcher->reset(aIcuText);
+        sal_Int32 nCount = 0;
+        while (pMatcher->find(status) && U_SUCCESS(status))
+        {
+            if (++nCount == nTarget)
+            {
+                pMatcher->appendReplacement(aReplaced, aIcuReplacement, status);
+                break;
+            }
+        }
+        pMatcher->appendTail(aReplaced);
+    }
+    if (U_FAILURE(status))
+    {
+        // For example $2 with only one capturing group.
+        PushIllegalArgument();
+        return;
+    }
+    PushString(OUString(reinterpret_cast<const sal_Unicode*>(aReplaced.getBuffer()), aReplaced.length()));
+}
+
+void ScInterpreter::ScTrimRange()
+{
+    sal_uInt8 nParamCount = GetByte();
+    if (!MustHaveParamCount(nParamCount, 1, 3))
+        return;
+    // 0 - keep, 1 - leading blanks, 2 - trailing blanks, 3 - both (default).
+    auto getMode = [this](double& rMode) -> bool
+    {
+        rMode = GetDoubleWithDefault(3.0);
+        return rMode == 0.0 || rMode == 1.0 || rMode == 2.0 || rMode == 3.0;
+    };
+    double fCols = 3.0, fRows = 3.0;
+    if ((nParamCount == 3 && !getMode(fCols)) || (nParamCount >= 2 && !getMode(fRows)))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    ScRange aRange;
+    switch (GetStackType())
+    {
+        case svSingleRef:
+        {
+            ScAddress aAdr;
+            PopSingleRef(aAdr);
+            aRange = ScRange(aAdr);
+            break;
+        }
+        case svDoubleRef:
+            PopDoubleRef(aRange);
+            break;
+        default:
+            PopError();
+            PushIllegalArgument();
+            return;
+    }
+    if (nGlobalError != FormulaError::NONE)
+    {
+        PushError(nGlobalError);
+        return;
+    }
+    if (aRange.aStart.Tab() != aRange.aEnd.Tab())
+    {
+        PushIllegalArgument();
+        return;
+    }
+    SCCOL nCol1 = aRange.aStart.Col(), nCol2 = aRange.aEnd.Col();
+    SCROW nRow1 = aRange.aStart.Row(), nRow2 = aRange.aEnd.Row();
+    SCCOL nDataCol1 = nCol1, nDataCol2 = nCol2;
+    SCROW nDataRow1 = nRow1, nDataRow2 = nRow2;
+    bool bShrunk = false;
+    if (!mrDoc.ShrinkToUsedDataArea(bShrunk, aRange.aStart.Tab(), nDataCol1, nDataRow1,
+                                    nDataCol2, nDataRow2, /*bColumnsOnly*/false))
+    {
+        // Nothing but blanks: there is no range left to return.
+        PushError(FormulaError::NoRef);
+        return;
+    }
+    // Keep the edges the caller did not ask to trim.
+    if (fRows == 1.0 || fRows == 3.0)
+        nRow1 = nDataRow1;
+    if (fRows == 2.0 || fRows == 3.0)
+        nRow2 = nDataRow2;
+    if (fCols == 1.0 || fCols == 3.0)
+        nCol1 = nDataCol1;
+    if (fCols == 2.0 || fCols == 3.0)
+        nCol2 = nDataCol2;
+    PushDoubleRef(nCol1, nRow1, aRange.aStart.Tab(), nCol2, nRow2, aRange.aStart.Tab());
+}
+
 void ScInterpreter::ScMid()
 {
     if ( !MustHaveParamCount( GetByte(), 3 ) )

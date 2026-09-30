@@ -748,6 +748,13 @@ private:
     void ScSubTotal();
     void ScWrapCols();
     void ScWrapRows();
+    void ScValueToText();
+    void ScArrayToText();
+    void ScPercentOf();
+    void ScRegexTest();
+    void ScRegexExtract();
+    void ScRegexReplace();
+    void ScTrimRange();
 
 private:
     void ScTextBeforeOrAfter(bool bBefore);
