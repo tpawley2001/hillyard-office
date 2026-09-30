@@ -19,6 +19,15 @@
 <!DOCTYPE oor:component-data SYSTEM "../../../component-update.dtd">
 <oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:install="http://openoffice.org/2004/installation" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oor:name="Setup" oor:package="org.openoffice">
   <node oor:name="Product">
+    <!-- Hillyard Office: never show The Document Foundation's donation and
+         get-involved infobars (sfx2 SfxViewFrame shows them when these
+         timestamps are older than 180 days). -->
+    <prop oor:name="LastTimeGetInvolvedShown" oor:finalized="true">
+      <value>4102444800</value>
+    </prop>
+    <prop oor:name="LastTimeDonateShown" oor:finalized="true">
+      <value>4102444800</value>
+    </prop>
     <prop oor:name="ooName">
       <value>${PRODUCTNAME}</value>
     </prop>

@@ -1,0 +1,57 @@
+#
+# This file is part of the LibreOffice project.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+# This file incorporates work covered by the following license notice:
+#
+#   Licensed to the Apache Software Foundation (ASF) under one or more
+#   contributor license agreements. See the NOTICE file distributed
+#   with this work for additional information regarding copyright
+#   ownership. The ASF licenses this file to you under the Apache
+#   License, Version 2.0 (the "License"); you may not use this file
+#   except in compliance with the License. You may obtain a copy of
+#   the License at http://www.apache.org/licenses/LICENSE-2.0 .
+#
+
+# Hillyard Office: generated 2026-09-30 so the installer never matches
+# LibreOffice's own codes (codes.txt) or LibreOfficeDev's (codes_ooodev.txt).
+[PRODUCTCODE]
+ar = "{2BA7587D-4B1B-4DE1-9E9A-2D87B5096E9F}"
+ca = "{B56FA2C7-E429-4E35-8B65-A3455EEA2BDB}"
+cs = "{5A1A208E-4214-4F2D-A297-B21D94977E5B}"
+da = "{B350661F-876C-40B0-8E06-E1B1CD485F04}"
+de = "{E5A3063C-09BA-42DF-823E-8979AE8FF4E4}"
+el = "{C919E6B2-47BF-4DAD-9824-8780A413AD98}"
+en-GB = "{25D732CD-AB03-42E3-9D7E-CC75C6971AEF}"
+en-US = "{C6A8E296-D2B3-4FAD-ADDD-E9327D8E07B0}"
+es = "{AC6794B9-156F-464E-9B21-4CE19B603A9E}"
+et = "{9B2160A6-B4AF-4521-A12E-CBBA349A081D}"
+fi = "{1F23090B-62F9-46CD-9675-A4647FB24180}"
+fr = "{5EA7DABA-AA24-46B2-AFEA-8D474A3B6471}"
+he = "{61E22312-03CE-4EFC-9982-CBC6EE962381}"
+hi = "{548A9769-D5DF-4C42-BCF7-2E20B18986F1}"
+hu = "{5330D8C6-E837-4385-BD2E-A34A3554EA17}"
+it = "{7EB45CB0-AD05-4376-9EAE-0150559613CB}"
+ja = "{8CE05F30-C29C-4F6B-AE3E-1B9B2867FF0C}"
+km = "{520E658A-F2F3-4BD3-954E-8864C257D022}"
+ko = "{57A2ABF5-C1DA-405E-AF65-8BAA631DFD68}"
+nl = "{8FEDBF95-1891-46D3-A1B7-5C317B19AB0C}"
+no = "{A85873CE-1800-4CBF-B061-76C8406406CE}"
+pl = "{C32B145A-17A8-4A8F-B777-72BFC987C2C3}"
+pt = "{DCD31774-8304-48DD-AF04-9D23CE026697}"
+pt-BR = "{D5AE3DC8-00C5-4A74-B5ED-B5049FFA6C94}"
+ru = "{2848FCDD-91B0-41C8-A15F-D86EEC37F419}"
+sk = "{B951C41C-019D-4DF1-9C3C-176CE4B1B5C6}"
+sv = "{EE5018B0-609B-4653-BA62-6239504EB4F4}"
+th = "{6F9309D5-4D39-4329-A50C-DAFD6F6F8DD9}"
+tr = "{8596ED89-EDA3-4C7D-8967-D609C90DF1B0}"
+zh-CN = "{9421418D-2EF8-4B02-A217-6DA437535C25}"
+zh-TW = "{D7CA7303-A66E-4407-834C-613D5E71E278}"
+multiwestern = "{F60C5DFD-FCCE-4ECC-9430-EBAA224A1549}"
+multiasia = "{BFEB1A3C-9A85-4F82-8D07-A36033DA001F}"
+
+[UPGRADECODE]
+en-US = "{46517474-561D-4992-B551-AD1E6D41202C}"
