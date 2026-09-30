@@ -37,7 +37,7 @@ Globals
     }
 }
 
-LibreOffice
+@PRODUCTNAME_WITHOUT_SPACES@
 {
     Settings
     {
@@ -119,7 +119,7 @@ LibreOfficeDev
     }
 }
 
-LibreOffice_SDK
+@PRODUCTNAME_WITHOUT_SPACES@_SDK
 {
     Settings
     {
