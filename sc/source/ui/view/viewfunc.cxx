@@ -1036,6 +1036,7 @@ void ScViewFunc::EnterMatrix( const OUString& rString, ::formula::FormulaGrammar
     const SCROW nRow = rData.GetCurY();
     const ScMarkData& rMark = rData.GetMarkData();
     bool bAutoExpand = !rMark.IsMarked() && !rMark.IsMultiMarked();
+    bool bDynamicArray = false;
     if (bAutoExpand)
     {
         //  nothing marked -> temporarily calculate block
@@ -1048,6 +1049,10 @@ void ScViewFunc::EnterMatrix( const OUString& rString, ::formula::FormulaGrammar
         SCSIZE nSizeX;
         SCSIZE nSizeY;
         aFormCell.GetResultDimensions( nSizeX, nSizeY );
+        // Only a formula built on a dynamic-array function (SORT, FILTER,
+        // SEQUENCE, ...) spills and resizes like Excel. Others, e.g. the
+        // hidden two-part result of HYPERLINK, keep their entered size.
+        bDynamicArray = aFormCell.GetCode()->HasDynamicArrayFunction();
         if ( nSizeX != 0 && nSizeY != 0 &&
              nCol+nSizeX-1 <= sal::static_int_cast<SCSIZE>(rDoc.MaxCol()) &&
              nRow+nSizeY-1 <= sal::static_int_cast<SCSIZE>(rDoc.MaxRow()) )
@@ -1064,9 +1069,12 @@ void ScViewFunc::EnterMatrix( const OUString& rString, ::formula::FormulaGrammar
     {
         ScDocShell* pDocSh = rData.GetDocShell();
         // Auto expanded formulas (no explicit range selection) use spill checking
-        // to avoid overwriting non-empty cells.
+        // to avoid overwriting non-empty cells, and are dynamic-array masters
+        // like Excel's spilled formulas, so they resize when their result
+        // grows. An explicitly selected range stays a fixed-size array.
         bool bSuccess = pDocSh->GetDocFunc().EnterMatrix(
-            aRange, &rMark, nullptr, rString, false, false, OUString(), eGram, bAutoExpand);
+            aRange, &rMark, nullptr, rString, false, false, OUString(), eGram, bAutoExpand,
+            bDynamicArray);
         if (bSuccess)
             pDocSh->UpdateOle(GetViewData());
         else
