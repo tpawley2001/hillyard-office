@@ -79,6 +79,22 @@ void SmOoxmlExport::ConvertFromStarMath( const ::sax_fastparser::FSHelperPtr& se
 // NOTE: This is still work in progress and unfinished, but it already covers a good
 // part of the ooxml math stuff.
 
+// Word's fraction without a bar; imported as binom (SmOoxmlImport::handleF).
+void SmOoxmlExport::HandleBinom( const SmNode* pNode, int nLevel )
+{
+    m_pSerializer->startElementNS(XML_m, XML_f);
+    m_pSerializer->startElementNS(XML_m, XML_fPr);
+    m_pSerializer->singleElementNS(XML_m, XML_type, FSNS(XML_m, XML_val), "noBar");
+    m_pSerializer->endElementNS( XML_m, XML_fPr );
+    m_pSerializer->startElementNS(XML_m, XML_num);
+    HandleNode( pNode->GetSubNode( 0 ), nLevel + 1 );
+    m_pSerializer->endElementNS( XML_m, XML_num );
+    m_pSerializer->startElementNS(XML_m, XML_den);
+    HandleNode( pNode->GetSubNode( 1 ), nLevel + 1 );
+    m_pSerializer->endElementNS( XML_m, XML_den );
+    m_pSerializer->endElementNS( XML_m, XML_f );
+}
+
 void SmOoxmlExport::HandleVerticalStack( const SmNode* pNode, int nLevel )
 {
     m_pSerializer->startElementNS(XML_m, XML_eqArr);
@@ -103,6 +119,14 @@ void SmOoxmlExport::HandleText( const SmNode* pNode, int /*nLevel*/)
         m_pSerializer->startElementNS(XML_m, XML_rPr);
         m_pSerializer->singleElementNS(XML_m, XML_lit);
         m_pSerializer->singleElementNS(XML_m, XML_nor);
+        m_pSerializer->endElementNS( XML_m, XML_rPr );
+    }
+    else if (static_cast<const SmTextNode*>(pNode)->GetFontDesc() == FNT_FUNCTION)
+    {
+        // Function names (sin, cos, lim, ...) are upright. Without m:sty="p"
+        // Word renders the run in math italic, as if it were variables.
+        m_pSerializer->startElementNS(XML_m, XML_rPr);
+        m_pSerializer->singleElementNS(XML_m, XML_sty, FSNS(XML_m, XML_val), "p");
         m_pSerializer->endElementNS( XML_m, XML_rPr );
     }
     if (drawingml::DOCUMENT_DOCX == m_DocumentType && ECMA_376_1ST_EDITION == version)

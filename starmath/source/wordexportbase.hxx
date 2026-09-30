@@ -25,6 +25,11 @@ protected:
     void HandleAllSubNodes(const SmNode* pNode, int nLevel);
     void HandleTable(const SmNode* pNode, int nLevel);
     virtual void HandleVerticalStack(const SmNode* pNode, int nLevel) = 0;
+    /// binom {a} {b}: a two-row stack; formats with a native form override this.
+    virtual void HandleBinom(const SmNode* pNode, int nLevel)
+    {
+        HandleVerticalStack(pNode, nLevel);
+    }
     virtual void HandleText(const SmNode* pNode, int nLevel) = 0;
     void HandleMath(const SmNode* pNode, int nLevel);
     virtual void HandleFractions(const SmNode* pNode, int nLevel, const char* type) = 0;

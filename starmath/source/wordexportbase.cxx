@@ -111,7 +111,9 @@ void SmWordExportBase::HandleTable(const SmNode* pNode, int nLevel)
     //add an extra unnecessary level to the
     //Word output stack which would grow
     //without bound in a multi step conversion
-    if (nLevel || pNode->GetNumSubNodes() > 1)
+    if (pNode->GetToken().eType == TBINOM && pNode->GetNumSubNodes() == 2)
+        HandleBinom(pNode, nLevel);
+    else if (nLevel || pNode->GetNumSubNodes() > 1)
         HandleVerticalStack(pNode, nLevel);
     else
         HandleAllSubNodes(pNode, nLevel);

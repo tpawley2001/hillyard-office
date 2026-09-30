@@ -359,10 +359,10 @@ CPPUNIT_TEST_FIXTURE(Test, testMathMso2k7)
     createSwDoc("math-mso2k7.docx");
     saveAndReload(TestFilter::DOCX);
     CHECK_FORMULA(u"A = \u03C0 {r} ^ {2}"_ustr, getFormula(getRun(getParagraph(1), 1)));
-    // TODO check the stack/binom difference
-    //    CHECK_FORMULA( "{left (x+a right )} ^ {n} = sum from {k=0} to {n} {left (binom {n} {k} right ) {x} ^ {k} {a} ^ {n-k}}",
+    // Word's noBar fraction round-trips as binom (SmOoxmlExport::HandleBinom),
+    // no longer as a two-row stack.
     CHECK_FORMULA(
-        u"{left (x + a right )} ^ {n} = sum from {k = 0} to {n} {left (stack {n # k} right ) {x} ^ {k} {a} ^ {n - k}}"_ustr,
+        u"{left (x + a right )} ^ {n} = sum from {k = 0} to {n} {left (binom {n} {k} right ) {x} ^ {k} {a} ^ {n - k}}"_ustr,
         getFormula(getRun(getParagraph(2), 1)));
     CHECK_FORMULA(
         u"{left (1 + x right )} ^ {n} = 1 + {nx} over {1!} + {n left (n - 1 right ) {x} ^ {2}} over {2!} + \u2026"_ustr,

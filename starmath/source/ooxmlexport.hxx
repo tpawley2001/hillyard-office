@@ -27,6 +27,7 @@ public:
 
 private:
     void HandleVerticalStack(const SmNode* pNode, int nLevel) override;
+    void HandleBinom( const SmNode* pNode, int nLevel ) override;
     void HandleText(const SmNode* pNode, int nLevel) override;
     void HandleFractions(const SmNode* pNode, int nLevel, const char* type) override;
     void HandleRoot(const SmRootNode* pNode, int nLevel) override;
