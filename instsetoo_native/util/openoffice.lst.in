@@ -63,6 +63,7 @@ Globals
             CHANGETARGETDIR 1
             PATCHCODEFILE ooo_patchcodes.txt
             CODEFILENAME codes_hillyard.txt
+            WINDOWSBASISROOTNAME @PRODUCTNAME@
         }
         active          1
         compression     5
