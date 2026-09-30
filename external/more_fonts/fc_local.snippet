@@ -14,6 +14,76 @@
 	  </accept>
 	</alias>
 
+	<!-- Aptos is Office's default font since 2023 and has no metric-compatible
+	     free clone. These are the closest bundled faces by measured advance
+	     widths on typical document text: Carlito 94.6% of Aptos (Display 100.1%,
+	     Narrow 102.7%), Caladea 94.7% of Aptos Serif, Liberation Mono 100% of
+	     Aptos Mono. Slightly narrow is preferred over wide so text never
+	     overflows a fixed box. Without these, fontconfig picks DejaVu Sans,
+	     117.7% of Aptos's width. -->
+	<alias binding="same">
+	  <family>Aptos</family>
+	  <accept>
+	  <family>Carlito</family>
+	  </accept>
+	</alias>
+
+	<alias binding="same">
+	  <family>Aptos Display</family>
+	  <accept>
+	  <family>Carlito</family>
+	  </accept>
+	</alias>
+
+	<alias binding="same">
+	  <family>Aptos Narrow</family>
+	  <accept>
+	  <family>Carlito</family>
+	  </accept>
+	</alias>
+
+	<alias binding="same">
+	  <family>Aptos Light</family>
+	  <accept>
+	  <family>Carlito</family>
+	  </accept>
+	</alias>
+
+	<alias binding="same">
+	  <family>Aptos SemiBold</family>
+	  <accept>
+	  <family>Carlito</family>
+	  </accept>
+	</alias>
+
+	<alias binding="same">
+	  <family>Aptos ExtraBold</family>
+	  <accept>
+	  <family>Carlito</family>
+	  </accept>
+	</alias>
+
+	<alias binding="same">
+	  <family>Aptos Black</family>
+	  <accept>
+	  <family>Carlito</family>
+	  </accept>
+	</alias>
+
+	<alias binding="same">
+	  <family>Aptos Serif</family>
+	  <accept>
+	  <family>Caladea</family>
+	  </accept>
+	</alias>
+
+	<alias binding="same">
+	  <family>Aptos Mono</family>
+	  <accept>
+	  <family>Liberation Mono</family>
+	  </accept>
+	</alias>
+
 	<!-- Helvetica Neue is the default in PowerPoint and Keynote templates made on
 	     macOS and is never available elsewhere. Without this, fontconfig falls
 	     through to DejaVu Sans, which is much wider, and titles wrap onto extra

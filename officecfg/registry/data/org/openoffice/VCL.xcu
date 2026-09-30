@@ -2733,6 +2733,159 @@
           <value>Standard,Normal,SansSerif</value>
         </prop>
       </node>
+      <node oor:name="aptos" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;calibri;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Calibri</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="aptosdisplay" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;calibri;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Calibri</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="aptosnarrow" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;calibri;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Calibri</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="aptoslight" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;calibri;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Calibri</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="aptossemibold" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;calibri;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Calibri</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="aptosextrabold" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;calibri;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Calibri</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="aptosblack" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;calibri;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Calibri</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="aptosserif" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>caladea;cambria;liberationserif;timesnewroman;serif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Cambria</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,Serif</value>
+        </prop>
+      </node>
+      <node oor:name="aptosmono" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>liberationmono;couriernew;dejavusansmono;monospace</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Courier New</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,Fixed</value>
+        </prop>
+      </node>
       <node oor:name="helveticaneue" oor:op="replace">
         <prop oor:name="SubstFonts">
           <value>liberationsans;arial;helvetica;albanyamt;albany;nimbussansl;nimbussans;arimo;sansserif</value>
