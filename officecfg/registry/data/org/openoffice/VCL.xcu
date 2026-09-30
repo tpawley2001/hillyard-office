@@ -2733,6 +2733,23 @@
           <value>Standard,Normal,SansSerif</value>
         </prop>
       </node>
+      <node oor:name="helveticaneue" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>liberationsans;arial;helvetica;albanyamt;albany;nimbussansl;nimbussans;arimo;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Arial</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
       <node oor:name="helveticanarrow" oor:op="replace">
         <prop oor:name="SubstFonts">
           <value>liberationsansnarrow;arialnarrow;helmetcondensed;dejavusanscondensed;nimbussanslcondensed;nimbussanscondensed</value>

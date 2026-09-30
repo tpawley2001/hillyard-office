@@ -14,6 +14,18 @@
 	  </accept>
 	</alias>
 
+	<!-- Helvetica Neue is the default in PowerPoint and Keynote templates made on
+	     macOS and is never available elsewhere. Without this, fontconfig falls
+	     through to DejaVu Sans, which is much wider, and titles wrap onto extra
+	     lines. Liberation Sans shares Helvetica's metrics and is the closest
+	     bundled face; it is not metric-compatible with Helvetica Neue itself. -->
+	<alias binding="same">
+	  <family>Helvetica Neue</family>
+	  <accept>
+	  <family>Liberation Sans</family>
+	  </accept>
+	</alias>
+
 	<alias binding="same">
 	  <family>Calibri</family>
 	  <accept>
