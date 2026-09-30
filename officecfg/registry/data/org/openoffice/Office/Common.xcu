@@ -402,10 +402,6 @@
     </node>
   </node>
   <node oor:name="Misc">
-    <!-- Hillyard Office: no donation button in the Start Center. -->
-    <prop oor:name="ShowDonation" oor:type="xs:boolean">
-      <value>false</value>
-    </prop>
     <prop oor:name="UseSystemColorDialog">
     </prop>
     <prop oor:name="UseSystemFileDialog">
@@ -466,8 +462,9 @@
     <prop oor:name="PerformFileExtCheck">
       <value install:module="wnt">true</value>
     </prop>
+    <!-- Hillyard Office: no donation button in the Start Center on any platform. -->
     <prop oor:name="ShowDonation">
-     <value install:module="macosxsandbox">false</value>
+     <value>false</value>
     </prop>
   </node>
   <node oor:name="Save">
