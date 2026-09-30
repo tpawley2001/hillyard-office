@@ -48,6 +48,21 @@ sub create_upgrade_table
     $newline = $installer::globals::upgradecode . "\t" . $installer::globals::msiproductversion . "\t" . "\t" . "\t" . "2" . "\t" . "\t" . "NEWPRODUCTS" . "\n";
     push(@upgradetable, $newline);
 
+    # Hillyard Office replaces LibreOffice (and LibreOfficeDev) of any version:
+    # FindRelatedProducts detects them and RemoveExistingProducts, sequenced
+    # before InstallInitialize, uninstalls them before anything is written.
+    # Both suites share the LibreOffice.* ProgID names, so they cannot be
+    # installed side by side. A separate property keeps LibreOffice's
+    # install-path migration (which reads OLDPRODUCTS) from applying.
+    # Attributes 256 = msidbUpgradeAttributesVersionMinInclusive.
+    foreach my $replaced ( "{4B17E523-5D91-4E69-BD96-7FD81CFA81BB}",    # LibreOffice
+                           "{910006D2-BDF1-440C-89D3-8F1DD93790FE}" )   # LibreOfficeDev
+    {
+        next if ( uc($replaced) eq uc($installer::globals::upgradecode) );
+        $newline = $replaced . "\t" . "0.0.0" . "\t" . "\t" . "\t" . "256" . "\t" . "\t" . "REPLACEDOFFICE" . "\n";
+        push(@upgradetable, $newline);
+    }
+
     # Saving the file
 
     my $upgradetablename = $basedir . $installer::globals::separator . "Upgrade.idt";
