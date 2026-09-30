@@ -623,5 +623,13 @@ inline constexpr OUString HID_FUNC_REGEXTEST_MS = u"SC_HID_FUNC_REGEXTEST_MS"_us
 inline constexpr OUString HID_FUNC_REGEXEXTRACT_MS = u"SC_HID_FUNC_REGEXEXTRACT_MS"_ustr;
 inline constexpr OUString HID_FUNC_REGEXREPLACE_MS = u"SC_HID_FUNC_REGEXREPLACE_MS"_ustr;
 inline constexpr OUString HID_FUNC_TRIMRANGE_MS = u"SC_HID_FUNC_TRIMRANGE_MS"_ustr;
+inline constexpr OUString HID_FUNC_LAMBDA_MS = u"SC_HID_FUNC_LAMBDA_MS"_ustr;
+inline constexpr OUString HID_FUNC_MAP_MS = u"SC_HID_FUNC_MAP_MS"_ustr;
+inline constexpr OUString HID_FUNC_REDUCE_MS = u"SC_HID_FUNC_REDUCE_MS"_ustr;
+inline constexpr OUString HID_FUNC_SCAN_MS = u"SC_HID_FUNC_SCAN_MS"_ustr;
+inline constexpr OUString HID_FUNC_BYROW_MS = u"SC_HID_FUNC_BYROW_MS"_ustr;
+inline constexpr OUString HID_FUNC_BYCOL_MS = u"SC_HID_FUNC_BYCOL_MS"_ustr;
+inline constexpr OUString HID_FUNC_MAKEARRAY_MS = u"SC_HID_FUNC_MAKEARRAY_MS"_ustr;
+inline constexpr OUString HID_FUNC_ISOMITTED_MS = u"SC_HID_FUNC_ISOMITTED_MS"_ustr;
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

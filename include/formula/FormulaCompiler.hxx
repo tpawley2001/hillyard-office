@@ -425,14 +425,22 @@ protected:
     bool mbComputeII;  // whether to attempt computing implicit intersection ranges while building the RPN array.
     bool mbMatrixFlag; // whether the formula is a matrix formula (needed for II computation)
 
+    /** Names bound by LET or LAMBDA while compiling a formula string.
+
+        LET binds names at its odd parameters; LAMBDA binds every parameter
+        but the last, which is the body. Scopes nest: an enclosing scope is
+        saved in m_aLambdaOuter while an inner LET or LAMBDA is open, and a
+        name is known if any open scope binds it. */
     struct LambdaFunc
     {
         bool bInLambdaFunction = false;
+        bool bIsLambda = false;     // LAMBDA rather than LET
         short nBracketPos = 0;
         short nParaPos = 0;
         short nParaCount = 3; // minimum required parameter count: 3
         std::unordered_set<OUString> aNameSet;
     } m_aLambda;
+    std::vector<LambdaFunc> m_aLambdaOuter;
 
     // ODF version at time of saving. Set by ScXMLExport::WriteCell().
     std::optional< SvtSaveOptions::ODFSaneDefaultVersion > m_oODFSavingVersion;

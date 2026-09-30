@@ -916,6 +916,14 @@ const FunctionData saFuncTable2024[] =
     { "COM.MICROSOFT.REGEXEXTRACT",          "REGEXEXTRACT",        NOID,   NOID,   2,  4,  A, { VO }, FuncFlags::MACROCALL_NEW },
     { "COM.MICROSOFT.REGEXREPLACE",          "REGEXREPLACE",        NOID,   NOID,   3,  5,  V, { VO }, FuncFlags::MACROCALL_NEW },
     { "COM.MICROSOFT.TRIMRANGE",             "TRIMRANGE",           NOID,   NOID,   1,  3,  R, { RO, VR }, FuncFlags::MACROCALL_NEW },
+    { "COM.MICROSOFT.LAMBDA",                "LAMBDA",              NOID,   NOID,   1,  MX,   V, { VO }, FuncFlags::MACROCALL_NEW },
+    { "COM.MICROSOFT.MAP",                   "MAP",                 NOID,   NOID,   2,  MX,   A, { VO }, FuncFlags::MACROCALL_NEW },
+    { "COM.MICROSOFT.REDUCE",                "REDUCE",              NOID,   NOID,   2,  3,  A, { VO }, FuncFlags::MACROCALL_NEW },
+    { "COM.MICROSOFT.SCAN",                  "SCAN",                NOID,   NOID,   2,  3,  A, { VO }, FuncFlags::MACROCALL_NEW },
+    { "COM.MICROSOFT.BYROW",                 "BYROW",               NOID,   NOID,   2,  2,  A, { VO }, FuncFlags::MACROCALL_NEW },
+    { "COM.MICROSOFT.BYCOL",                 "BYCOL",               NOID,   NOID,   2,  2,  A, { VO }, FuncFlags::MACROCALL_NEW },
+    { "COM.MICROSOFT.MAKEARRAY",             "MAKEARRAY",           NOID,   NOID,   3,  3,  A, { VO }, FuncFlags::MACROCALL_NEW },
+    { "COM.MICROSOFT.ISOMITTED",             "ISOMITTED",           NOID,   NOID,   1,  1,  V, { VO }, FuncFlags::MACROCALL_NEW },
 };
 
 

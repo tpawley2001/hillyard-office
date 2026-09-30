@@ -4187,6 +4187,14 @@ StackVar ScInterpreter::Interpret()
                     case ocRegexExtract     : ScRegexExtract();      break;
                     case ocRegexReplace     : ScRegexReplace();      break;
                     case ocTrimRange        : ScTrimRange();         break;
+                    case ocLambda           : ScLambda();            break;
+                    case ocMap              : ScMap();               break;
+                    case ocReduce           : ScReduce();            break;
+                    case ocScan             : ScScan();              break;
+                    case ocByRow            : ScByRow();             break;
+                    case ocByCol            : ScByCol();             break;
+                    case ocMakeArray        : ScMakeArray();         break;
+                    case ocIsOmitted        : ScIsOmitted();         break;
                     case ocTrue             : ScTrue();                     break;
                     case ocFalse            : ScFalse();                    break;
                     case ocGetActDate       : ScGetActDate();               break;

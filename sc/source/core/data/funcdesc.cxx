@@ -816,6 +816,14 @@ ScFunctionList::ScFunctionList( bool bEnglishFunctionNames )
         { ocRegexExtract, ENTRY(ocREGEXEXTRACT_ARY), 0, ID_FUNCTION_GRP_TEXT, HID_FUNC_REGEXEXTRACT_MS, 4, { 0, 0, 1, 1 }, 0 },
         { ocRegexReplace, ENTRY(ocREGEXREPLACE_ARY), 0, ID_FUNCTION_GRP_TEXT, HID_FUNC_REGEXREPLACE_MS, 5, { 0, 0, 0, 1, 1 }, 0 },
         { ocTrimRange, ENTRY(ocTRIMRANGE_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_TRIMRANGE_MS, 3, { 0, 1, 1 }, 0 },
+        { ocLambda, ENTRY(ocLAMBDA_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_LAMBDA_MS, VAR_ARGS, { 0 }, 0 },
+        { ocMap, ENTRY(ocMAP_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_MAP_MS, VAR_ARGS + 1, { 0, 0 }, 0 },
+        { ocReduce, ENTRY(ocREDUCE_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_REDUCE_MS, 3, { 1, 0, 0 }, 0 },
+        { ocScan, ENTRY(ocSCAN_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_SCAN_MS, 3, { 1, 0, 0 }, 0 },
+        { ocByRow, ENTRY(ocBYROW_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_BYROW_MS, 2, { 0, 0 }, 0 },
+        { ocByCol, ENTRY(ocBYCOL_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_BYCOL_MS, 2, { 0, 0 }, 0 },
+        { ocMakeArray, ENTRY(ocMAKEARRAY_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_MAKEARRAY_MS, 3, { 0, 0, 0 }, 0 },
+        { ocIsOmitted, ENTRY(ocISOMITTED_ARY), 0, ID_FUNCTION_GRP_TABLE, HID_FUNC_ISOMITTED_MS, 1, { 0 }, 0 },
     };
 
     ScFuncDesc* pDesc = nullptr;

@@ -1232,6 +1232,7 @@ bool FormulaCompiler::IsOpCodeJumpCommand( OpCode eOp )
         case ocIfNA:
         case ocChoose:
         case ocLet:
+        case ocLambda:
             return true;
         default:
             ;
@@ -1294,6 +1295,12 @@ bool FormulaCompiler::IsMatrixFunction( OpCode eOpCode )
         case ocWrapCols :
         case ocWrapRows :
         case ocRegexExtract :
+        case ocMap :
+        case ocReduce :
+        case ocScan :
+        case ocByRow :
+        case ocByCol :
+        case ocMakeArray :
             return true;
         default:
         {
@@ -1794,6 +1801,12 @@ void FormulaCompiler::Factor()
                 case ocWrapCols:
                 case ocWrapRows:
                 case ocRegexExtract:
+                case ocMap:
+                case ocReduce:
+                case ocScan:
+                case ocByRow:
+                case ocByCol:
+                case ocMakeArray:
                     mpArr->SetDynamicArrayFunction( true);
                 break;
                 default:
@@ -1922,7 +1935,9 @@ void FormulaCompiler::Factor()
                 NextToken();
             }
         }
-        else if ((ocStartTwoParameters <= eOp && eOp < ocStopTwoParameters)
+        else if ((ocStartTwoParameters <= eOp && eOp < ocStopTwoParameters
+                    // LAMBDA sits in this range but compiles as a jump command.
+                    && !IsOpCodeJumpCommand(eOp))
                 || eOp == ocExternal
                 || eOp == ocUDExternal
                 || eOp == ocMacro
@@ -2028,6 +2043,7 @@ void FormulaCompiler::Factor()
                     pJumpToken->GetJump()[ 0 ] = FORMULA_MAXJUMPCOUNT + 1;
                     break;
                 case ocLet:
+                case ocLambda:
                     pJumpToken->GetJump()[ 0 ] = FORMULA_MAXPARAMS + 1;
                     break;
                 case ocIfError:
@@ -2063,6 +2079,7 @@ void FormulaCompiler::Factor()
                     nJumpMax = FORMULA_MAXJUMPCOUNT;
                     break;
                 case ocLet:
+                case ocLambda:
                     nJumpMax = FORMULA_MAXPARAMS;
                     break;
                 case ocIfError:
@@ -2110,6 +2127,7 @@ void FormulaCompiler::Factor()
                         bLimitOk = (nJumpCount < FORMULA_MAXJUMPCOUNT);
                         break;
                     case ocLet:
+                    case ocLambda:
                         bLimitOk = (nJumpCount < FORMULA_MAXPARAMS);
                         break;
                     case ocIfError:

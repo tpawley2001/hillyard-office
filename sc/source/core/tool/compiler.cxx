@@ -3871,12 +3871,17 @@ bool ScCompiler::ParseLambdaFuncName( const OUString& aOrg )
         if (aOrg.startsWithIgnoreAsciiCase(u"_xlpm."))
             aName = aName.copy(6);
 
-        if (m_aLambda.nParaPos % 2 == 1 && m_aLambda.nParaCount > m_aLambda.nParaPos)
+        const bool bDefining = m_aLambda.bIsLambda
+            ? m_aLambda.nParaCount > m_aLambda.nParaPos
+            : (m_aLambda.nParaPos % 2 == 1 && m_aLambda.nParaCount > m_aLambda.nParaPos);
+        if (bDefining)
             m_aLambda.aNameSet.insert(aName);
         else
         {
-            // should already exist the name
-            if (m_aLambda.aNameSet.find(aName) == m_aLambda.aNameSet.end())
+            // The name must be bound by this scope or an enclosing one.
+            auto bound = [&aName](const LambdaFunc& r) { return r.aNameSet.count(aName) != 0; };
+            if (!bound(m_aLambda)
+                && std::none_of(m_aLambdaOuter.begin(), m_aLambdaOuter.end(), bound))
                 return false;
         }
         svl::SharedString aSS = rDoc.GetSharedStringPool().intern(aName);
@@ -5071,6 +5076,8 @@ std::unique_ptr<ScTokenArray> ScCompiler::CompileString( const OUString& rFormul
     short nBrackets = 0;
     bool bInArray = false;
     meLastOp = ocOpen;
+    m_aLambda = LambdaFunc();
+    m_aLambdaOuter.clear();
     while( NextNewToken( bInArray ) )
     {
         const OpCode eOp = maRawToken.GetOpCode();
@@ -5081,11 +5088,16 @@ std::unique_ptr<ScTokenArray> ScCompiler::CompileString( const OUString& rFormul
         {
             case ocOpen:
             {
-                if (meLastOp == ocLet)
+                if (meLastOp == ocLet || meLastOp == ocLambda)
                 {
+                    // A new scope; an enclosing one is kept for name lookup.
+                    if (m_aLambda.bInLambdaFunction)
+                        m_aLambdaOuter.push_back(m_aLambda);
+                    m_aLambda = LambdaFunc();
                     m_aLambda.bInLambdaFunction = true;
+                    m_aLambda.bIsLambda = (meLastOp == ocLambda);
                     m_aLambda.nBracketPos = nBrackets;
-                    m_aLambda.nParaPos++;
+                    m_aLambda.nParaPos = 1;
                     m_aLambda.nParaCount = GetPossibleParaCount(rFormula.subView(nSrcPos - 1));
                 }
 
@@ -5115,8 +5127,16 @@ std::unique_ptr<ScTokenArray> ScCompiler::CompileString( const OUString& rFormul
                     nBrackets--;
                     if (m_aLambda.bInLambdaFunction && m_aLambda.nBracketPos == nBrackets)
                     {
-                        m_aLambda.bInLambdaFunction = false;
-                        m_aLambda.nBracketPos = nBrackets;
+                        if (!m_aLambdaOuter.empty())
+                        {
+                            m_aLambda = m_aLambdaOuter.back();
+                            m_aLambdaOuter.pop_back();
+                        }
+                        else
+                        {
+                            m_aLambda.bInLambdaFunction = false;
+                            m_aLambda.nBracketPos = nBrackets;
+                        }
                     }
                 }
                 if (bUseFunctionStack && nFunction)

@@ -644,6 +644,14 @@ const XclFunctionInfo saFuncTable_2024[] =
     EXC_FUNCENTRY_V_VR(  ocRegexExtract,  2,  4,  0,  "REGEXEXTRACT" ),
     EXC_FUNCENTRY_V_VR(  ocRegexReplace,  3,  5,  0,  "REGEXREPLACE" ),
     EXC_FUNCENTRY_V_VR(  ocTrimRange,     1,  3,  0,  "TRIMRANGE" ),
+    EXC_FUNCENTRY_V_VR(  ocLambda,        1,  MX,  0,  "LAMBDA" ),
+    EXC_FUNCENTRY_V_VR(  ocMap,           2,  MX,  0,  "MAP" ),
+    EXC_FUNCENTRY_V_VR(  ocReduce,        2,  3,  0,  "REDUCE" ),
+    EXC_FUNCENTRY_V_VR(  ocScan,          2,  3,  0,  "SCAN" ),
+    EXC_FUNCENTRY_V_VR(  ocByRow,         2,  2,  0,  "BYROW" ),
+    EXC_FUNCENTRY_V_VR(  ocByCol,         2,  2,  0,  "BYCOL" ),
+    EXC_FUNCENTRY_V_VR(  ocMakeArray,     3,  3,  0,  "MAKEARRAY" ),
+    EXC_FUNCENTRY_V_VR(  ocIsOmitted,     1,  1,  0,  "ISOMITTED" ),
 };
 
 #define EXC_FUNCENTRY_ODF( opcode, minparam, maxparam, flags, asciiname ) \

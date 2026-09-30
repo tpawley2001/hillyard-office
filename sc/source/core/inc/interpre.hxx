@@ -55,6 +55,7 @@ struct ScComplexRefData;
 struct ScInterpreterContext;
 
 class ScJumpMatrix;
+class ScLambdaToken;
 struct ScRefCellValue;
 
 enum MatchMode{ exactorNA=0, exactorS=-1, exactorG=1, wildcard=2, regex=3 };
@@ -755,6 +756,22 @@ private:
     void ScRegexExtract();
     void ScRegexReplace();
     void ScTrimRange();
+    void ScLambda();
+    void ScMap();
+    void ScReduce();
+    void ScScan();
+    void ScByRow();
+    void ScByCol();
+    void ScMakeArray();
+    void ScIsOmitted();
+    void ReduceOrScan(bool bScan);
+    void ByRowOrCol(bool bRows);
+    /** Pop a LAMBDA value; nullptr (after popping) if the argument is not one. */
+    const ScLambdaToken* PopLambda(formula::FormulaConstTokenRef& rHold);
+    /** Evaluate a LAMBDA's body with its parameters bound to rArgs; false if
+        the number of arguments does not match the parameters. */
+    bool CallLambda(const ScLambdaToken& rLambda, const std::vector<formula::FormulaTokenRef>& rArgs,
+                    formula::FormulaConstTokenRef& rResult);
 
 private:
     void ScTextBeforeOrAfter(bool bBefore);

@@ -4539,4 +4539,86 @@ const TranslateId ocTRIMRANGE_ARY[] =
     NC_("ocTRIMRANGE", "0 - none. 1 - leading blank columns. 2 - trailing blank columns. 3 or omitted - both.")
 };
 
+// -=*# Resource for function LAMBDA #*=-
+const TranslateId ocLAMBDA_ARY[] =
+{
+    NC_("ocLAMBDA", "Creates a function from parameter names and a calculation, for use with MAP, REDUCE, SCAN, BYROW, BYCOL and MAKEARRAY."),
+    NC_("ocLAMBDA", "Parameter or calculation"),
+    NC_("ocLAMBDA", "Parameter names, then the calculation that uses them.")
+};
+
+// -=*# Resource for function MAP #*=-
+const TranslateId ocMAP_ARY[] =
+{
+    NC_("ocMAP", "Returns an array formed by applying a LAMBDA to each value of one or more arrays."),
+    NC_("ocMAP", "Array"),
+    NC_("ocMAP", "An array to map."),
+    NC_("ocMAP", "Array or lambda"),
+    NC_("ocMAP", "Further arrays, then a LAMBDA with one parameter per array.")
+};
+
+// -=*# Resource for function REDUCE #*=-
+const TranslateId ocREDUCE_ARY[] =
+{
+    NC_("ocREDUCE", "Reduces an array to an accumulated value by applying a LAMBDA to each value."),
+    NC_("ocREDUCE", "Initial value"),
+    NC_("ocREDUCE", "The starting value of the accumulator."),
+    NC_("ocREDUCE", "Array"),
+    NC_("ocREDUCE", "The array to reduce."),
+    NC_("ocREDUCE", "Lambda"),
+    NC_("ocREDUCE", "A LAMBDA whose parameters receive the accumulator and a value.")
+};
+
+// -=*# Resource for function SCAN #*=-
+const TranslateId ocSCAN_ARY[] =
+{
+    NC_("ocSCAN", "Scans an array by applying a LAMBDA to each value and returns an array of each intermediate value."),
+    NC_("ocSCAN", "Initial value"),
+    NC_("ocSCAN", "The starting value of the accumulator."),
+    NC_("ocSCAN", "Array"),
+    NC_("ocSCAN", "The array to scan."),
+    NC_("ocSCAN", "Lambda"),
+    NC_("ocSCAN", "A LAMBDA whose parameters receive the accumulator and a value.")
+};
+
+// -=*# Resource for function BYROW #*=-
+const TranslateId ocBYROW_ARY[] =
+{
+    NC_("ocBYROW", "Applies a LAMBDA to each row and returns an array of the results."),
+    NC_("ocBYROW", "Array"),
+    NC_("ocBYROW", "The array to process by row."),
+    NC_("ocBYROW", "Lambda"),
+    NC_("ocBYROW", "A LAMBDA whose parameters receive one row.")
+};
+
+// -=*# Resource for function BYCOL #*=-
+const TranslateId ocBYCOL_ARY[] =
+{
+    NC_("ocBYCOL", "Applies a LAMBDA to each column and returns an array of the results."),
+    NC_("ocBYCOL", "Array"),
+    NC_("ocBYCOL", "The array to process by column."),
+    NC_("ocBYCOL", "Lambda"),
+    NC_("ocBYCOL", "A LAMBDA whose parameters receive one column.")
+};
+
+// -=*# Resource for function MAKEARRAY #*=-
+const TranslateId ocMAKEARRAY_ARY[] =
+{
+    NC_("ocMAKEARRAY", "Returns an array of a given size calculated by applying a LAMBDA."),
+    NC_("ocMAKEARRAY", "Rows"),
+    NC_("ocMAKEARRAY", "The number of rows."),
+    NC_("ocMAKEARRAY", "Columns"),
+    NC_("ocMAKEARRAY", "The number of columns."),
+    NC_("ocMAKEARRAY", "Lambda"),
+    NC_("ocMAKEARRAY", "A LAMBDA whose parameters receive the row and column number.")
+};
+
+// -=*# Resource for function ISOMITTED #*=-
+const TranslateId ocISOMITTED_ARY[] =
+{
+    NC_("ocISOMITTED", "Checks whether a LAMBDA parameter is missing."),
+    NC_("ocISOMITTED", "Parameter"),
+    NC_("ocISOMITTED", "The LAMBDA parameter to check.")
+};
+
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

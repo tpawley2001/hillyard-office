@@ -294,6 +294,14 @@ const ScParameterClassification::RawData ScParameterClassification::pRawData[] =
     { ocRegexExtract,    {{ Value, Value, Value, Value }, 0, ForceArrayReturn } },
     { ocRegexReplace,    {{ Value, Value, Value, Value, Value }, 0, Value } },
     { ocTrimRange,       {{ Reference, Value, Value }, 0, Reference } },
+    { ocLambda,          {{ Value }, 1, ForceArrayReturn } },
+    { ocMap,             {{ ReferenceOrRefArray }, 1, ForceArrayReturn } },
+    { ocReduce,          {{ ReferenceOrRefArray, ReferenceOrRefArray, Value }, 0, ForceArrayReturn } },
+    { ocScan,            {{ ReferenceOrRefArray, ReferenceOrRefArray, Value }, 0, ForceArrayReturn } },
+    { ocByRow,           {{ ReferenceOrRefArray, Value }, 0, ForceArrayReturn } },
+    { ocByCol,           {{ ReferenceOrRefArray, Value }, 0, ForceArrayReturn } },
+    { ocMakeArray,       {{ Value, Value, Value }, 0, ForceArrayReturn } },
+    { ocIsOmitted,       {{ Value }, 0, Value } },
     { ocXLookup,         {{ Value, ReferenceOrForceArray, ReferenceOrForceArray, Value, Value, Value }, 0, Reference }},
     { ocXMatch,          {{ Value, ReferenceOrForceArray, Value, Value           }, 0, Value }},
     { ocXor,             {{ Reference                                            }, 1, Value }},
@@ -595,6 +603,7 @@ void ScParameterClassification::GenerateDocumentation()
                 {
                     case ocIf:
                     case ocLet:
+                    case ocLambda:
                         aToken.SetByte(3);
                     break;
                     case ocIfError:

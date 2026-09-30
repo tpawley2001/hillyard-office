@@ -43,6 +43,7 @@
 #include <osl/diagnose.h>
 #include <unicode/uchar.h>
 #include <unicode/regex.h>
+#include <lambdatoken.hxx>
 #include <i18nlangtag/mslangid.hxx>
 
 #include <patattr.hxx>
@@ -12772,6 +12773,394 @@ void ScInterpreter::ScTrimRange()
     if (fCols == 2.0 || fCols == 3.0)
         nCol2 = nDataCol2;
     PushDoubleRef(nCol1, nRow1, aRange.aStart.Tab(), nCol2, nRow2, aRange.aStart.Tab());
+}
+
+namespace {
+
+/** One array element as a token to bind to a LAMBDA parameter. */
+formula::FormulaTokenRef lcl_ElementToken(const ScMatrix& rMat, SCSIZE nC, SCSIZE nR)
+{
+    if (rMat.IsEmpty(nC, nR))
+        return new ScEmptyCellToken(false, false);
+    if (rMat.IsStringOrEmpty(nC, nR))
+        return new FormulaStringToken(rMat.GetString(nC, nR));
+    const FormulaError nErr = rMat.GetErrorIfNotString(nC, nR);
+    if (nErr != FormulaError::NONE)
+        return new FormulaErrorToken(nErr);
+    return new FormulaDoubleToken(rMat.GetDouble(nC, nR));
+}
+
+/** Store a scalar LAMBDA result in a result matrix. A 1x1 array counts as a
+    scalar; a larger array cannot go in one element (Excel's #CALC!). */
+void lcl_PutResult(ScMatrix& rMat, SCSIZE nC, SCSIZE nR, const formula::FormulaToken& rTok)
+{
+    switch (rTok.GetType())
+    {
+        case svDouble:
+            rMat.PutDouble(static_cast<const FormulaDoubleToken&>(rTok).GetDouble(), nC, nR);
+            break;
+        case svString:
+            rMat.PutString(static_cast<const FormulaStringToken&>(rTok).GetString(), nC, nR);
+            break;
+        case svError:
+            rMat.PutError(static_cast<const FormulaErrorToken&>(rTok).GetError(), nC, nR);
+            break;
+        case svEmptyCell:
+        case svMissing:
+            rMat.PutEmpty(nC, nR);
+            break;
+        case svMatrix:
+        {
+            const ScMatrixToken* pMatTok = dynamic_cast<const ScMatrixToken*>(&rTok);
+            const ScMatrix* pRes = pMatTok ? pMatTok->GetMatrix() : nullptr;
+            SCSIZE nResC = 0, nResR = 0;
+            if (pRes)
+                pRes->GetDimensions(nResC, nResR);
+            if (pRes && nResC == 1 && nResR == 1)
+            {
+                if (pRes->IsEmpty(0, 0))
+                    rMat.PutEmpty(nC, nR);
+                else if (pRes->IsStringOrEmpty(0, 0))
+                    rMat.PutString(pRes->GetString(0, 0), nC, nR);
+                else
+                    rMat.PutDouble(pRes->GetDouble(0, 0), nC, nR);
+            }
+            else
+                rMat.PutError(FormulaError::NoValue, nC, nR);
+            break;
+        }
+        default:
+            rMat.PutError(FormulaError::NoValue, nC, nR);
+    }
+}
+
+}
+
+void ScInterpreter::ScLambda()
+{
+    const short* pJump = static_cast<const FormulaJumpToken*>(pCur)->GetJump();
+    const short nCount = pJump[0];      // parameters and body
+    auto skipBody = [&]() { aCode.Jump(pJump[nCount], pJump[nCount]); };
+
+    // The first parameter was evaluated before this token, like a jump
+    // command's condition; a LAMBDA without parameters is not supported.
+    if (nCount < 2 || GetStackType() != svStringName)
+    {
+        if (nCount >= 2)
+            Pop();
+        PushError(FormulaError::ParameterExpected);
+        skipBody();
+        return;
+    }
+    std::vector<OUString> aNames{ GetString().getString() };
+    formula::FormulaTokenArrayPlainIterator aIter(*pArr);
+    for (short nParam = 2; nParam < nCount; ++nParam)
+    {
+        // A parameter's segment is its name token followed by the separator.
+        aIter.Jump(pJump[nParam] - 1);
+        const FormulaToken* t = aIter.NextRPN();
+        if (!t || t->GetType() != svStringName)
+        {
+            PushError(FormulaError::ParameterExpected);
+            skipBody();
+            return;
+        }
+        aNames.push_back(static_cast<const FormulaStringNameToken*>(t)->GetString().getString());
+    }
+    for (size_t i = 0; i < aNames.size(); ++i)
+        for (size_t j = i + 1; j < aNames.size(); ++j)
+            if (aNames[i] == aNames[j])
+            {
+                PushIllegalParameter();
+                skipBody();
+                return;
+            }
+    auto pCode = std::make_shared<const ScTokenArray>(pArr->CloneValue());
+    PushTokenRef(new ScLambdaToken(pCode, pJump[nCount - 1], pJump[nCount], std::move(aNames)));
+    skipBody();
+}
+
+const ScLambdaToken* ScInterpreter::PopLambda(formula::FormulaConstTokenRef& rHold)
+{
+    if (GetStackType() != svUnknown)
+    {
+        Pop();
+        return nullptr;
+    }
+    rHold = PopToken();
+    return dynamic_cast<const ScLambdaToken*>(rHold.get());
+}
+
+bool ScInterpreter::CallLambda(const ScLambdaToken& rLambda,
+                               const std::vector<formula::FormulaTokenRef>& rArgs,
+                               formula::FormulaConstTokenRef& rResult)
+{
+    if (rArgs.size() != rLambda.GetNames().size())
+        return false;
+    std::unordered_map<OUString, formula::FormulaTokenRef> aBindings;
+    for (size_t i = 0; i < rArgs.size(); ++i)
+        aBindings.emplace(rLambda.GetNames()[i], rArgs[i]);
+
+    ScTokenArray aTokens(rLambda.GetCode().CloneValue());
+    replaceNamesToResult(aBindings, aTokens, rLambda.GetBodyStart(), rLambda.GetBodyEnd());
+
+    // Evaluate just the body, the same way LET evaluates its calculation.
+    ScInterpreter aInt(mrDoc.GetFormulaCell(aPos), mrDoc, mrContext, aPos, aTokens);
+    aInt.aCode.Jump(rLambda.GetBodyStart(), rLambda.GetBodyEnd(), rLambda.GetBodyEnd());
+    while (aInt.aCode.HasStacked())
+        aInt.aCode.FrontPop();
+    aInt.aCode.Lambda(true);
+    sfx2::LinkManager aNewLinkMgr(mrDoc.GetDocumentShell());
+    aInt.SetLinkManager(&aNewLinkMgr);
+
+    if (aInt.Interpret() == formula::svMatrixCell)
+    {
+        ScConstMatrixRef xMat(
+            static_cast<const ScMatrixCellResultToken*>(aInt.GetResultToken().get())->GetMatrix());
+        rResult = new ScMatrixToken(xMat->Clone());
+    }
+    else
+        rResult = aInt.GetResultToken();
+    if (!rResult)
+        rResult = new FormulaErrorToken(FormulaError::NoValue);
+    return true;
+}
+
+void ScInterpreter::ScMap()
+{
+    const sal_uInt8 nParamCount = GetByte();
+    if (!MustHaveParamCountMin(nParamCount, 2))
+        return;
+    formula::FormulaConstTokenRef xHold;
+    const ScLambdaToken* pLambda = PopLambda(xHold);
+    std::vector<ScMatrixRef> aArrays(nParamCount - 1);
+    for (size_t i = aArrays.size(); i-- > 0;)
+        aArrays[i] = GetMatrix();
+    if (!pLambda || nGlobalError != FormulaError::NONE)
+    {
+        PushError(nGlobalError != FormulaError::NONE ? nGlobalError : FormulaError::IllegalArgument);
+        return;
+    }
+    // All arrays have the size of the first; a single value is repeated.
+    SCSIZE nC = 0, nR = 0;
+    if (!aArrays[0])
+    {
+        PushIllegalArgument();
+        return;
+    }
+    aArrays[0]->GetDimensions(nC, nR);
+    for (const ScMatrixRef& p : aArrays)
+    {
+        SCSIZE nThisC, nThisR;
+        if (!p)
+        {
+            PushIllegalArgument();
+            return;
+        }
+        p->GetDimensions(nThisC, nThisR);
+        if ((nThisC != nC || nThisR != nR) && !(nThisC == 1 && nThisR == 1))
+        {
+            PushNA();
+            return;
+        }
+    }
+    ScMatrixRef pResMat = GetNewMat(nC, nR, /*bEmpty*/true);
+    if (!pResMat)
+    {
+        PushIllegalArgument();
+        return;
+    }
+    std::vector<formula::FormulaTokenRef> aArgs(aArrays.size());
+    for (SCSIZE r = 0; r < nR; ++r)
+        for (SCSIZE c = 0; c < nC; ++c)
+        {
+            for (size_t i = 0; i < aArrays.size(); ++i)
+            {
+                SCSIZE nThisC, nThisR;
+                aArrays[i]->GetDimensions(nThisC, nThisR);
+                aArgs[i] = (nThisC == 1 && nThisR == 1) ? lcl_ElementToken(*aArrays[i], 0, 0)
+                                                        : lcl_ElementToken(*aArrays[i], c, r);
+            }
+            formula::FormulaConstTokenRef xRes;
+            if (!CallLambda(*pLambda, aArgs, xRes))
+            {
+                PushIllegalArgument();      // parameter count differs from arrays
+                return;
+            }
+            lcl_PutResult(*pResMat, c, r, *xRes);
+        }
+    PushMatrix(pResMat);
+}
+
+void ScInterpreter::ReduceOrScan(bool bScan)
+{
+    const sal_uInt8 nParamCount = GetByte();
+    if (!MustHaveParamCount(nParamCount, 2, 3))
+        return;
+    formula::FormulaConstTokenRef xHold;
+    const ScLambdaToken* pLambda = PopLambda(xHold);
+    ScMatrixRef pMat = GetMatrix();
+    // The initial value may be omitted, and is then an empty value.
+    formula::FormulaTokenRef xAcc = new ScEmptyCellToken(false, false);
+    if (nParamCount == 3)
+    {
+        if (IsMissing())
+            Pop();
+        else if (GetStackType() == svDoubleRef || GetStackType() == svMatrix
+                 || GetStackType() == svExternalDoubleRef)
+        {
+            ScMatrixRef pInit = GetMatrix();
+            if (pInit)
+                xAcc = new ScMatrixToken(pInit);
+        }
+        else
+        {
+            ScMatrixRef pInit = GetMatrix();
+            if (pInit)
+                xAcc = lcl_ElementToken(*pInit, 0, 0);
+        }
+    }
+    if (!pLambda || !pMat || nGlobalError != FormulaError::NONE)
+    {
+        PushError(nGlobalError != FormulaError::NONE ? nGlobalError : FormulaError::IllegalArgument);
+        return;
+    }
+    SCSIZE nC, nR;
+    pMat->GetDimensions(nC, nR);
+    ScMatrixRef pResMat;
+    if (bScan)
+    {
+        pResMat = GetNewMat(nC, nR, /*bEmpty*/true);
+        if (!pResMat)
+        {
+            PushIllegalArgument();
+            return;
+        }
+    }
+    // Row by row, as Excel iterates.
+    for (SCSIZE r = 0; r < nR; ++r)
+        for (SCSIZE c = 0; c < nC; ++c)
+        {
+            formula::FormulaConstTokenRef xRes;
+            if (!CallLambda(*pLambda, { xAcc, lcl_ElementToken(*pMat, c, r) }, xRes))
+            {
+                PushIllegalArgument();
+                return;
+            }
+            xAcc = xRes->Clone();
+            if (bScan)
+                lcl_PutResult(*pResMat, c, r, *xAcc);
+        }
+    if (bScan)
+        PushMatrix(pResMat);
+    else if (xAcc->GetType() == svEmptyCell)
+        PushInt(0);
+    else
+        PushTokenRef(xAcc);
+}
+
+void ScInterpreter::ScReduce() { ReduceOrScan(false); }
+
+void ScInterpreter::ScScan() { ReduceOrScan(true); }
+
+void ScInterpreter::ByRowOrCol(bool bRows)
+{
+    if (!MustHaveParamCount(GetByte(), 2))
+        return;
+    formula::FormulaConstTokenRef xHold;
+    const ScLambdaToken* pLambda = PopLambda(xHold);
+    ScMatrixRef pMat = GetMatrix();
+    if (!pLambda || !pMat || nGlobalError != FormulaError::NONE)
+    {
+        PushError(nGlobalError != FormulaError::NONE ? nGlobalError : FormulaError::IllegalArgument);
+        return;
+    }
+    SCSIZE nC, nR;
+    pMat->GetDimensions(nC, nR);
+    const SCSIZE nOuter = bRows ? nR : nC;
+    const SCSIZE nInner = bRows ? nC : nR;
+    ScMatrixRef pResMat = bRows ? GetNewMat(1, nR, /*bEmpty*/true) : GetNewMat(nC, 1, /*bEmpty*/true);
+    if (!pResMat)
+    {
+        PushIllegalArgument();
+        return;
+    }
+    for (SCSIZE k = 0; k < nOuter; ++k)
+    {
+        ScMatrixRef pSlice = bRows ? GetNewMat(nInner, 1, /*bEmpty*/true)
+                                   : GetNewMat(1, nInner, /*bEmpty*/true);
+        for (SCSIZE i = 0; i < nInner; ++i)
+        {
+            const SCSIZE c = bRows ? i : k, r = bRows ? k : i;
+            const SCSIZE nSliceC = bRows ? i : 0, nSliceR = bRows ? 0 : i;
+            lcl_PutResult(*pSlice, nSliceC, nSliceR, *lcl_ElementToken(*pMat, c, r));
+        }
+        formula::FormulaConstTokenRef xRes;
+        if (!CallLambda(*pLambda, { new ScMatrixToken(pSlice) }, xRes))
+        {
+            PushIllegalArgument();
+            return;
+        }
+        lcl_PutResult(*pResMat, bRows ? 0 : k, bRows ? k : 0, *xRes);
+    }
+    PushMatrix(pResMat);
+}
+
+void ScInterpreter::ScByRow() { ByRowOrCol(true); }
+
+void ScInterpreter::ScByCol() { ByRowOrCol(false); }
+
+void ScInterpreter::ScMakeArray()
+{
+    if (!MustHaveParamCount(GetByte(), 3))
+        return;
+    formula::FormulaConstTokenRef xHold;
+    const ScLambdaToken* pLambda = PopLambda(xHold);
+    const double fCols = ::rtl::math::approxFloor(GetDouble());
+    const double fRows = ::rtl::math::approxFloor(GetDouble());
+    if (!pLambda || nGlobalError != FormulaError::NONE)
+    {
+        PushError(nGlobalError != FormulaError::NONE ? nGlobalError : FormulaError::IllegalArgument);
+        return;
+    }
+    if (fRows < 1 || fCols < 1 || fRows > SAL_MAX_INT32 || fCols > SAL_MAX_INT32
+        || !ScMatrix::IsSizeAllocatable(static_cast<SCSIZE>(fCols), static_cast<SCSIZE>(fRows)))
+    {
+        PushIllegalArgument();
+        return;
+    }
+    const SCSIZE nR = static_cast<SCSIZE>(fRows), nC = static_cast<SCSIZE>(fCols);
+    ScMatrixRef pResMat = GetNewMat(nC, nR, /*bEmpty*/true);
+    if (!pResMat)
+    {
+        PushIllegalArgument();
+        return;
+    }
+    for (SCSIZE r = 0; r < nR; ++r)
+        for (SCSIZE c = 0; c < nC; ++c)
+        {
+            formula::FormulaConstTokenRef xRes;
+            if (!CallLambda(*pLambda, { new FormulaDoubleToken(r + 1), new FormulaDoubleToken(c + 1) }, xRes))
+            {
+                PushIllegalArgument();
+                return;
+            }
+            lcl_PutResult(*pResMat, c, r, *xRes);
+        }
+    PushMatrix(pResMat);
+}
+
+void ScInterpreter::ScIsOmitted()
+{
+    if (!MustHaveParamCount(GetByte(), 1))
+        return;
+    // Helpers always supply every parameter, so a bound name is never
+    // omitted; only an unbound one (a missing argument) is.
+    const bool bOmitted = GetStackType() == svMissing;
+    Pop();
+    nGlobalError = FormulaError::NONE;
+    nFuncFmtType = SvNumFormatType::LOGICAL;
+    PushInt(bOmitted ? 1 : 0);
 }
 
 void ScInterpreter::ScMid()
