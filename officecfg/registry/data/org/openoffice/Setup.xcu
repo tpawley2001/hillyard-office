@@ -54,7 +54,7 @@
           <value>calc8_template</value>
         </prop>
         <prop oor:name="ooSetupFactoryDefaultFilter">
-          <value>calc8</value>
+          <value>Calc MS Excel 2007 XML</value>
         </prop>
         <prop oor:name="ooSetupFactoryEmptyDocumentURL" oor:finalized="true">
           <value>private:factory/scalc</value>
@@ -142,7 +142,7 @@
           <value>impress8_template</value>
         </prop>
         <prop oor:name="ooSetupFactoryDefaultFilter">
-          <value>impress8</value>
+          <value>Impress MS PowerPoint 2007 XML</value>
         </prop>
         <prop oor:name="ooSetupFactoryEmptyDocumentURL" oor:finalized="true">
           <value>private:factory/simpress</value>
@@ -272,7 +272,7 @@
           <value>writer8_template</value>
         </prop>
         <prop oor:name="ooSetupFactoryDefaultFilter">
-          <value>writer8</value>
+          <value>MS Word 2007 XML</value>
         </prop>
         <prop oor:name="ooSetupFactoryEmptyDocumentURL" oor:finalized="true">
           <value>private:factory/swriter</value>

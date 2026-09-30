@@ -467,6 +467,13 @@
     </prop>
   </node>
   <node oor:name="Save">
+    <node oor:name="Document">
+      <!-- Office Parity: documents are saved in Office formats by default
+           (Setup.xcu), so do not ask to keep the format on every save. -->
+      <prop oor:name="WarnAlienFormat" oor:type="xs:boolean">
+        <value>false</value>
+      </prop>
+    </node>
     <node oor:name="ODF">
       <prop oor:name="DefaultVersion" oor:type="xs:short">
         <value>3</value>
