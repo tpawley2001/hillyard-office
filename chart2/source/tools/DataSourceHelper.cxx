@@ -280,10 +280,15 @@ rtl::Reference< DataSource > DataSourceHelper::getUsedData(
 {
     std::vector< uno::Reference< chart2::data::XLabeledDataSequence > > aResult;
 
-    rtl::Reference< Diagram > xDiagram =  rModel.getFirstChartDiagram();
-    uno::Reference< chart2::data::XLabeledDataSequence > xCategories( xDiagram->getCategories() );
-    if( xCategories.is() )
-        aResult.push_back( xCategories );
+    // A chart without a diagram is possible: Office 2016 chart types such as
+    // funnel and box-and-whisker (chartex) can be imported without one, and
+    // copying their sheet to another document asks for their ranges.
+    if (rtl::Reference<Diagram> xDiagram = rModel.getFirstChartDiagram(); xDiagram.is())
+    {
+        uno::Reference< chart2::data::XLabeledDataSequence > xCategories( xDiagram->getCategories() );
+        if( xCategories.is() )
+            aResult.push_back( xCategories );
+    }
 
     std::vector< rtl::Reference< DataSeries > > aSeriesVector = rModel.getDataSeries();
     for (auto const& series : aSeriesVector)

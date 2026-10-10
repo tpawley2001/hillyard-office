@@ -56,6 +56,7 @@
 #include <comphelper/propertyvalue.hxx>
 
 #include <com/sun/star/sheet/XSpreadsheetDocument.hpp>
+#include <com/sun/star/sheet/XSpreadsheets2.hpp>
 #include <com/sun/star/container/XIndexAccess.hpp>
 #include <com/sun/star/text/textfield/Type.hpp>
 
@@ -1763,6 +1764,24 @@ CPPUNIT_TEST_FIXTURE(ScFiltersTest4, testCellTextRotation)
     CPPUNIT_ASSERT_EQUAL_MESSAGE("radians", nExpectedAngle.get(), nActualAngle.get());
     nActualAngle = pDoc->GetAttr(3, 0, 0, ATTR_ROTATE_VALUE).GetValue();
     CPPUNIT_ASSERT_EQUAL_MESSAGE("grad", nExpectedAngle.get(), nActualAngle.get());
+}
+
+CPPUNIT_TEST_FIXTURE(ScFiltersTest4, testHillyardImportSheetWithFunnelChart)
+{
+    // Copying a sheet with an Office 2016 funnel chart, which is imported
+    // without a diagram, into another document crashed in
+    // DataSourceHelper::getUsedData() while the chart ranges were adjusted.
+    createScDoc();
+    uno::Reference<lang::XComponent> xSource = mxDesktop->loadComponentFromURL(
+        createFileURL(u"xlsx/hillyard-funnel-chart.xlsx"), u"_blank"_ustr, 0,
+        { comphelper::makePropertyValue(u"Hidden"_ustr, true) });
+    uno::Reference<sheet::XSpreadsheetDocument> xSourceDoc(xSource, UNO_QUERY_THROW);
+    uno::Reference<sheet::XSpreadsheetDocument> xDoc(mxComponent, UNO_QUERY_THROW);
+    uno::Reference<sheet::XSpreadsheets2> xSheets(xDoc->getSheets(), UNO_QUERY_THROW);
+    const OUString aName = xSourceDoc->getSheets()->getElementNames()[0];
+    xSheets->importSheet(xSourceDoc, aName, 1);
+    xSource->dispose();
+    CPPUNIT_ASSERT(xSheets->hasByName(aName));
 }
 
 CPPUNIT_PLUGIN_IMPLEMENT();
