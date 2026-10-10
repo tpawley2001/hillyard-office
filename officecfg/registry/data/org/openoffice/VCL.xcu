@@ -1283,7 +1283,7 @@
       </node>
       <node oor:name="bookantiqua" oor:op="replace">
         <prop oor:name="SubstFonts">
-          <value>palatino;palatinolinotype;bookantiqua;palladio;palladiol;thorndaleamt;thorndale;timesnewroman;nimbusromanno9l;times;timesroman;newyork;timmons;serif;lucidaserif;lucidabright;roman;nimbusromanno9;bookman;itcbookman;garamond;garamondmt;palatino</value>
+          <value>hillyardantiqua;palatino;palatinolinotype;bookantiqua;palladio;palladiol;thorndaleamt;thorndale;timesnewroman;nimbusromanno9l;times;timesroman;newyork;timmons;serif;lucidaserif;lucidabright;roman;nimbusromanno9;bookman;itcbookman;garamond;garamondmt;palatino</value>
         </prop>
         <prop oor:name="SubstFontsMS">
           <value/>
@@ -1334,7 +1334,7 @@
       </node>
       <node oor:name="bookmanoldstyle" oor:op="replace">
         <prop oor:name="SubstFonts">
-          <value>bookman;itcbookman;bookmanl;bookmanoldstyle;thorndaleamt;thorndale;timesnewroman;nimbusromanno9l;times;timesroman;newyork;timmons;serif;lucidaserif;lucidabright;roman;nimbusromanno9;bookman;itcbookman;garamond;garamondmt;palatino</value>
+          <value>hillyardbookman;bookman;itcbookman;bookmanl;bookmanoldstyle;thorndaleamt;thorndale;timesnewroman;nimbusromanno9l;times;timesroman;newyork;timmons;serif;lucidaserif;lucidabright;roman;nimbusromanno9;bookman;itcbookman;garamond;garamondmt;palatino</value>
         </prop>
         <prop oor:name="SubstFontsMS">
           <value/>
@@ -1518,7 +1518,7 @@
       </node>
       <node oor:name="centurygothic" oor:op="replace">
         <prop oor:name="SubstFonts">
-          <value>centurygothic;avantgarde;itcavantgarde;gothic;avantgardegothic;conga;albanyamt;albany;arial;nimbussansl;helvetica;lucidasans;lucida;geneva;helmet;sansserif;nimbussans</value>
+          <value>hillyardgothic;centurygothic;avantgarde;itcavantgarde;gothic;avantgardegothic;conga;albanyamt;albany;arial;nimbussansl;helvetica;lucidasans;lucida;geneva;helmet;sansserif;nimbussans</value>
         </prop>
         <prop oor:name="SubstFontsMS">
           <value/>
@@ -1535,7 +1535,7 @@
       </node>
       <node oor:name="centuryschoolbook" oor:op="replace">
         <prop oor:name="SubstFonts">
-          <value>newcenturyschlbk;newcenturyschoolbook;centuryschoolbook;centuryschoolbookl;thorndaleamt;thorndale;timesnewroman;nimbusromanno9l;times;timesroman;newyork;timmons;serif;lucidaserif;lucidabright;roman;nimbusromanno9;bookman;itcbookman;garamond;garamondmt;palatino</value>
+          <value>hillyardschoolbook;newcenturyschlbk;newcenturyschoolbook;centuryschoolbook;centuryschoolbookl;thorndaleamt;thorndale;timesnewroman;nimbusromanno9l;times;timesroman;newyork;timmons;serif;lucidaserif;lucidabright;roman;nimbusromanno9;bookman;itcbookman;garamond;garamondmt;palatino</value>
         </prop>
         <prop oor:name="SubstFontsMS">
           <value/>
@@ -2722,6 +2722,159 @@
         </prop>
         <prop oor:name="SubstFontsMS">
           <value>Arial</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="palatinolinotype" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>hillyardpalatino;palatino;bookantiqua;palladio;serif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Palatino Linotype</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,Serif</value>
+        </prop>
+      </node>
+      <node oor:name="segoeui" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>hillyardsansui;selawik;dejavusans;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Segoe UI</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="segoeuilight" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>hillyardsansuilight;hillyardsansui;liberationsans;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Segoe UI Light</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Light</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="segoeuisemilight" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>hillyardsansuisemilight;hillyardsansui;liberationsans;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Segoe UI Semilight</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>SemiLight</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="segoeuisemibold" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>hillyardsansuisemibold;hillyardsansui;liberationsans;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Segoe UI Semibold</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>SemiBold</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="calibrilight" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;calibri;liberationsans;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Calibri Light</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Light</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="trebuchetms" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>liberationsans;arial;dejavusans;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Trebuchet MS</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="arialblack" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>dejavusans;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Arial Black</value>
+        </prop>
+        <prop oor:name="FontWeight">
+          <value>Black</value>
+        </prop>
+        <prop oor:name="FontWidth">
+          <value>Normal</value>
+        </prop>
+        <prop oor:name="FontType">
+          <value>Standard,Normal,SansSerif</value>
+        </prop>
+      </node>
+      <node oor:name="franklingothicbook" oor:op="replace">
+        <prop oor:name="SubstFonts">
+          <value>carlito;liberationsans;arial;sansserif</value>
+        </prop>
+        <prop oor:name="SubstFontsMS">
+          <value>Franklin Gothic Book</value>
         </prop>
         <prop oor:name="FontWeight">
           <value>Normal</value>
@@ -4333,7 +4486,7 @@
       </node>
       <node oor:name="palatino" oor:op="replace">
         <prop oor:name="SubstFonts">
-          <value>palatino;bookantiqua;palladio;palladiol;thorndaleamt;thorndale;timesnewroman;nimbusromanno9l;times;timesroman;newyork;timmons;serif;lucidaserif;lucidabright;roman;nimbusromanno9;bookman;itcbookman;garamond;garamondmt;palatino</value>
+          <value>hillyardpalatino;palatino;bookantiqua;palladio;palladiol;thorndaleamt;thorndale;timesnewroman;nimbusromanno9l;times;timesroman;newyork;timmons;serif;lucidaserif;lucidabright;roman;nimbusromanno9;bookman;itcbookman;garamond;garamondmt;palatino</value>
         </prop>
         <prop oor:name="SubstFontsMS">
           <value/>
@@ -5132,7 +5285,7 @@
       </node>
       <node oor:name="tahoma" oor:op="replace">
         <prop oor:name="SubstFonts">
-          <value>andalesansui;arialunicodems;lucidaunicode;albanyamt;albany;arial;nimbussansl;helvetica;lucidasans;lucida;geneva;helmet;sansserif;nimbussans</value>
+          <value>liberationsans;andalesansui;arialunicodems;lucidaunicode;albanyamt;albany;arial;nimbussansl;helvetica;lucidasans;lucida;geneva;helmet;sansserif;nimbussans</value>
         </prop>
         <prop oor:name="SubstFontsMS">
           <value/>
@@ -5387,7 +5540,7 @@
       </node>
       <node oor:name="verdana" oor:op="replace">
         <prop oor:name="SubstFonts">
-          <value>segoe;lucidasans;albanyamt;albany;arial;nimbussansl;helvetica;lucida;geneva;helmet;sansserif;nimbussans</value>
+          <value>dejavusans;segoe;lucidasans;albanyamt;albany;arial;nimbussansl;helvetica;lucida;geneva;helmet;sansserif;nimbussans</value>
         </prop>
         <prop oor:name="SubstFontsMS">
           <value/>
@@ -5948,7 +6101,7 @@
       </node>
       <node oor:name="georgia" oor:op="replace">
         <prop oor:name="SubstFonts">
-          <value>bell;bitstreamcharter;charter;timesnewroman</value>
+          <value>hillyardserif;bell;bitstreamcharter;charter;timesnewroman</value>
         </prop>
         <prop oor:name="FontWeight">
           <value>Normal</value>

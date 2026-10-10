@@ -1,0 +1,32 @@
+Hillyard metric-compatible fonts, built by custom/fonts/build_metric_fonts.py.
+Derived works: renamed, vertical metrics changed; glyphs and widths unchanged.
+
+HillyardGothic-Regular.otf	Hillyard Gothic Regular	from texgyre:texgyreadventor-regular.otf	metrics of Century Gothic
+HillyardAntiqua-Regular.otf	Hillyard Antiqua Regular	from texgyre:texgyrepagella-regular.otf	metrics of Book Antiqua
+HillyardPalatino-Regular.otf	Hillyard Palatino Regular	from texgyre:texgyrepagella-regular.otf	metrics of Palatino Linotype
+HillyardBookman-Regular.otf	Hillyard Bookman Regular	from texgyre:texgyrebonum-regular.otf	metrics of Bookman Old Style
+HillyardSchoolbook-Regular.otf	Hillyard Schoolbook Regular	from texgyre:texgyreschola-regular.otf	metrics of Century Schoolbook
+HillyardSerif-Regular.ttf	Hillyard Serif Regular	from gelasio:400	metrics of Georgia
+HillyardGothic-Bold.otf	Hillyard Gothic Bold	from texgyre:texgyreadventor-bold.otf	metrics of Century Gothic Bold
+HillyardAntiqua-Bold.otf	Hillyard Antiqua Bold	from texgyre:texgyrepagella-bold.otf	metrics of Book Antiqua
+HillyardPalatino-Bold.otf	Hillyard Palatino Bold	from texgyre:texgyrepagella-bold.otf	metrics of Palatino Linotype
+HillyardBookman-Bold.otf	Hillyard Bookman Bold	from texgyre:texgyrebonum-bold.otf	metrics of Bookman Old Style Bold
+HillyardSchoolbook-Bold.otf	Hillyard Schoolbook Bold	from texgyre:texgyreschola-bold.otf	metrics of Century Schoolbook
+HillyardSerif-Bold.ttf	Hillyard Serif Bold	from gelasio:700	metrics of Georgia
+HillyardGothic-Italic.otf	Hillyard Gothic Italic	from texgyre:texgyreadventor-italic.otf	metrics of Century Gothic
+HillyardAntiqua-Italic.otf	Hillyard Antiqua Italic	from texgyre:texgyrepagella-italic.otf	metrics of Book Antiqua
+HillyardPalatino-Italic.otf	Hillyard Palatino Italic	from texgyre:texgyrepagella-italic.otf	metrics of Palatino Linotype
+HillyardBookman-Italic.otf	Hillyard Bookman Italic	from texgyre:texgyrebonum-italic.otf	metrics of Bookman Old Style
+HillyardSchoolbook-Italic.otf	Hillyard Schoolbook Italic	from texgyre:texgyreschola-italic.otf	metrics of Century Schoolbook Italic
+HillyardSerif-Italic.ttf	Hillyard Serif Italic	from gelasio_italic:400	metrics of Georgia
+HillyardGothic-BoldItalic.otf	Hillyard Gothic Bold Italic	from texgyre:texgyreadventor-bolditalic.otf	metrics of Century Gothic Bold
+HillyardAntiqua-BoldItalic.otf	Hillyard Antiqua Bold Italic	from texgyre:texgyrepagella-bolditalic.otf	metrics of Book Antiqua
+HillyardPalatino-BoldItalic.otf	Hillyard Palatino Bold Italic	from texgyre:texgyrepagella-bolditalic.otf	metrics of Palatino Linotype
+HillyardBookman-BoldItalic.otf	Hillyard Bookman Bold Italic	from texgyre:texgyrebonum-bolditalic.otf	metrics of Bookman Old Style Bold
+HillyardSchoolbook-BoldItalic.otf	Hillyard Schoolbook Bold Italic	from texgyre:texgyreschola-bolditalic.otf	metrics of Century Schoolbook Italic
+HillyardSerif-BoldItalic.ttf	Hillyard Serif Bold Italic	from gelasio_italic:700	metrics of Georgia
+HillyardSansUI-Regular.ttf	Hillyard Sans UI Regular	from selawik:selawk.ttf	metrics of Segoe UI
+HillyardSansUI-Bold.ttf	Hillyard Sans UI Bold	from selawik:selawkb.ttf	metrics of Segoe UI
+HillyardSansUILight-Regular.ttf	Hillyard Sans UI Light Regular	from selawik:selawkl.ttf	metrics of Segoe UI
+HillyardSansUISemilight-Regular.ttf	Hillyard Sans UI Semilight Regular	from selawik:selawksl.ttf	metrics of Segoe UI
+HillyardSansUISemibold-Regular.ttf	Hillyard Sans UI Semibold Regular	from selawik:selawksb.ttf	metrics of Segoe UI
