@@ -21,6 +21,8 @@ $(eval $(call gb_Package_add_files,extras_fonts_hillyard,$(LIBO_SHARE_FOLDER)/fo
 	LICENSE-gelasio.txt \
 	LICENSE-selawik.txt \
 	LICENSE-texgyre.txt \
+	LICENSE-urw.txt \
+	LICENSE-urw-COPYING.txt \
 	MANIFEST-hillyard.txt \
 ))
 
