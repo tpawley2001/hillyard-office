@@ -1043,6 +1043,21 @@ void InsertFile(SwUnoCursor* pUnoCursor, const OUString& rURL,
 
     std::unique_ptr<SfxMedium> pMed;
     SwDoc& rDoc = pUnoCursor->GetDoc();
+
+    // Keep the cursor alive while reading. Importing can move the insertion
+    // point out of the body text (a DOCX floating table becomes a frame
+    // around it), the SwXTextCursor, whose cursor must stay in the body, then
+    // drops this cursor, and SwReader::Read went on using freed memory.
+    std::shared_ptr<SwUnoCursor> pKeepAlive;
+    for (const auto& pWeak : rDoc.mvUnoCursorTable)
+    {
+        if (std::shared_ptr<SwUnoCursor> pCursor = pWeak.lock(); pCursor.get() == pUnoCursor)
+        {
+            pKeepAlive = std::move(pCursor);
+            break;
+        }
+    }
+
     comphelper::SequenceAsHashMap aMediaDescriptor(rOptions);
     OUString sFileName = rURL;
     OUString sFilterName, sFilterOptions, sPassword, sBaseURL;

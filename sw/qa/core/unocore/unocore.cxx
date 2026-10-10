@@ -10,6 +10,7 @@
 #include <swmodeltestbase.hxx>
 
 #include <com/sun/star/text/BibliographyDataType.hpp>
+#include <com/sun/star/text/TextContentAnchorType.hpp>
 #include <com/sun/star/text/XTextAppend.hpp>
 #include <com/sun/star/text/XTextFrame.hpp>
 #include <com/sun/star/text/XTextViewCursorSupplier.hpp>
@@ -1112,6 +1113,57 @@ CPPUNIT_TEST_FIXTURE(SwCoreUnocoreTest, testEmptyHeader)
     bIsContentEmpty = true;
     xHeaderText->getPropertyValue("IsContentEmpty") >>= bIsContentEmpty;
     CPPUNIT_ASSERT(!bIsContentEmpty);
+}
+
+CPPUNIT_TEST_FIXTURE(SwCoreUnocoreTest, testHillyardInsertDocxWithShapes)
+{
+    // Insert > Text from File of a DOCX with drawing shapes: the importer
+    // first anchors each shape as character, then sets its real anchor, while
+    // the target document already has a layout but the new shape is not laid
+    // out yet. Without the fix, SwDoc::ChgAnchor() dereferenced the missing
+    // anchor frame and the office crashed.
+    createSwDoc();
+    uno::Reference<text::XTextDocument> xTextDocument(mxComponent, uno::UNO_QUERY);
+    uno::Reference<text::XTextCursor> xCursor = xTextDocument->getText()->createTextCursor();
+    uno::Reference<document::XDocumentInsertable> xInsertable(xCursor, uno::UNO_QUERY);
+    xInsertable->insertDocumentFromURL(createFileURL(u"hillyard-insert-shapes.docx"), {});
+    // The same result as opening the file: two group shapes anchored to a character.
+    CPPUNIT_ASSERT_EQUAL(2, getShapes());
+    for (int i = 1; i <= 2; ++i)
+        CPPUNIT_ASSERT_EQUAL(text::TextContentAnchorType_AT_CHARACTER,
+                             getProperty<text::TextContentAnchorType>(getShape(i), u"AnchorType"_ustr));
+}
+
+CPPUNIT_TEST_FIXTURE(SwCoreUnocoreTest, testHillyardInsertDocxWithFloatingTable)
+{
+    // Insert a DOCX whose floating table, on import, becomes a frame around the
+    // insertion point. The API cursor, which must stay in the body text, was
+    // then dropped by its SwXTextCursor and freed while SwReader::Read still
+    // used it: a crash, or a use after free under valgrind.
+    createSwDoc("hillyard-insert-floattable-a.docx");
+    uno::Reference<text::XTextDocument> xTextDocument(mxComponent, uno::UNO_QUERY);
+    uno::Reference<text::XTextCursor> xCursor = xTextDocument->getText()->createTextCursor();
+    xCursor->gotoEnd(false);
+    uno::Reference<document::XDocumentInsertable> xInsertable(xCursor, uno::UNO_QUERY);
+    const int nShapesBefore = getShapes();
+    xInsertable->insertDocumentFromURL(createFileURL(u"hillyard-insert-floattable-b.docx"), {});
+    CPPUNIT_ASSERT_GREATER(nShapesBefore, getShapes());
+}
+
+CPPUNIT_TEST_FIXTURE(SwCoreUnocoreTest, testHillyardInsertSplitFloatingTableLayout)
+{
+    // Inserting a DOCX with a split floating table after a tracked move left
+    // an object anchored in a table whose anchor position frame is outside
+    // it; laying it out dereferenced a null table frame in CalcClipRect().
+    createSwDoc("hillyard-insert-redline-a.docx");
+    uno::Reference<text::XTextDocument> xTextDocument(mxComponent, uno::UNO_QUERY);
+    uno::Reference<text::XTextCursor> xCursor = xTextDocument->getText()->createTextCursor();
+    xCursor->gotoEnd(false);
+    uno::Reference<document::XDocumentInsertable> xInsertable(xCursor, uno::UNO_QUERY);
+    xInsertable->insertDocumentFromURL(
+        createFileURL(u"hillyard-insert-floattable-split-b.docx"), {});
+    calcLayout();
+    CPPUNIT_ASSERT_GREATER(0, getPages());
 }
 
 CPPUNIT_PLUGIN_IMPLEMENT();

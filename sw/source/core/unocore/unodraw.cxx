@@ -1058,6 +1058,21 @@ uno::Reference< beans::XPropertySetInfo >  SwXShape::getPropertySetInfo()
     return mxPropertySetInfo;
 }
 
+namespace
+{
+/// Whether the drawing object of rFormat is laid out, i.e. has an anchor frame.
+/// A shape just inserted into a laid-out document (Insert > Text from File of a
+/// DOCX) has none until the layout catches up, and SwDoc::ChgAnchor, which moves
+/// an anchor through the layout, cannot handle that.
+bool lcl_IsLaidOut(const SwFrameFormat& rFormat)
+{
+    const SdrObject* pObj = rFormat.FindSdrObject();
+    const SwDrawContact* pContact
+        = pObj ? dynamic_cast<const SwDrawContact*>(GetUserCall(pObj)) : nullptr;
+    return pContact && pContact->GetAnchorFrame(pObj);
+}
+}
+
 void SwXShape::setPropertyValue(const OUString& rPropertyName, const uno::Any& aValue)
 {
     SolarMutexGuard aGuard;
@@ -1226,7 +1241,9 @@ void SwXShape::setPropertyValue(const OUString& rPropertyName, const uno::Any& a
                 aValue >>= nPositionLayoutDir;
                 pFormat->SetPositionLayoutDir( nPositionLayoutDir );
             }
-            else if( rDoc.getIDocumentLayoutAccess().GetCurrentLayout())
+            else if( rDoc.getIDocumentLayoutAccess().GetCurrentLayout()
+                     && !(RES_ANCHOR == pEntry->nWID && MID_ANCHOR_ANCHORTYPE == pEntry->nMemberId
+                          && !lcl_IsLaidOut(*pFormat)))
             {
                 UnoActionContext aCtx(&rDoc);
                 if(RES_ANCHOR == pEntry->nWID && MID_ANCHOR_ANCHORTYPE == pEntry->nMemberId)

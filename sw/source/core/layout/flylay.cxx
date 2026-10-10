@@ -1289,9 +1289,17 @@ bool CalcClipRect( const SdrObject *pSdrObj, SwRect &rRect, bool bMove )
                 {
                     const SwTabFrame* pTabFrame = const_cast<SwFlyFrame*>(pFly)
                                 ->GetAnchorFrameContainingAnchPos()->FindTabFrame();
-                    SwRect aTmp( pTabFrame->getFramePrintArea() );
-                    aTmp += pTabFrame->getFrameArea().Pos();
-                    rRect.Union( aTmp );
+                    // The frame holding the anchor position can be outside the
+                    // table while the anchor frame is in it (a DOCX floating
+                    // table inserted next to a moved paragraph): there is then
+                    // no table to widen the clip rectangle by.
+                    SwRect aTmp;
+                    if ( pTabFrame )
+                    {
+                        aTmp = pTabFrame->getFramePrintArea();
+                        aTmp += pTabFrame->getFrameArea().Pos();
+                        rRect.Union( aTmp );
+                    }
                     // #i43913# - consider also the cell frame
                     const SwFrame* pCellFrame = const_cast<SwFlyFrame*>(pFly)
                                 ->GetAnchorFrameContainingAnchPos()->GetUpper();
