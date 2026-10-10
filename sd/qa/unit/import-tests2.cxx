@@ -1415,6 +1415,16 @@ CPPUNIT_TEST_FIXTURE(SdImportTest2, testTdf163343_brokenAnimation)
                          getSdDocShell()->GetDoc()->GetSdPageCount(PageKind::Standard));
 }
 
+CPPUNIT_TEST_FIXTURE(SdImportTest2, testHillyardPptxWithoutAppProperties)
+{
+    // docProps/app.xml missing while _rels/.rels still names it, as in a
+    // truncated file (the part is stored last). The document property import
+    // threw and the whole presentation failed to load; PowerPoint opens it.
+    createSdImpressDoc("pptx/hillyard-no-app-props.pptx");
+    uno::Reference<drawing::XDrawPagesSupplier> xDoc(mxComponent, uno::UNO_QUERY_THROW);
+    CPPUNIT_ASSERT_EQUAL(sal_Int32(1), xDoc->getDrawPages()->getCount());
+}
+
 CPPUNIT_PLUGIN_IMPLEMENT();
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

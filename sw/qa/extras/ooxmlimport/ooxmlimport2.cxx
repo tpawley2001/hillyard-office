@@ -1496,6 +1496,24 @@ CPPUNIT_TEST_FIXTURE(Test, testTdf165348_lockFileOnRepair)
 // tests should only be added to ooxmlIMPORT *if* they fail round-tripping in ooxmlEXPORT
 
 } // end of anonymous namespace
+CPPUNIT_TEST_FIXTURE(Test, testHillyardMissingContentTypes)
+{
+    // A DOCX without [Content_Types].xml, which Word's Open and Repair
+    // recovers. Format detection gave up on it, so even a repair could not
+    // open the file.
+    loadFromFile(u"hillyard-no-content-types.docx",
+                 { comphelper::makePropertyValue(u"RepairPackage"_ustr, true) });
+    CPPUNIT_ASSERT(getBodyText().indexOf("Inserted and formatted") >= 0);
+}
+
+CPPUNIT_TEST_FIXTURE(Test, testHillyardIllegalControlCharacter)
+{
+    // An XML-illegal control character (U+0001) inside the text: the parser
+    // stopped there and the whole body was lost. It is dropped instead.
+    createSwDoc("hillyard-control-char.docx");
+    CPPUNIT_ASSERT(getBodyText().indexOf("Inserted and formatted") >= 0);
+}
+
 CPPUNIT_PLUGIN_IMPLEMENT();
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

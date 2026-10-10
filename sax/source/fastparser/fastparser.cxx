@@ -1067,6 +1067,31 @@ void FastSaxParserImpl::popEntity()
     mpTop = !maEntities.empty() ? &maEntities.top() : nullptr;
 }
 
+namespace
+{
+/// XML 1.0 forbids the C0 control characters other than tab, LF and CR, and
+/// libxml2 stops at the first one, so the rest of the stream is lost: a stray
+/// control character in a Word file used to empty the whole document. Word's
+/// Open and Repair recovers such files; drop the characters instead. The input
+/// has already been converted to UTF-8, where these bytes cannot be part of a
+/// multi-byte sequence. Returns the new length.
+sal_Int32 lcl_dropXmlIllegalControlChars(Sequence<sal_Int8>& rData, sal_Int32 nLength)
+{
+    sal_Int8* pData = rData.getArray();
+    sal_Int32 nOut = 0;
+    for (sal_Int32 i = 0; i < nLength; ++i)
+    {
+        const unsigned char c = static_cast<unsigned char>(pData[i]);
+        if (c < 0x20 && c != 0x09 && c != 0x0A && c != 0x0D)
+            continue;
+        pData[nOut++] = pData[i];
+    }
+    SAL_WARN_IF(nOut != nLength, "sax", "dropped " << (nLength - nOut)
+                                            << " XML-illegal control character(s)");
+    return nOut;
+}
+}
+
 // starts parsing with actual parser !
 void FastSaxParserImpl::parse()
 {
@@ -1099,12 +1124,13 @@ void FastSaxParserImpl::parse()
             break;
         }
 
+        const sal_Int32 nLength = lcl_dropXmlIllegalControlChars(seqOut, nRead);
         bool bContinue = true;
         if( rEntity.mpParser == nullptr )
         {
             // create parser with proper encoding (needs the first chunk of data)
             rEntity.mpParser = xmlCreatePushParserCtxt( &callbacks, this,
-                reinterpret_cast<const char*>(seqOut.getConstArray()), nRead, nullptr );
+                reinterpret_cast<const char*>(seqOut.getConstArray()), nLength, nullptr );
             if( !rEntity.mpParser )
                 throw SAXException(u"Couldn't create parser"_ustr, Reference< XInterface >(), Any() );
 
@@ -1116,7 +1142,7 @@ void FastSaxParserImpl::parse()
         }
         else
         {
-            bContinue = xmlParseChunk( rEntity.mpParser, reinterpret_cast<const char*>(seqOut.getConstArray()), nRead, 0 )
+            bContinue = xmlParseChunk( rEntity.mpParser, reinterpret_cast<const char*>(seqOut.getConstArray()), nLength, 0 )
                             == XML_ERR_OK;
         }
 

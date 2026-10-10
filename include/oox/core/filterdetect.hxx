@@ -75,6 +75,12 @@ public:
     virtual css::uno::Reference< XFastContextHandler > SAL_CALL createUnknownChildContext( const OUString& Namespace, const OUString& Name, const css::uno::Reference< css::xml::sax::XFastAttributeList >& Attribs ) override;
     virtual void SAL_CALL characters( const OUString& aChars ) override;
 
+    /** Name the filter from the main part's location when [Content_Types].xml
+        is missing or unreadable, as Word's Open and Repair does: the
+        officeDocument relationship already says where the main part is, and
+        the file name says macro-enabled, template or show. */
+    void                guessFilterFromTargetPath();
+
 private:
     void parseSettings(const AttributeList& rAttribs);
     void parseWorkbook(const AttributeList& rAttribs);

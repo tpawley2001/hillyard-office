@@ -39,6 +39,7 @@
 #include <com/sun/star/beans/NamedValue.hpp>
 #include <comphelper/docpasswordrequest.hxx>
 #include <o3tl/string_view.hxx>
+#include <rtl/ref.hxx>
 #include <utility>
 
 using namespace ::com::sun::star;
@@ -317,6 +318,45 @@ OUString FilterDetectDocHandler::getFilterNameFromContentType( std::u16string_vi
     return OUString();
 }
 
+void FilterDetectDocHandler::guessFilterFromTargetPath()
+{
+    if (!mrFilterName.isEmpty() || maTargetPath.isEmpty())
+        return;
+    auto ext = [this](std::u16string_view rExt) {
+        return o3tl::endsWithIgnoreAsciiCase(maFileName, rExt);
+    };
+    OUString aContentType;
+    if (maTargetPath.startsWithIgnoreAsciiCase("/word/"))
+    {
+        if (ext(u".dotx") || ext(u".dotm"))
+            aContentType = u"application/vnd.openxmlformats-officedocument.wordprocessingml.template.main+xml"_ustr;
+        else // .docm is told apart by getFilterNameFromContentType itself
+            aContentType = u"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"_ustr;
+    }
+    else if (maTargetPath.startsWithIgnoreAsciiCase("/xl/"))
+    {
+        if (ext(u".xltx") || ext(u".xltm"))
+            aContentType = u"application/vnd.openxmlformats-officedocument.spreadsheetml.template.main+xml"_ustr;
+        else if (ext(u".xlsm"))
+            aContentType = u"application/vnd.ms-excel.sheet.macroEnabled.main+xml"_ustr;
+        else
+            aContentType = u"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"_ustr;
+    }
+    else if (maTargetPath.startsWithIgnoreAsciiCase("/ppt/"))
+    {
+        if (ext(u".potx") || ext(u".potm"))
+            aContentType = u"application/vnd.openxmlformats-officedocument.presentationml.template.main+xml"_ustr;
+        else if (ext(u".ppsx") || ext(u".ppsm"))
+            aContentType = u"application/vnd.openxmlformats-officedocument.presentationml.slideshow.main+xml"_ustr;
+        else if (ext(u".pptm"))
+            aContentType = u"application/vnd.ms-powerpoint.presentation.macroEnabled.main+xml"_ustr;
+        else
+            aContentType = u"application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"_ustr;
+    }
+    if (!aContentType.isEmpty())
+        mrFilterName = getFilterNameFromContentType(aContentType, maFileName);
+}
+
 void FilterDetectDocHandler::parseContentTypesDefault( const AttributeList& rAttribs )
 {
     // only if no overridden part name found
@@ -521,7 +561,9 @@ OUString SAL_CALL FilterDetect::detect( Sequence< PropertyValue >& rMediaDescSeq
             OUString aFileName;
             aMediaDescriptor[utl::MediaDescriptor::PROP_URL] >>= aFileName;
 
-            aParser.setDocumentHandler( new FilterDetectDocHandler( mxContext, aFilterName, aFileName ) );
+            rtl::Reference<FilterDetectDocHandler> xHandler(
+                new FilterDetectDocHandler(mxContext, aFilterName, aFileName));
+            aParser.setDocumentHandler(xHandler);
 
             /*  Parse '_rels/.rels' to get the target path and '[Content_Types].xml'
                 to determine the content type of the part at the target path. */
@@ -545,7 +587,24 @@ OUString SAL_CALL FilterDetect::detect( Sequence< PropertyValue >& rMediaDescSeq
                 }
             }
             // Order is critical: .rels and then settings.xml must be parsed before [Content_Types]
-            aParser.parseStream( aZipStorage, u"[Content_Types].xml"_ustr );
+            // Missing or damaged: still detect the format, so that loading can
+            // offer to repair the package (Word's Open and Repair recovers such
+            // files too).
+            Reference<XInputStream> xContentTypes
+                = aZipStorage.openInputStream(u"[Content_Types].xml"_ustr);
+            if (!xContentTypes.is())
+                xHandler->guessFilterFromTargetPath();
+            else
+            {
+                try
+                {
+                    aParser.parseStream(xContentTypes, u"[Content_Types].xml"_ustr);
+                }
+                catch (const Exception&)
+                {
+                    xHandler->guessFilterFromTargetPath();
+                }
+            }
         }
     }
     catch( const Exception& )

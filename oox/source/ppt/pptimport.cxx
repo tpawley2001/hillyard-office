@@ -27,6 +27,7 @@
 #include <com/sun/star/uno/XComponentContext.hpp>
 #include <com/sun/star/document/XUndoManager.hpp>
 #include <com/sun/star/document/XUndoManagerSupplier.hpp>
+#include <comphelper/diagnose_ex.hxx>
 #include <comphelper/propertysequence.hxx>
 #include <comphelper/scopeguard.hxx>
 #include <vcl/svapp.hxx>
@@ -100,7 +101,17 @@ bool PowerPointImport::importDocument()
         }
     }
 
-    importDocumentProperties();
+    // As in the Excel import: missing or damaged document properties (a
+    // truncated file loses docProps/app.xml first, being stored last) must
+    // not cost the whole presentation.
+    try
+    {
+        importDocumentProperties();
+    }
+    catch (const uno::Exception&)
+    {
+        TOOLS_WARN_EXCEPTION("oox", "exception when importing document properties");
+    }
 
     OUString aFragmentPath = getFragmentPathFromFirstTypeFromOfficeDoc( u"officeDocument" );
     FragmentHandlerRef xPresentationFragmentHandler( new PresentationFragmentHandler( *this, aFragmentPath ) );
