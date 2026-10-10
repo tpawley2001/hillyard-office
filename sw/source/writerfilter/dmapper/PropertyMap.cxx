@@ -1282,7 +1282,13 @@ void SectionPropertyMap::InheritOrFinalizePageStyles(DomainMapper_Impl& rDM_Impl
     SectionPropertyMap* pLastContext = rDM_Impl.GetLastSectionContext();
     //tdf124637 TODO: identify and skip special sections (like footnotes/endnotes)
     if (pLastContext && m_sPageStyleName.isEmpty())
+    {
+        // Later continuous-section handling also uses the style object, for
+        // example to disable first-page header/footer sharing at a page break.
+        // Inherit both parts of the page style, not just its name.
+        m_aPageStyle = pLastContext->GetPageStyle(rDM_Impl);
         m_sPageStyleName = pLastContext->GetPageStyleName();
+    }
     else
     {
         HandleMarginsHeaderFooter(rDM_Impl);

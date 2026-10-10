@@ -1166,6 +1166,24 @@ CPPUNIT_TEST_FIXTURE(SwCoreUnocoreTest, testHillyardInsertSplitFloatingTableLayo
     CPPUNIT_ASSERT_GREATER(0, getPages());
 }
 
+CPPUNIT_TEST_FIXTURE(SwCoreUnocoreTest, testHillyardInsertContinuousSectionPageStyle)
+{
+    // A continuous section inherits the previous section's page style. When
+    // inserting this file, only its name was inherited, leaving a null style
+    // when the importer disabled first-page header/footer sharing at a break.
+    createSwDoc("floattable-outer-nonsplit-inner.docx");
+    uno::Reference<text::XTextDocument> xTextDocument(mxComponent, uno::UNO_QUERY);
+    uno::Reference<text::XTextCursor> xCursor = xTextDocument->getText()->createTextCursor();
+    xCursor->gotoEnd(false);
+    uno::Reference<document::XDocumentInsertable> xInsertable(xCursor, uno::UNO_QUERY);
+    xInsertable->insertDocumentFromURL(createFileURL(u"tdf149555.docx"), {});
+    calcLayout();
+    const OUString aText = xTextDocument->getText()->getString();
+    CPPUNIT_ASSERT(aText.indexOf(u"Title page") >= 0);
+    CPPUNIT_ASSERT(aText.indexOf(u"PAGE 3") >= 0);
+    CPPUNIT_ASSERT_GREATER(1, getPages());
+}
+
 CPPUNIT_PLUGIN_IMPLEMENT();
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
