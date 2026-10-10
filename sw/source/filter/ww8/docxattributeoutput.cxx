@@ -2336,11 +2336,18 @@ void DocxAttributeOutput::DoWriteMoveRangeTagEnd(sal_Int32 const nId, bool bFrom
     }
 }
 
+bool DocxAttributeOutput::IsBookmarkAlreadyWritten(const OUString& rBookmarkName)
+{
+    return !m_aWrittenBookmarkNames.insert(GetExport().BookmarkToWord(rBookmarkName)).second;
+}
+
 void DocxAttributeOutput::DoWriteBookmarkStartIfExist(sal_Int32 nRunPos)
 {
     auto aRange = m_aBookmarksOfParagraphStart.equal_range(nRunPos);
     for( auto aIter = aRange.first; aIter != aRange.second; ++aIter)
     {
+        if (IsBookmarkAlreadyWritten(aIter->second))
+            continue; // its end is skipped too: it is never in m_rOpenedBookmarksIds
         DoWriteBookmarkTagStart(aIter->second);
         m_rOpenedBookmarksIds[aIter->second] = m_nNextBookmarkId;
         m_sLastOpenedBookmark = GetExport().BookmarkToWord(aIter->second);
@@ -2382,6 +2389,8 @@ void DocxAttributeOutput::DoWriteBookmarksStart(std::vector<OUString>& rStarts, 
             if ( pRedlineData && pRedlineData->IsMoved() )
                 DoWriteMoveRangeTagStart(sBookmarkName, bFrom, pRedlineData);
         }
+        else if (IsBookmarkAlreadyWritten(bookmarkName))
+            continue; // its end is skipped too: it is never in m_rOpenedBookmarksIds
         else
             DoWriteBookmarkTagStart(bookmarkName);
 

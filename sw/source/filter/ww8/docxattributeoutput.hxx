@@ -38,6 +38,7 @@
 
 #include <fldbas.hxx>
 
+#include <set>
 #include <vector>
 #include <optional>
 #include <o3tl/sorted_vector.hxx>
@@ -942,6 +943,16 @@ private:
 
     /// Maps of the bookmarks ids
     std::map<OUString, sal_Int32> m_rOpenedBookmarksIds;
+
+    /// Word names of the bookmarks already written. Word keeps only the first
+    /// bookmark of a name; a header or footer written twice (a first-page
+    /// footer that shares the default one, say) must not repeat its bookmarks,
+    /// or every reload in Writer renames the copy and every save adds another.
+    std::set<OUString> m_aWrittenBookmarkNames;
+
+    /// Whether a bookmark start was already written under this Word name;
+    /// records the name when it was not.
+    bool IsBookmarkAlreadyWritten(const OUString& rBookmarkName);
 
     /// Name of the last opened bookmark.
     OUString m_sLastOpenedBookmark;

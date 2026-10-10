@@ -8,6 +8,7 @@
  */
 
 #include <swmodeltestbase.hxx>
+#include <com/sun/star/text/XBookmarksSupplier.hpp>
 
 #include <com/sun/star/beans/XPropertyState.hpp>
 
@@ -104,6 +105,23 @@ CPPUNIT_TEST_FIXTURE(Test, testCool15788_symbolContentControl)
         0, countXPathNodes(pXmlDoc, "/w:document/w:body/w:p/w:sdt/w:sdtContent/w:r[2]/w:sym"));
     // simply a <w:t> element with the symbol must exist instead
     assertXPathContent(pXmlDoc, "/w:document/w:body/w:p/w:sdt/w:sdtContent/w:r[2]/w:t", u"\xf04b");
+}
+
+CPPUNIT_TEST_FIXTURE(Test, testHillyardSharedFooterBookmarkNotDuplicated)
+{
+    // Word's _GoBack bookmark sits in the default footer, and the empty
+    // first-page footer is exported from the same content. Without the fix the
+    // bookmark was written in both footers, so each reload renamed the copy
+    // ("_GoBack Copy 1") and each save added another.
+    createSwDoc("hillyard-shared-footer-bookmark.docx");
+    for (int nRoundTrip = 0; nRoundTrip < 2; ++nRoundTrip)
+    {
+        saveAndReload(TestFilter::DOCX);
+        uno::Reference<text::XBookmarksSupplier> xSupplier(mxComponent, uno::UNO_QUERY);
+        uno::Reference<container::XNameAccess> xBookmarks = xSupplier->getBookmarks();
+        CPPUNIT_ASSERT_EQUAL(sal_Int32(1), xBookmarks->getElementNames().getLength());
+        CPPUNIT_ASSERT(xBookmarks->hasByName(u"_GoBack"_ustr));
+    }
 }
 
 } // end of anonymous namespace
