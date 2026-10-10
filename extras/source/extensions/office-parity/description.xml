@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<description xmlns="http://openoffice.org/extensions/description/2006"
+             xmlns:xlink="http://www.w3.org/1999/xlink">
+  <identifier value="org.officeparity.writer.batchreplace"/>
+  <version value="0.2.0"/>
+  <publisher>
+    <name>Hillyard Tech</name>
+  </publisher>
+  <display-name>
+    <name>Office Parity: Batch Replace and Office Compatibility Check</name>
+  </display-name>
+</description>

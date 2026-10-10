@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: MPL-2.0
+     Check every save in a Microsoft format for losses (compat_job.SaveCheckJob). -->
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Jobs" oor:package="org.openoffice.Office">
+  <node oor:name="Jobs">
+    <node oor:name="OfficeParityCompatSaveCheck" oor:op="replace">
+      <prop oor:name="Service">
+        <value>org.officeparity.compat.SaveCheck</value>
+      </prop>
+    </node>
+  </node>
+  <node oor:name="Events">
+    <node oor:name="OnSaveDone" oor:op="fuse">
+      <node oor:name="JobList">
+        <node oor:name="OfficeParityCompatSaveCheck" oor:op="replace"/>
+      </node>
+    </node>
+    <node oor:name="OnSaveAsDone" oor:op="fuse">
+      <node oor:name="JobList">
+        <node oor:name="OfficeParityCompatSaveCheck" oor:op="replace"/>
+      </node>
+    </node>
+  </node>
+</oor:component-data>

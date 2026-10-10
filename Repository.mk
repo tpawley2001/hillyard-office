@@ -1175,6 +1175,11 @@ $(eval $(call gb_Helper_register_packages_for_install,python_scriptprovider, \
     scripting_scriptproviderforpython \
 ))
 
+# Hillyard Office: the bundled Office Parity extension is Python.
+$(eval $(call gb_Helper_register_packages_for_install,python, \
+	extras_office_parity \
+))
+
 ifeq (LIBRELOGO,$(filter LIBRELOGO,$(BUILD_TYPE)))
 $(eval $(call gb_Helper_register_packages_for_install,python_librelogo, \
 	librelogo \
