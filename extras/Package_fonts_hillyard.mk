@@ -17,13 +17,4 @@ $(eval $(call gb_Package_add_files,extras_fonts_hillyard,$(LIBO_SHARE_FOLDER)/fo
 	$(notdir $(wildcard $(SRCDIR)/extras/source/truetype/hillyard/*.ttf)) \
 ))
 
-$(eval $(call gb_Package_add_files,extras_fonts_hillyard,$(LIBO_SHARE_FOLDER)/fonts/truetype/hillyard-licenses,\
-	LICENSE-gelasio.txt \
-	LICENSE-selawik.txt \
-	LICENSE-texgyre.txt \
-	LICENSE-urw.txt \
-	LICENSE-urw-COPYING.txt \
-	MANIFEST-hillyard.txt \
-))
-
 # vim: set noet sw=4 ts=4:

@@ -24,6 +24,7 @@ $(eval $(call gb_Module_add_targets,extras,\
 	Package_databasebiblio \
 	Package_fonts \
 	Package_fonts_hillyard \
+	Package_fonts_hillyard_licenses \
 	Package_resource_fonts \
 	Package_gallbullets \
 	Package_gallmytheme \
