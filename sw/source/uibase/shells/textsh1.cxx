@@ -128,6 +128,8 @@
 #endif // HAVE_FEATURE_CURL && ENABLE_WASM_STRIP_EXTRA
 #include <IDocumentContentOperations.hxx>
 #include <IDocumentUndoRedo.hxx>
+#include <fmthdft.hxx>
+#include <pagedesc.hxx>
 #include <fmtcntnt.hxx>
 #include <fmtrfmrk.hxx>
 #include <cntfrm.hxx>
@@ -2153,6 +2155,21 @@ void SwTextShell::Execute(SfxRequest &rReq)
         if( SfxItemState::SET == pArgs->GetItemState(FN_PARAM_1, false, &pItem))
             bOn = static_cast<const SfxBoolItem*>(pItem)->GetValue();
         rWrtSh.ChangeHeaderOrFooter(UIName(sStyleName), FN_INSERT_PAGEHEADER == nSlot, bOn, !rReq.IsAPI());
+        rReq.Done();
+    }
+    else
+    {
+        // No page style given (the ribbon's Header and Footer buttons): as in
+        // Word, switch it on for the current page style and start editing it.
+        const bool bHeader = FN_INSERT_PAGEHEADER == nSlot;
+        const SwPageDesc& rDesc = rWrtSh.GetPageDesc(rWrtSh.GetCurPageDesc());
+        const SwFrameFormat& rMaster = rDesc.GetMaster();
+        if (!(bHeader ? rMaster.GetHeader().IsActive() : rMaster.GetFooter().IsActive()))
+            rWrtSh.ChangeHeaderOrFooter(rDesc.GetName(), bHeader, true, false);
+        if (bHeader)
+            rWrtSh.GotoHeaderText();
+        else
+            rWrtSh.GotoFooterText();
         rReq.Done();
     }
     break;

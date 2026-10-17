@@ -1596,6 +1596,9 @@
         <prop oor:name="Label" oor:type="xs:string">
           <value xml:lang="en-US">Drop Caps</value>
         </prop>
+        <prop oor:name="Properties" oor:type="xs:int">
+          <value>1</value>
+        </prop>
       </node>
       <node oor:name=".uno:FrameDialog" oor:op="replace">
         <prop oor:name="Label" oor:type="xs:string">
@@ -2743,6 +2746,9 @@
       <node oor:name=".uno:JumpToNextFootnote" oor:op="replace">
         <prop oor:name="Label" oor:type="xs:string">
           <value xml:lang="en-US">To Next Footnote</value>
+        </prop>
+        <prop oor:name="Properties" oor:type="xs:int">
+          <value>1</value>
         </prop>
       </node>
       <node oor:name=".uno:AlignVerticalRowCenter" oor:op="replace">
