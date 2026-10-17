@@ -781,10 +781,10 @@ CPPUNIT_TEST_FIXTURE(ScUiCalcTest, testTdf56036)
 
     typeString(u"=SUM( 1 + 2 ");
 
-    // Insert Newline
+    // Insert Newline (Alt+Enter, as in Excel)
     ScModelObj* pModelObj = comphelper::getFromUnoTunnel<ScModelObj>(mxComponent);
-    pModelObj->postKeyEvent(LOK_KEYEVENT_KEYINPUT, 0, KEY_MOD1 | awt::Key::RETURN);
-    pModelObj->postKeyEvent(LOK_KEYEVENT_KEYUP, 0, KEY_MOD1 | awt::Key::RETURN);
+    pModelObj->postKeyEvent(LOK_KEYEVENT_KEYINPUT, 0, KEY_MOD2 | awt::Key::RETURN);
+    pModelObj->postKeyEvent(LOK_KEYEVENT_KEYUP, 0, KEY_MOD2 | awt::Key::RETURN);
     Scheduler::ProcessEventsToIdle();
 
     typeString(u"+ 3)");
@@ -840,10 +840,10 @@ CPPUNIT_TEST_FIXTURE(ScUiCalcTest, testTdf119162)
 
     typeString(u"Test");
 
-    // Insert Newline
+    // Insert Newline (Alt+Enter, as in Excel)
     ScModelObj* pModelObj = comphelper::getFromUnoTunnel<ScModelObj>(mxComponent);
-    pModelObj->postKeyEvent(LOK_KEYEVENT_KEYINPUT, 0, KEY_MOD1 | awt::Key::RETURN);
-    pModelObj->postKeyEvent(LOK_KEYEVENT_KEYUP, 0, KEY_MOD1 | awt::Key::RETURN);
+    pModelObj->postKeyEvent(LOK_KEYEVENT_KEYINPUT, 0, KEY_MOD2 | awt::Key::RETURN);
+    pModelObj->postKeyEvent(LOK_KEYEVENT_KEYUP, 0, KEY_MOD2 | awt::Key::RETURN);
     Scheduler::ProcessEventsToIdle();
 
     pModelObj->postKeyEvent(LOK_KEYEVENT_KEYINPUT, 0, awt::Key::RETURN);
