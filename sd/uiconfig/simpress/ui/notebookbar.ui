@@ -3228,7 +3228,7 @@
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="FileLabel2">
+              <object class="GtkLabel" id="BackstageFileLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes" context="TabbedImpress|FileTabLabel">~File</property>

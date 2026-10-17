@@ -180,7 +180,7 @@ void NotebookbarTabControl::dispose()
 // stay on the current tab and open it.
 IMPL_LINK_NOARG(NotebookbarTabControl, ActivatePageHdl, TabControl*, void)
 {
-    if (mnActPageId && mnCurPageId && GetPageName(mnActPageId) == u"FileLabel2")
+    if (mnActPageId && mnCurPageId && GetPageName(mnActPageId) == u"BackstageFileLabel")
     {
         mnActPageId = mnCurPageId;
         if (!m_pOpenBackstageEvent)
