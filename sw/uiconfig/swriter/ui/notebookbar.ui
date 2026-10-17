@@ -3757,6 +3757,31 @@
                                 <property name="position">1</property>
                               </packing>
                             </child>
+                            <child>
+                              <object class="sfxlo-NotebookbarToolBox" id="bxHomeFont6">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="toolbar-style">icons</property>
+                                <property name="show-arrow">False</property>
+                                <child>
+                                  <object class="GtkToolButton" id="btnHomeFontFontDialog">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes" context="TabbedWriter|ribbonFontSettings">Font Settings</property>
+                                    <property name="action-name">.uno:FontDialog</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="homogeneous">False</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
                             <property name="left-attach">0</property>
@@ -4107,6 +4132,31 @@
                                 <property name="position">3</property>
                               </packing>
                             </child>
+                            <child>
+                              <object class="sfxlo-NotebookbarToolBox" id="bxHomeParagraph9">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="toolbar-style">icons</property>
+                                <property name="show-arrow">False</property>
+                                <child>
+                                  <object class="GtkToolButton" id="btnHomeParagraphParagraphDialog">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes" context="TabbedWriter|ribbonParagraphSettings">Paragraph Settings</property>
+                                    <property name="action-name">.uno:ParagraphDialog</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="homogeneous">False</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">4</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
                             <property name="left-attach">0</property>
@@ -4211,6 +4261,30 @@
                           </packing>
                         </child>
                         <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxHomeStyles">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">icons</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnHomeStylesDesignerDialog">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonStylesPane">Styles Pane</property>
+                                <property name="action-name">.uno:DesignerDialog</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkLabel" id="lbHomeStyles">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
@@ -4227,7 +4301,7 @@
                           <packing>
                             <property name="left-attach">0</property>
                             <property name="top-attach">2</property>
-                            <property name="width">1</property>
+                            <property name="width">2</property>
                           </packing>
                         </child>
                         <child>
@@ -4240,7 +4314,7 @@
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">1</property>
+                            <property name="left-attach">2</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
@@ -7202,6 +7276,30 @@
                             <property name="toolbar-style">both-horiz</property>
                             <property name="show-arrow">False</property>
                             <child>
+                              <object class="GtkToolButton" id="btnReferencesFootnotesJumpToFootnoteOrAnchor">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonShowNotes">Show Notes</property>
+                                <property name="action-name">.uno:JumpToFootnoteOrAnchor</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">2</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxReferencesFootnotes5">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
                               <object class="GtkToolButton" id="btnReferencesFootnotesFootnoteDialog">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
@@ -7216,7 +7314,7 @@
                           </object>
                           <packing>
                             <property name="left-attach">2</property>
-                            <property name="top-attach">0</property>
+                            <property name="top-attach">1</property>
                           </packing>
                         </child>
                         <child>
@@ -8052,6 +8150,30 @@
                           </packing>
                         </child>
                         <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxMailingsWriteInsertFields2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnMailingsWriteInsertFieldsMarks">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonHighlightMergeFields">Highlight Merge Fields</property>
+                                <property name="action-name">.uno:Marks</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkLabel" id="lbMailingsWriteInsertFields">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
@@ -8068,7 +8190,7 @@
                           <packing>
                             <property name="left-attach">0</property>
                             <property name="top-attach">2</property>
-                            <property name="width">1</property>
+                            <property name="width">2</property>
                           </packing>
                         </child>
                         <child>
@@ -8081,7 +8203,7 @@
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">1</property>
+                            <property name="left-attach">2</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
@@ -8807,6 +8929,30 @@
                           </packing>
                         </child>
                         <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxReviewComments6">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnReviewCommentsResolveComment">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonResolve">Resolve</property>
+                                <property name="action-name">.uno:ResolveComment</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">3</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkLabel" id="lbReviewComments2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
@@ -8823,7 +8969,7 @@
                           <packing>
                             <property name="left-attach">0</property>
                             <property name="top-attach">2</property>
-                            <property name="width">3</property>
+                            <property name="width">4</property>
                           </packing>
                         </child>
                         <child>
@@ -8836,7 +8982,7 @@
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">3</property>
+                            <property name="left-attach">4</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
@@ -10084,6 +10230,30 @@
                           </packing>
                         </child>
                         <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxViewMacros2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnViewMacrosMacroRecorder">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonRecordMacro">Record Macro</property>
+                                <property name="action-name">.uno:MacroRecorder</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkLabel" id="lbViewMacros">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
@@ -10100,7 +10270,7 @@
                           <packing>
                             <property name="left-attach">0</property>
                             <property name="top-attach">2</property>
-                            <property name="width">1</property>
+                            <property name="width">2</property>
                           </packing>
                         </child>
                         <child>
@@ -10113,7 +10283,7 @@
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">1</property>
+                            <property name="left-attach">2</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
@@ -10765,6 +10935,54 @@
                             <property name="toolbar-style">both-horiz</property>
                             <property name="show-arrow">False</property>
                             <child>
+                              <object class="GtkToolButton" id="btnTableTableEntireCell">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonSelectCell">Select Cell</property>
+                                <property name="action-name">.uno:EntireCell</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxTableTable5">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnTableTableTableBoundaries">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonViewGridlines">View Gridlines</property>
+                                <property name="action-name">.uno:TableBoundaries</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">2</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxTableTable6">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
                               <object class="GtkToolButton" id="btnTableTableTableDialog">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
@@ -10778,7 +10996,7 @@
                             </child>
                           </object>
                           <packing>
-                            <property name="left-attach">1</property>
+                            <property name="left-attach">2</property>
                             <property name="top-attach">1</property>
                           </packing>
                         </child>
@@ -10799,7 +11017,7 @@
                           <packing>
                             <property name="left-attach">0</property>
                             <property name="top-attach">2</property>
-                            <property name="width">2</property>
+                            <property name="width">3</property>
                           </packing>
                         </child>
                         <child>
@@ -10812,7 +11030,7 @@
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">2</property>
+                            <property name="left-attach">3</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
@@ -11265,6 +11483,102 @@
                           </packing>
                         </child>
                         <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxTableCellSize2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnTableCellSizeSetRowHeight">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonHeight">Height</property>
+                                <property name="action-name">.uno:SetRowHeight</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxTableCellSize3">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnTableCellSizeSetColumnWidth">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonWidth">Width</property>
+                                <property name="action-name">.uno:SetColumnWidth</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxTableCellSize4">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnTableCellSizeDistributeRows">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonDistributeRows">Distribute Rows</property>
+                                <property name="action-name">.uno:DistributeRows</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">2</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxTableCellSize5">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnTableCellSizeDistributeColumns">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonDistributeColumns">Distribute Columns</property>
+                                <property name="action-name">.uno:DistributeColumns</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">2</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkLabel" id="lbTableCellSize">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
@@ -11281,7 +11595,7 @@
                           <packing>
                             <property name="left-attach">0</property>
                             <property name="top-attach">2</property>
-                            <property name="width">1</property>
+                            <property name="width">3</property>
                           </packing>
                         </child>
                         <child>
@@ -11294,7 +11608,7 @@
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">1</property>
+                            <property name="left-attach">3</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
@@ -11549,6 +11863,54 @@
                             <property name="toolbar-style">both-horiz</property>
                             <property name="show-arrow">False</property>
                             <child>
+                              <object class="GtkToolButton" id="btnTableDataHeadingRowsRepeat">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonRepeatHeaderRows">Repeat Header Rows</property>
+                                <property name="action-name">.uno:HeadingRowsRepeat</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxTableData4">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnTableDataConvertTableToText">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonConverttoText">Convert to Text</property>
+                                <property name="action-name">.uno:ConvertTableToText</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxTableData5">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
                               <object class="GtkToolButton" id="btnTableDataTableNumberFormatDialog">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
@@ -11562,7 +11924,7 @@
                             </child>
                           </object>
                           <packing>
-                            <property name="left-attach">1</property>
+                            <property name="left-attach">2</property>
                             <property name="top-attach">0</property>
                           </packing>
                         </child>
@@ -11583,7 +11945,7 @@
                           <packing>
                             <property name="left-attach">0</property>
                             <property name="top-attach">2</property>
-                            <property name="width">2</property>
+                            <property name="width">3</property>
                           </packing>
                         </child>
                         <child>
@@ -11596,7 +11958,7 @@
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">2</property>
+                            <property name="left-attach">3</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
@@ -17346,13 +17708,263 @@
                       </packing>
                     </child>
                     <style>
-                      <class name="priority-1"/>
+                      <class name="priority-2"/>
                     </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddToolsControls">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedWriter|groupControls">Controls</property>
+                    <child>
+                      <object class="GtkGrid" id="gdToolsControls">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="margin-start">3</property>
+                        <property name="margin-end">3</property>
+                        <property name="margin-top">6</property>
+                        <property name="margin-bottom">6</property>
+                        <property name="row-spacing">3</property>
+                        <property name="column-spacing">3</property>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxToolsControls">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsInsertContentControl">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonRichText">Rich Text</property>
+                                <property name="action-name">.uno:InsertContentControl</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsInsertPlainTextContentControl">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonPlainText">Plain Text</property>
+                                <property name="action-name">.uno:InsertPlainTextContentControl</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxToolsControls2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsInsertPictureContentControl">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonPicture">Picture</property>
+                                <property name="action-name">.uno:InsertPictureContentControl</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsInsertCheckboxContentControl">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonCheckBox">Check Box</property>
+                                <property name="action-name">.uno:InsertCheckboxContentControl</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxToolsControls3">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsInsertComboBoxContentControl">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonComboBox">Combo Box</property>
+                                <property name="action-name">.uno:InsertComboBoxContentControl</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsInsertDropdownContentControl">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonDropDownList">Drop-Down List</property>
+                                <property name="action-name">.uno:InsertDropdownContentControl</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxToolsControls4">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsInsertDateContentControl">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonDatePicker">Date Picker</property>
+                                <property name="action-name">.uno:InsertDateContentControl</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxToolsControls5">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsSwitchControlDesignMode">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonDesignMode">Design Mode</property>
+                                <property name="action-name">.uno:SwitchControlDesignMode</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">2</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxToolsControls6">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnToolsControlsContentControlProperties">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonProperties">Properties</property>
+                                <property name="action-name">.uno:ContentControlProperties</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">2</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="lbToolsControls">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="valign">end</property>
+                            <property name="vexpand">True</property>
+                            <property name="label" translatable="yes" context="TabbedWriter|groupControls">Controls</property>
+                            <attributes>
+                              <attribute name="scale" value="0.9"/>
+                            </attributes>
+                            <accessibility>
+                              <relation type="label-for" target="gdToolsControls"/>
+                            </accessibility>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">2</property>
+                            <property name="width">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSeparator" id="sepToolsControls">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="halign">end</property>
+                            <property name="margin-top">5</property>
+                            <property name="margin-bottom">5</property>
+                            <property name="orientation">vertical</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">3</property>
+                            <property name="top-attach">0</property>
+                            <property name="height">3</property>
+                          </packing>
+                        </child>
+                        <accessibility>
+                          <relation type="labelled-by" target="lbToolsControls"/>
+                        </accessibility>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -17427,7 +18039,7 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="pack-type">end</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
