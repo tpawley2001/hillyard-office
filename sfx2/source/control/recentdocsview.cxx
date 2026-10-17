@@ -94,11 +94,29 @@ void RecentDocsView::UpdateColors(const StyleSettings& rSettings)
 {
     ThumbnailView::UpdateColors(rSettings);
 
-    maFillColor = Color(ColorTransparency, officecfg::Office::Common::Help::StartCenter::StartCenterThumbnailsBackgroundColor::get());
-    maTextColor = Color(ColorTransparency, officecfg::Office::Common::Help::StartCenter::StartCenterThumbnailsTextColor::get());
+    if (mbBackstage)
+    {
+        maFillColor = rSettings.GetWindowColor();
+        maTextColor = rSettings.GetWindowTextColor();
+    }
+    else
+    {
+        maFillColor = Color(ColorTransparency, officecfg::Office::Common::Help::StartCenter::StartCenterThumbnailsBackgroundColor::get());
+        maTextColor = Color(ColorTransparency, officecfg::Office::Common::Help::StartCenter::StartCenterThumbnailsTextColor::get());
+    }
 
     maHighlightColor = rSettings.GetHighlightColor();
     maHighlightTextColor = rSettings.GetHighlightTextColor();
+}
+
+void RecentDocsView::SetBackstageLook()
+{
+    mbBackstage = true;
+    mnItemMaxSize = 160;
+    setItemDimensions(mnItemMaxSize, mnItemMaxSize, gnTextHeight, gnItemPadding);
+    maWelcomeLine1 = SfxResId(STR_BACKSTAGE_NO_RECENT);
+    maWelcomeLine2 = SfxResId(STR_BACKSTAGE_NO_RECENT2);
+    UpdateColors(Application::GetSettings().GetStyleSettings());
 }
 
 bool RecentDocsView::typeMatchesExtension(ApplicationType type, std::u16string_view rExt)
@@ -264,6 +282,17 @@ void RecentDocsView::Paint(vcl::RenderContext& rRenderContext, const tools::Rect
 
     if (!mItemList.empty())
         return;
+
+    if (mbBackstage)
+    {
+        // Office: a plain line of text where the list would be, no logo.
+        auto popIt = rRenderContext.ScopedPush(vcl::PushFlags::TEXTCOLOR);
+        rRenderContext.SetTextColor(maTextColor);
+        tools::Long nTextHeight = rRenderContext.GetTextHeight();
+        rRenderContext.DrawText(Point(gnItemPadding, nTextHeight), maWelcomeLine1);
+        rRenderContext.DrawText(Point(gnItemPadding, nTextHeight * 5 / 2), maWelcomeLine2);
+        return;
+    }
 
     if (maWelcomeImage.IsEmpty())
     {

@@ -410,6 +410,21 @@
 #define STR_NOSHOWAGAIN                         NC_("STR_NOSHOWAGAIN", "Don't show again")
 #define STR_CHANGEOPTIONS                       NC_("STR_CHANGEOPTIONS", "Change options")
 
+// Backstage (the Tabbed UI's File view)
+#define STR_BACKSTAGE_GOOD_MORNING              NC_("STR_BACKSTAGE_GOOD_MORNING", "Good morning")
+#define STR_BACKSTAGE_GOOD_AFTERNOON            NC_("STR_BACKSTAGE_GOOD_AFTERNOON", "Good afternoon")
+#define STR_BACKSTAGE_GOOD_EVENING              NC_("STR_BACKSTAGE_GOOD_EVENING", "Good evening")
+#define STR_BACKSTAGE_BLANK_DOCUMENT            NC_("STR_BACKSTAGE_BLANK_DOCUMENT", "Blank document")
+#define STR_BACKSTAGE_BLANK_WORKBOOK            NC_("STR_BACKSTAGE_BLANK_WORKBOOK", "Blank workbook")
+#define STR_BACKSTAGE_BLANK_PRESENTATION        NC_("STR_BACKSTAGE_BLANK_PRESENTATION", "Blank presentation")
+#define STR_BACKSTAGE_NOT_SAVED                 NC_("STR_BACKSTAGE_NOT_SAVED", "This file has not been saved yet.")
+#define STR_BACKSTAGE_PRINTER                   NC_("STR_BACKSTAGE_PRINTER", "Printer: %1")
+#define STR_BACKSTAGE_PAGES                     NC_("STR_BACKSTAGE_PAGES", "Pages")
+#define STR_BACKSTAGE_SHEETS                    NC_("STR_BACKSTAGE_SHEETS", "Sheets")
+#define STR_BACKSTAGE_NO_RECENT                 NC_("STR_BACKSTAGE_NO_RECENT", "You haven't opened any files recently.")
+#define STR_BACKSTAGE_NO_RECENT2                NC_("STR_BACKSTAGE_NO_RECENT2", "Click Open to browse for a file.")
+#define STR_BACKSTAGE_SLIDES                    NC_("STR_BACKSTAGE_SLIDES", "Slides")
+
 #endif
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

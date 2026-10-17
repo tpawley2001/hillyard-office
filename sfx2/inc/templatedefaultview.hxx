@@ -25,7 +25,11 @@ public:
 
     void createContextMenu(const bool bIsInternal);
 
+    /// Office's Backstage: window colours instead of the Start Center's.
+    void SetBackstageLook();
+
 protected:
+    bool mbBackstage = false;
     void UpdateColors(const StyleSettings& rSettings) override;
 };
 

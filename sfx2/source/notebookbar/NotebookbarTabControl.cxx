@@ -25,6 +25,9 @@
 #include <vcl/tabpage.hxx>
 #include <sfx2/viewfrm.hxx>
 #include <notebookbar/NotebookbarTabControl.hxx>
+#include <notebookbar/Backstage.hxx>
+#include <toolkit/helper/vclunohelper.hxx>
+#include <vcl/svapp.hxx>
 #include <com/sun/star/ui/theModuleUIConfigurationManagerSupplier.hpp>
 #include <com/sun/star/ui/ItemType.hpp>
 #include <com/sun/star/frame/XModuleManager.hpp>
@@ -155,10 +158,58 @@ NotebookbarTabControl::NotebookbarTabControl( Window* pParent )
 , m_bInitialized( false )
 , m_bInvalidate( true )
 {
+    SetActivatePageHdl(LINK(this, NotebookbarTabControl, ActivatePageHdl));
 }
 
 NotebookbarTabControl::~NotebookbarTabControl()
 {
+    disposeOnce();
+}
+
+void NotebookbarTabControl::dispose()
+{
+    if (m_pOpenBackstageEvent)
+    {
+        Application::RemoveUserEvent(m_pOpenBackstageEvent);
+        m_pOpenBackstageEvent = nullptr;
+    }
+    NotebookbarTabControlBase::dispose();
+}
+
+// As in Office, File is not a ribbon tab but the full-window Backstage:
+// stay on the current tab and open it.
+IMPL_LINK_NOARG(NotebookbarTabControl, ActivatePageHdl, TabControl*, void)
+{
+    if (mnActPageId && mnCurPageId && GetPageName(mnActPageId) == u"FileLabel2")
+    {
+        mnActPageId = mnCurPageId;
+        if (!m_pOpenBackstageEvent)
+            m_pOpenBackstageEvent
+                = Application::PostUserEvent(LINK(this, NotebookbarTabControl, OpenBackstage));
+    }
+}
+
+// The frame whose window this ribbon is in (SfxViewFrame::Current() can be
+// another window's).
+css::uno::Reference<css::frame::XFrame> NotebookbarTabControl::GetOwnFrame() const
+{
+    const vcl::Window* pTop = GetSystemWindow();
+    for (SfxViewFrame* pFrame = SfxViewFrame::GetFirst(); pFrame;
+         pFrame = SfxViewFrame::GetNext(*pFrame))
+    {
+        css::uno::Reference<css::frame::XFrame> xFrame = pFrame->GetFrame().GetFrameInterface();
+        if (xFrame.is()
+            && VCLUnoHelper::GetWindow(xFrame->getContainerWindow()) == pTop)
+            return xFrame;
+    }
+    return m_xFrame;
+}
+
+IMPL_LINK_NOARG(NotebookbarTabControl, OpenBackstage, void*, void)
+{
+    m_pOpenBackstageEvent = nullptr;
+    if (VclPtr<Backstage> xBackstage = Backstage::Get(GetOwnFrame()))
+        xBackstage->Open();
 }
 
 void NotebookbarTabControl::ArrowStops( sal_uInt16 nCode )

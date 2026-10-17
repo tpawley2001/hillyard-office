@@ -30,6 +30,7 @@ public:
     virtual bool EventNotify( NotifyEvent& rNEvt ) override;
     virtual void StateChanged(StateChangedType nStateChange) override;
     virtual Size calculateRequisition() const override;
+    virtual void dispose() override;
 
 private:
     // time-based debounce: track when the last tab switch via scroll happened
@@ -42,6 +43,11 @@ private:
     void ArrowStops( sal_uInt16 nCode );
 
     DECL_LINK(OpenNotebookbarPopupMenu, NotebookBar*, void);
+    DECL_LINK(OpenBackstage, void*, void);
+    DECL_LINK(ActivatePageHdl, TabControl*, void);
+
+    css::uno::Reference<css::frame::XFrame> GetOwnFrame() const;
+    ImplSVEvent* m_pOpenBackstageEvent = nullptr;
 
     rtl::Reference<ChangedUIEventListener> m_pListener;
     css::uno::Reference<css::frame::XFrame> m_xFrame;

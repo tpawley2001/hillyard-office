@@ -37,13 +37,27 @@ TemplateDefaultView::TemplateDefaultView(std::unique_ptr<weld::ScrolledWindow> x
     UpdateColors(Application::GetSettings().GetStyleSettings());
 }
 
+void TemplateDefaultView::SetBackstageLook()
+{
+    mbBackstage = true;
+    UpdateColors(Application::GetSettings().GetStyleSettings());
+}
+
 void TemplateDefaultView::UpdateColors(const StyleSettings& rSettings)
 {
     TemplateLocalView::UpdateColors(rSettings);
 
     // startcenter specific settings
-    maFillColor = Color(ColorTransparency, officecfg::Office::Common::Help::StartCenter::StartCenterThumbnailsBackgroundColor::get());
-    maTextColor = Color(ColorTransparency, officecfg::Office::Common::Help::StartCenter::StartCenterThumbnailsTextColor::get());
+    if (mbBackstage)
+    {
+        maFillColor = rSettings.GetWindowColor();
+        maTextColor = rSettings.GetWindowTextColor();
+    }
+    else
+    {
+        maFillColor = Color(ColorTransparency, officecfg::Office::Common::Help::StartCenter::StartCenterThumbnailsBackgroundColor::get());
+        maTextColor = Color(ColorTransparency, officecfg::Office::Common::Help::StartCenter::StartCenterThumbnailsTextColor::get());
+    }
 
     maHighlightColor = rSettings.GetHighlightColor();
     maHighlightTextColor = rSettings.GetHighlightTextColor();

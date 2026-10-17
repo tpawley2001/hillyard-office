@@ -85,6 +85,10 @@ public:
 
     void setFilter(ApplicationType aFilter);
 
+    /// Office's Backstage look: window colours, smaller thumbnails and
+    /// Office's text when there is nothing to show.
+    void SetBackstageLook();
+
 protected:
     void UpdateColors(const StyleSettings& rSettings) override;
 
@@ -110,6 +114,8 @@ private:
     Bitmap maWelcomeImage;
     OUString maWelcomeLine1;
     OUString maWelcomeLine2;
+
+    bool mbBackstage = false;
 
     sfx2::LoadRecentFile* mpLoadRecentFile;
     ImplSVEvent* m_nExecuteHdlId;
