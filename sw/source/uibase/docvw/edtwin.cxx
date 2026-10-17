@@ -2012,8 +2012,16 @@ KEYINPUT_CHECKTABLE_INSDEL:
                                  !rSh.HasSelection() &&
                                 rSh.IsSttPara() && rSh.IsEndPara() )
                         {
-                            eKeyState = SwKeyState::NumOff;
-                            eNextKeyState = SwKeyState::OutlineLvOff;
+                            // Hillyard Office: as in Word, an empty item below
+                            // the first level moves up a level; only an empty
+                            // top-level item ends the list.
+                            if (rSh.GetNumLevel() > 0)
+                                eKeyState = SwKeyState::NumUp;
+                            else
+                            {
+                                eKeyState = SwKeyState::NumOff;
+                                eNextKeyState = SwKeyState::OutlineLvOff;
+                            }
                         }
                         //RETURN for new paragraph with AutoFormatting
                         else if( pACfg && pACfg->IsAutoFormatByInput() &&
@@ -2066,8 +2074,28 @@ KEYINPUT_CHECKTABLE_INSDEL:
                             bDone = rSh.TryRemoveIndent();
                         }
 
+                        // Hillyard Office: as in Word, Backspace at the start
+                        // of a list item whose number is already gone takes
+                        // it out of the list (Normal text), instead of joining
+                        // it to the paragraph above.
+                        if ( !bDone && bOnlyBackspaceKey
+                             && rSh.IsSttPara()
+                             && !rSh.HasSelection()
+                             && rSh.IsNoNum() )
+                        {
+                            const SwNumRule* pNumRule = rSh.GetNumRuleAtCurrCursorPos();
+                            if ( pNumRule && !pNumRule->IsOutlineRule() )
+                            {
+                                eKeyState = SwKeyState::NumOff;
+                                bDone = true;
+                            }
+                        }
+
                         if (bDone)
-                            eKeyState = SwKeyState::End;
+                        {
+                            if (eKeyState != SwKeyState::NumOff)
+                                eKeyState = SwKeyState::End;
+                        }
                         else
                         {
                             if ( rSh.IsSttPara() && !rSh.IsNoNum() )
