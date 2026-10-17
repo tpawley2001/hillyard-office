@@ -1007,33 +1007,15 @@ void SvxAutoCorrect::FnCapitalStartSentence( SvxAutoCorrDoc& rDoc,
 
     if( bAtStart )  // at the beginning of a paragraph?
     {
-        // Check out the previous paragraph, if it exists.
-        // If so, then check to paragraph separator at the end.
-        OUString const*const pPrevPara = rDoc.GetPrevPara(bNormalPos);
-        if (!pPrevPara)
-        {
-            // valid separator -> replace
-            OUString sChar( *pWordStt );
-            sChar = rCC.titlecase(sChar); //see fdo#56740
-            if (sChar != OUStringChar(*pWordStt))
-               rDoc.ReplaceRange( pWordStt - pStart, 1, sChar );
-            return;
-        }
-
-        aText = *pPrevPara;
-        bAtStart = false;
-        pStart = aText.getStr();
-        pStr = pStart + aText.getLength();
-
-        do {            // overwrite all blanks
-            --pStr;
-            if (!NonFieldWordDelim(*pStr))
-                break;
-            bAtStart = (pStart == pStr);
-        } while( !bAtStart );
-
-        if( bAtStart )
-            return;  // no valid separator -> no replacement
+        // Hillyard Office: as in Word, the first word of a paragraph starts
+        // a sentence, whatever the paragraph before it ends with (upstream
+        // capitalises only after a previous paragraph ending in . ! ?).
+        (void)bNormalPos;
+        OUString sChar( *pWordStt );
+        sChar = rCC.titlecase(sChar); //see fdo#56740
+        if (sChar != OUStringChar(*pWordStt))
+           rDoc.ReplaceRange( pWordStt - pStart, 1, sChar );
+        return;
     }
 
     // Found [ \t]+[A-Z0-9]+ until here. Test now on the paragraph separator.
