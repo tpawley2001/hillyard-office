@@ -959,7 +959,7 @@ SfxStringItem DefaultFileName SID_DEFAULTFILENAME
 
 
 SfxVoidItem Delete SID_DELETE
-()
+(SfxStringItem Flags SID_DELETE)
 [
     AutoUpdate = FALSE,
     FastCall = TRUE,
