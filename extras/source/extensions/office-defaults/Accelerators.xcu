@@ -253,6 +253,126 @@
             <value xml:lang="en-US">.uno:WordCountDialog</value>
           </prop>
         </node>
+        <!-- F5 Go To -->
+        <node oor:name="F5" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:GotoPage</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Shift+F5 bookmark -->
+        <node oor:name="F5_SHIFT_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:InsertBookmark</value>
+          </prop>
+        </node>
+        <!-- Alt+F9 show field codes -->
+        <node oor:name="F9_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Fieldnames</value>
+          </prop>
+        </node>
+        <!-- Ctrl+F9 insert field -->
+        <node oor:name="F9_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:FieldDialog</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Alt+- em dash -->
+        <node oor:name="SUBTRACT_MOD1_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:InsertText?Text:string=—</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Alt+C copyright sign -->
+        <node oor:name="C_MOD1_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:InsertText?Text:string=©</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Alt+R registered sign -->
+        <node oor:name="R_MOD1_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:InsertText?Text:string=®</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Alt+T trademark sign -->
+        <node oor:name="T_MOD1_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:InsertText?Text:string=™</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Alt+. ellipsis -->
+        <node oor:name="POINT_MOD1_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:InsertText?Text:string=…</value>
+          </prop>
+        </node>
+        <!-- Alt+= equation -->
+        <node oor:name="EQUAL_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:InsertObjectStarMath</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Q remove paragraph formatting (not Exit) -->
+        <node oor:name="Q_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Shift+S Apply Styles -->
+        <node oor:name="S_SHIFT_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ActivateStyleApply</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Alt+Shift+S Styles pane -->
+        <node oor:name="S_SHIFT_MOD1_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <!-- Alt+Shift+Left promote list item -->
+        <node oor:name="LEFT_SHIFT_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:IncrementLevel</value>
+          </prop>
+        </node>
+        <!-- Alt+Shift+Right demote list item -->
+        <node oor:name="RIGHT_SHIFT_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DecrementLevel</value>
+          </prop>
+        </node>
+        <!-- Alt+Shift+X mark index entry -->
+        <node oor:name="X_SHIFT_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:InsertIndexesEntry</value>
+          </prop>
+        </node>
+        <!-- Alt+F8 macros -->
+        <node oor:name="F8_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:RunMacro</value>
+          </prop>
+        </node>
+        <!-- Alt+F11 macro editor -->
+        <node oor:name="F11_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:BasicIDEAppear</value>
+          </prop>
+        </node>
+        <!-- Ctrl+Alt+P Print Layout -->
+        <node oor:name="P_MOD1_MOD2" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:PrintLayout</value>
+          </prop>
+        </node>
+        <!-- Shift+F1 Style Inspector -->
+        <node oor:name="F1_SHIFT" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:SidebarDeck.InspectorDeck</value>
+          </prop>
+        </node>
       </node>
       <node oor:name="com.sun.star.sheet.SpreadsheetDocument">
         <!-- Ctrl+R fill right -->
