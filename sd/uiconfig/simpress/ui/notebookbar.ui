@@ -2331,9 +2331,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbFile2">
+                  <object class="sfxlo-DropdownBox" id="ddFileFile">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupFile">File</property>
                     <child>
                       <object class="GtkGrid" id="gdFileFile2">
                         <property name="visible">True</property>
@@ -2553,6 +2554,21 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-6"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddFilePrint">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupPrint">Print</property>
                     <child>
                       <object class="GtkGrid" id="gdFilePrint2">
                         <property name="visible">True</property>
@@ -2657,9 +2673,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-5"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddFileShareExport">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupShareExport">Share &amp; Export</property>
                     <child>
                       <object class="GtkGrid" id="gdFileShareExport">
                         <property name="visible">True</property>
@@ -2796,9 +2827,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-4"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddFileProtect">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupProtect">Protect</property>
                     <child>
                       <object class="GtkGrid" id="gdFileProtect">
                         <property name="visible">True</property>
@@ -2899,9 +2945,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-3"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddFileClose">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupClose">Close</property>
                     <child>
                       <object class="GtkGrid" id="gdFileClose">
                         <property name="visible">True</property>
@@ -2982,9 +3043,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">4</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-2"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddFileOptions">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupOptions">Options</property>
                     <child>
                       <object class="GtkGrid" id="gdFileOptions">
                         <property name="visible">True</property>
@@ -3065,14 +3141,17 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">5</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">5</property>
                   </packing>
                 </child>
                 <child>
@@ -3138,9 +3217,9 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
-                    <property name="position">1</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
               </object>
@@ -3165,9 +3244,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbHome2">
+                  <object class="sfxlo-DropdownBox" id="ddHomeClipboard">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupClipboard">Clipboard</property>
                     <child>
                       <object class="GtkGrid" id="gdHomeClipboard2">
                         <property name="visible">True</property>
@@ -3320,6 +3400,21 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-6"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddHomeSlides">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupSlides">Slides</property>
                     <child>
                       <object class="GtkGrid" id="gdHomeSlides">
                         <property name="visible">True</property>
@@ -3448,9 +3543,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-5"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddHomeFont">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupFont">Font</property>
                     <child>
                       <object class="GtkGrid" id="gdHomeFont2">
                         <property name="visible">True</property>
@@ -3759,9 +3869,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-4"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddHomeParagraph">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupParagraph">Paragraph</property>
                     <child>
                       <object class="GtkGrid" id="gdHomeParagraph2">
                         <property name="visible">True</property>
@@ -4022,9 +4147,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-3"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddHomeDrawing">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupDrawing">Drawing</property>
                     <child>
                       <object class="GtkGrid" id="gdHomeDrawing">
                         <property name="visible">True</property>
@@ -4181,9 +4321,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">4</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-2"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddHomeEditing">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupEditing">Editing</property>
                     <child>
                       <object class="GtkGrid" id="gdHomeEditing">
                         <property name="visible">True</property>
@@ -4308,14 +4463,17 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">5</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">5</property>
                   </packing>
                 </child>
                 <child>
@@ -4402,9 +4560,9 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
-                    <property name="position">1</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
               </object>
@@ -4436,9 +4594,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbInsert2">
+                  <object class="sfxlo-DropdownBox" id="ddInsertSlides">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupSlides">Slides</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertSlides">
                         <property name="visible">True</property>
@@ -4570,6 +4729,21 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-9"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddInsertTables">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupTables">Tables</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertTables">
                         <property name="visible">True</property>
@@ -4650,9 +4824,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-8"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddInsertImages">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupImages">Images</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertImages">
                         <property name="visible">True</property>
@@ -4761,9 +4950,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-7"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddInsertIllustrations">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupIllustrations">Illustrations</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertIllustrations">
                         <property name="visible">True</property>
@@ -4896,9 +5100,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-6"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddInsertLinks">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupLinks">Links</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertLinks">
                         <property name="visible">True</property>
@@ -5003,9 +5222,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">4</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-5"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddInsertComments">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupComments">Comments</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertComments">
                         <property name="visible">True</property>
@@ -5086,9 +5320,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">5</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-4"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddInsertText">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupText">Text</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertText2">
                         <property name="visible">True</property>
@@ -5289,9 +5538,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">6</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-3"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">6</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddInsertSymbols">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupSymbols">Symbols</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertSymbols">
                         <property name="visible">True</property>
@@ -5392,9 +5656,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">7</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-2"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">7</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddInsertMedia">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupMedia">Media</property>
                     <child>
                       <object class="GtkGrid" id="gdInsertMedia">
                         <property name="visible">True</property>
@@ -5475,14 +5754,17 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">8</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">8</property>
                   </packing>
                 </child>
                 <child>
@@ -5576,9 +5858,9 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
-                    <property name="position">1</property>
+                    <property name="position">9</property>
                   </packing>
                 </child>
               </object>
@@ -5603,9 +5885,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbDesign2">
+                  <object class="sfxlo-DropdownBox" id="ddDesignThemes">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupThemes">Themes</property>
                     <child>
                       <object class="GtkGrid" id="gdDesignThemes">
                         <property name="visible">True</property>
@@ -5689,6 +5972,21 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-3"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddDesignVariants">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupVariants">Variants</property>
                     <child>
                       <object class="GtkGrid" id="gdDesignTheme2">
                         <property name="visible">True</property>
@@ -5761,9 +6059,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-2"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddDesignCustomize">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupCustomize">Customize</property>
                     <child>
                       <object class="GtkGrid" id="gdDesignCustomize">
                         <property name="visible">True</property>
@@ -5872,14 +6185,17 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
@@ -5953,9 +6269,9 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
-                    <property name="position">1</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
               </object>
@@ -5980,9 +6296,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbTransitions">
+                  <object class="sfxlo-DropdownBox" id="ddTransitionsTransitiontoThisSlide">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupTransitiontoThisSlide">Transition to This Slide</property>
                     <child>
                       <object class="GtkGrid" id="gdTransitionsTransitiontoThisSlide">
                         <property name="visible">True</property>
@@ -6066,9 +6383,12 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -6095,9 +6415,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbAnimations">
+                  <object class="sfxlo-DropdownBox" id="ddAnimationsAnimation">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupAnimation">Animation</property>
                     <child>
                       <object class="GtkGrid" id="gdAnimationsAnimation">
                         <property name="visible">True</property>
@@ -6205,9 +6526,12 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -6234,9 +6558,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbSlideShow2">
+                  <object class="sfxlo-DropdownBox" id="ddSlideShowStartSlideShow">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupStartSlideShow">Start Slide Show</property>
                     <child>
                       <object class="GtkGrid" id="gdSlideShowStartSlideShow">
                         <property name="visible">True</property>
@@ -6376,6 +6701,21 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-2"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddSlideShowSetUp">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupSetUp">Set Up</property>
                     <child>
                       <object class="GtkGrid" id="gdSlideShowSetUp">
                         <property name="visible">True</property>
@@ -6532,14 +6872,17 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -6612,9 +6955,9 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -6639,9 +6982,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbReview2">
+                  <object class="sfxlo-DropdownBox" id="ddReviewProofing">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupProofing">Proofing</property>
                     <child>
                       <object class="GtkGrid" id="gdReviewProofing">
                         <property name="visible">True</property>
@@ -6749,6 +7093,21 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-2"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddReviewComments">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupComments">Comments</property>
                     <child>
                       <object class="GtkGrid" id="gdReviewComments2">
                         <property name="visible">True</property>
@@ -6949,14 +7308,17 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -7028,9 +7390,9 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -7055,9 +7417,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbView2">
+                  <object class="sfxlo-DropdownBox" id="ddViewPresentationViews">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupPresentationViews">Presentation Views</property>
                     <child>
                       <object class="GtkGrid" id="gdViewPresentationViews">
                         <property name="visible">True</property>
@@ -7225,6 +7588,21 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-7"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddViewMasterViews">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupMasterViews">Master Views</property>
                     <child>
                       <object class="GtkGrid" id="gdViewMasterViews">
                         <property name="visible">True</property>
@@ -7361,9 +7739,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-6"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddViewShow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupShow">Show</property>
                     <child>
                       <object class="GtkGrid" id="gdViewShow">
                         <property name="visible">True</property>
@@ -7512,9 +7905,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-5"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddViewZoom">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupZoom">Zoom</property>
                     <child>
                       <object class="GtkGrid" id="gdViewZoom2">
                         <property name="visible">True</property>
@@ -7623,9 +8031,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-4"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddViewColorGrayscale">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupColorGrayscale">Color/Grayscale</property>
                     <child>
                       <object class="GtkGrid" id="gdViewColorGrayscale">
                         <property name="visible">True</property>
@@ -7750,9 +8173,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">4</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-3"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddViewWindow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupWindow">Window</property>
                     <child>
                       <object class="GtkGrid" id="gdViewWindow">
                         <property name="visible">True</property>
@@ -7833,9 +8271,24 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">5</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-2"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="sfxlo-DropdownBox" id="ddViewMacros">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupMacros">Macros</property>
                     <child>
                       <object class="GtkGrid" id="gdViewMacros">
                         <property name="visible">True</property>
@@ -7916,14 +8369,17 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">6</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
                 <child>
@@ -7997,9 +8453,9 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
-                    <property name="position">1</property>
+                    <property name="position">7</property>
                   </packing>
                 </child>
               </object>
@@ -8024,9 +8480,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbHelp">
+                  <object class="sfxlo-DropdownBox" id="ddHelpHelp">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupHelp">Help</property>
                     <child>
                       <object class="GtkGrid" id="gdHelpHelp">
                         <property name="visible">True</property>
@@ -8138,9 +8595,12 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -14907,9 +15367,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbTools2">
+                  <object class="sfxlo-DropdownBox" id="ddToolsCode">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes" context="TabbedImpress|groupCode">Code</property>
                     <child>
                       <object class="GtkGrid" id="gdToolsMacro2">
                         <property name="visible">True</property>
@@ -15038,9 +15499,12 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="priority-1"/>
+                    </style>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -15115,7 +15579,7 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
                     <property name="position">1</property>
                   </packing>
