@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of the LibreOffice project.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Hillyard Office: File > New starts from Office's defaults - Word's Normal
+ * template and Excel's blank workbook (extras/Package_officedefaults.mk).
+-->
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Setup" oor:package="org.openoffice">
+  <node oor:name="Office">
+    <node oor:name="Factories">
+      <node oor:name="com.sun.star.text.TextDocument">
+        <prop oor:name="ooSetupFactoryTemplateFile">
+          <value>$(inst)/share/officedefaults/Normal.dotx</value>
+        </prop>
+      </node>
+      <node oor:name="com.sun.star.sheet.SpreadsheetDocument">
+        <prop oor:name="ooSetupFactoryTemplateFile">
+          <value>$(inst)/share/officedefaults/Book.xltx</value>
+        </prop>
+      </node>
+    </node>
+  </node>
+</oor:component-data>

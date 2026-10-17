@@ -35,6 +35,8 @@ $(eval $(call gb_Module_add_targets,extras,\
 	Package_labels \
 	$(if $(filter WNT,$(OS)),Package_newfiles) \
 	$(if $(DISABLE_PYTHON),,Package_office_parity) \
+	Package_officedefaults \
+	Package_officedefaults_ext \
 	Package_palettes \
 	Package_tplpresnt \
 	Package_tplwizdesktop \

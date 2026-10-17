@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest:manifest xmlns:manifest="http://openoffice.org/2001/manifest">
+  <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Setup.xcu"/>
+  <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Accelerators.xcu"/>
+  <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Writer.xcu"/>
+  <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Common.xcu"/>
+  <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Impress.xcu"/>
+</manifest:manifest>
