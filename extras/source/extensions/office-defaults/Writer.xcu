@@ -11,6 +11,23 @@
 <oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Writer" oor:package="org.openoffice.Office">
   <!-- No word completion while typing. -->
   <node oor:name="AutoFunction">
+    <!-- AutoFormat as you type, as Word's defaults: "* ", "- ", "1. " start
+         a list; three hyphens + Enter draw a border line. -->
+    <node oor:name="Format">
+      <node oor:name="ByInput">
+        <prop oor:name="ApplyBulletsAfterSpace">
+          <value>true</value>
+        </prop>
+        <prop oor:name="ChangeToBorders">
+          <value>true</value>
+        </prop>
+        <node oor:name="ApplyNumbering">
+          <prop oor:name="Enable">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+    </node>
     <node oor:name="Completion">
       <prop oor:name="Enable">
         <value>false</value>

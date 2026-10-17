@@ -6,6 +6,27 @@
   <block-list:block block-list:abbreviated-name=".*(C)" block-list:name="©"/>
   <block-list:block block-list:abbreviated-name=".*(R)" block-list:name="®"/>
   <block-list:block block-list:abbreviated-name=".*(tm)" block-list:name="™"/>
+  <!-- Hillyard Office: Word's AutoCorrect entries (lower-case symbols,
+       smileys, double arrows) and its capitalised names of days. -->
+  <block-list:block block-list:abbreviated-name=".*(c)" block-list:name="©"/>
+  <block-list:block block-list:abbreviated-name=".*(r)" block-list:name="®"/>
+  <block-list:block block-list:abbreviated-name=".*(e)" block-list:name="€"/>
+  <block-list:block block-list:abbreviated-name=".*:)" block-list:name="☺"/>
+  <block-list:block block-list:abbreviated-name=".*:-)" block-list:name="☺"/>
+  <block-list:block block-list:abbreviated-name=".*:(" block-list:name="☹"/>
+  <block-list:block block-list:abbreviated-name=".*:-(" block-list:name="☹"/>
+  <block-list:block block-list:abbreviated-name=":|" block-list:name="😐"/>
+  <block-list:block block-list:abbreviated-name=":-|" block-list:name="😐"/>
+  <block-list:block block-list:abbreviated-name="==&gt;" block-list:name="⇒"/>
+  <block-list:block block-list:abbreviated-name="&lt;==" block-list:name="⇐"/>
+  <block-list:block block-list:abbreviated-name="&lt;=&gt;" block-list:name="⇔"/>
+  <block-list:block block-list:abbreviated-name="monday" block-list:name="Monday"/>
+  <block-list:block block-list:abbreviated-name="tuesday" block-list:name="Tuesday"/>
+  <block-list:block block-list:abbreviated-name="wednesday" block-list:name="Wednesday"/>
+  <block-list:block block-list:abbreviated-name="thursday" block-list:name="Thursday"/>
+  <block-list:block block-list:abbreviated-name="friday" block-list:name="Friday"/>
+  <block-list:block block-list:abbreviated-name="saturday" block-list:name="Saturday"/>
+  <block-list:block block-list:abbreviated-name="sunday" block-list:name="Sunday"/>
   <block-list:block block-list:abbreviated-name=".*&lt;-.*" block-list:name="←"/>
   <block-list:block block-list:abbreviated-name="&lt;--" block-list:name="←"/>
   <block-list:block block-list:abbreviated-name="&lt;--&gt;" block-list:name="↔"/>
