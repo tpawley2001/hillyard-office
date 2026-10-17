@@ -163,6 +163,9 @@ public:
 
     void            SetDefaultStyle( const OUString& rDefault ) { sDefaultStyle = rDefault; }
 
+    // false once the box's window is disposed (its widget is gone)
+    bool            IsAlive() const { return bool(m_xWidget); }
+
     OUString get_text(int nIndex) const { return m_xWidget->get_text(nIndex); }
     OUString get_active_text() const { return m_xWidget->get_active_text(); }
 
@@ -370,6 +373,9 @@ protected:
     void            CheckAndMarkUnknownFont();
 
 public:
+    // false once the box's window is disposed (its widget is gone)
+    bool IsAlive() const { return bool(m_xWidget); }
+
     SvxFontNameBox_Base(std::unique_ptr<weld::ComboBox> xWidget, const Reference<XFrame>& rFrame,
                         SvxFontNameToolBoxControl& rCtrl);
     virtual ~SvxFontNameBox_Base()
@@ -3188,7 +3194,9 @@ void SvxStyleToolBoxControl::FillStyleBox()
     DBG_ASSERT( m_pStyleSheetPool, "StyleSheetPool not found!" );
     DBG_ASSERT( pBox,            "Control not found!" );
 
-    if ( !(m_pStyleSheetPool && pBox && m_nActFamily!=0xffff) )
+    // The Tabbed UI can dispose the box's window before this controller
+    // (Windows, a second spreadsheet window): then there is nothing to fill.
+    if ( !(m_pStyleSheetPool && pBox && pBox->IsAlive() && m_nActFamily!=0xffff) )
         return;
 
     const SfxStyleFamily    eFamily     = GetActFamily();
@@ -3266,7 +3274,7 @@ void SvxStyleToolBoxControl::SelectStyle( const OUString& rStyleName )
     SvxStyleBox_Base* pBox = m_pImpl->m_pBox;
     DBG_ASSERT( pBox, "Control not found!" );
 
-    if ( !pBox )
+    if ( !pBox || !pBox->IsAlive() )
         return;
 
     OUString aStrSel(pBox->get_active_text());
@@ -3437,7 +3445,8 @@ void SvxFontNameBox_Base::statusChanged_Impl( const css::frame::FeatureStateEven
 void SvxFontNameToolBoxControl::statusChanged( const css::frame::FeatureStateEvent& rEvent )
 {
     SolarMutexGuard aGuard;
-    m_pBox->statusChanged_Impl(rEvent);
+    if (m_pBox && m_pBox->IsAlive())
+        m_pBox->statusChanged_Impl(rEvent);
 
     if (m_pToolbar)
         m_pToolbar->set_item_sensitive(m_aCommandURL, rEvent.IsEnabled);
