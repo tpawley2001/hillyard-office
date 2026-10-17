@@ -54,7 +54,7 @@ class Tdf138531(UITestCase):
                     self.assertEqual(1, len(xLinks.getChildren()))
 
                     xFileName = xDialog.getChild("FULL_FILE_NAME")
-                    self.assertEqual("Untitled 1", get_state_as_dict(xFileName)["Text"])
+                    self.assertEqual("Book1", get_state_as_dict(xFileName)["Text"])
 
                     xUpdate = xDialog.getChild("UPDATE_NOW")
                     xUpdate.executeAction("CLICK", tuple())

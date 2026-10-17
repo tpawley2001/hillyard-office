@@ -94,7 +94,7 @@ class Test(UITestCase):
 
             # Set a shortcut on the document scope
             with self.ui_test.execute_dialog_through_command(".uno:ConfigureDialog") as xDialog:
-                self.assign_key(xDialog, "Untitled 1", "F9", "Security Options")
+                self.assign_key(xDialog, "Document1", "F9", "Security Options")
 
             # Check that the key made it into the document config
             xDocAccelCfg = xComponent.getUIConfigurationManager().getShortCutManager()
@@ -121,10 +121,10 @@ class Test(UITestCase):
 
             # The current document should be listed first
             select_pos(xScope, "0")
-            self.assertEqual(get_state_as_dict(xScope)["SelectEntryText"], "Untitled 3")
+            self.assertEqual(get_state_as_dict(xScope)["SelectEntryText"], "Document3")
 
             select_pos(xScope, "1")
-            self.assertEqual(get_state_as_dict(xScope)["SelectEntryText"], "Untitled 1")
+            self.assertEqual(get_state_as_dict(xScope)["SelectEntryText"], "Document1")
 
     def test_deleted_doc(self):
         # Create two writer docs then try to assign a key in the first
@@ -132,19 +132,19 @@ class Test(UITestCase):
         with self.ui_test.create_doc_in_start_center("writer") as xDoc1, \
              self.ui_test.load_empty_file("writer"), \
              self.ui_test.execute_dialog_through_command(".uno:ConfigureDialog") as xDialog:
-            self.assign_key(xDialog, "Untitled 1", "F7", "Credits Online")
+            self.assign_key(xDialog, "Document1", "F7", "Credits Online")
             xFrame1 = xDoc1.getCurrentController().getFrame()
             self.xUITest.executeCommandForProvider(".uno:CloseDoc", xFrame1)
 
             xAcceleratorPage = xDialog.getChild("AccelConfigPage")
             xScope = xAcceleratorPage.getChild("savein")
-            self.assertEqual(get_state_as_dict(xScope)["SelectEntryText"], "Untitled 2")
+            self.assertEqual(get_state_as_dict(xScope)["SelectEntryText"], "Document2")
 
     def test_reset_doc(self):
         with self.ui_test.create_doc_in_start_center("writer") as xComponent:
             with self.ui_test.execute_dialog_through_command(".uno:ConfigureDialog") as xDialog:
                 # Assign a key
-                self.assign_key(xDialog, "Untitled 1", "F7", "Credits Online")
+                self.assign_key(xDialog, "Document1", "F7", "Credits Online")
                 # … but then press reset before pressing OK
                 xReset = xDialog.getChild("AccelConfigPage").getChild("reset")
                 xReset.executeAction("CLICK", tuple())
@@ -193,14 +193,14 @@ class Test(UITestCase):
                 # Set a shortcut on the module scope
                 self.assign_key(xDialog, "module", "F7", "Credits Online")
                 # Set a shortcut in the first document
-                self.assign_key(xDialog, "Untitled 1", "F7", "Spelling")
+                self.assign_key(xDialog, "Document1", "F7", "Spelling")
                 # Set a shortcut in the second document
-                self.assign_key(xDialog, "Untitled 2", "F7", "Security Options")
+                self.assign_key(xDialog, "Document2", "F7", "Security Options")
 
                 # Switch back to the first document and make sure the binding is still in the list
                 xAcceleratorPage = xDialog.getChild("AccelConfigPage")
                 xScope = xAcceleratorPage.getChild("savein")
-                select_by_text(xScope, "Untitled 1")
+                select_by_text(xScope, "Document1")
                 xShortcuts = xAcceleratorPage.getChild("shortcuts")
                 select_key(xShortcuts, "F7")
                 self.assertEqual(get_state_as_dict(xShortcuts)["SelectEntryText"].split("\t")[1],

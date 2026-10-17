@@ -96,6 +96,11 @@
 #define RID_HELP_ONSTARTUP_TEXT                 NC_("RID_HELP_ONSTARTUP_TEXT", "~Display %PRODUCTNAME %MODULENAME Help at Startup")
 
 #define STR_NONAME                              NC_("STR_NONAME", "Untitled")
+// Hillyard Office: what Office calls a new, unsaved file; the number follows with no space.
+#define STR_NONAME_TEXT                         NC_("STR_NONAME_TEXT", "Document")
+#define STR_NONAME_SPREADSHEET                  NC_("STR_NONAME_SPREADSHEET", "Book")
+#define STR_NONAME_PRESENTATION                 NC_("STR_NONAME_PRESENTATION", "Presentation")
+#define STR_NONAME_DRAWING                      NC_("STR_NONAME_DRAWING", "Drawing")
 #define STR_STANDARD_SHORTCUT                   NC_("STR_STANDARD_SHORTCUT", "Standard")
 #define STR_BYTES                               NC_("STR_BYTES", "Bytes")
 #define STR_KB                                  NC_("STR_KB", "kB")

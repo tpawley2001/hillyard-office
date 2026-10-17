@@ -48,6 +48,11 @@
 #define STR_CORRUPT_UICFG_USER                      NC_("STR_CORRUPT_UICFG_USER", "An error occurred while loading the user interface configuration data. The application will be terminated now.\nPlease try to remove your user profile for the application." )
 #define STR_CORRUPT_UICFG_GENERAL                   NC_("STR_CORRUPT_UICFG_GENERAL", "An error occurred while loading the user interface configuration data. The application will be terminated now.\nPlease try to remove your user profile for the application first or try to reinstall the application." )
 #define STR_UNTITLED_DOCUMENT                       NC_("STR_UNTITLED_DOCUMENT", "Untitled" )
+// Hillyard Office: what Office calls a new, unsaved file; the number follows with no space.
+#define STR_UNTITLED_TEXT                           NC_("STR_UNTITLED_TEXT", "Document" )
+#define STR_UNTITLED_SPREADSHEET                    NC_("STR_UNTITLED_SPREADSHEET", "Book" )
+#define STR_UNTITLED_PRESENTATION                   NC_("STR_UNTITLED_PRESENTATION", "Presentation" )
+#define STR_UNTITLED_DRAWING                        NC_("STR_UNTITLED_DRAWING", "Drawing" )
 // To translators: for displaying 'Multiple Languages' in the language statusbar control
 #define STR_LANGSTATUS_MULTIPLE_LANGUAGES           NC_("STR_LANGSTATUS_MULTIPLE_LANGUAGES", "Multiple Languages" )
 #define STR_LANGSTATUS_NONE                         NC_("STR_LANGSTATUS_NONE", "None (Do not check spelling)" )

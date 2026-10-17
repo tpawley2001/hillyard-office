@@ -794,6 +794,20 @@ OUString SfxObjectShell::GetTitle( sal_uInt16  nMaxLength ) const
         const OUString aNoName(SfxResId(STR_NONAME));
         if (pImpl->bIsNamedVisible)
         {
+            // Hillyard Office: Office's names ("Document1", "Book1"), as the
+            // window title has them (framework's TitleHelper).
+            const OUString aFactory = GetFactory().GetFactoryName();
+            TranslateId aOfficeName;
+            if (aFactory == "swriter")
+                aOfficeName = STR_NONAME_TEXT;
+            else if (aFactory == "scalc")
+                aOfficeName = STR_NONAME_SPREADSHEET;
+            else if (aFactory == "simpress")
+                aOfficeName = STR_NONAME_PRESENTATION;
+            else if (aFactory == "sdraw")
+                aOfficeName = STR_NONAME_DRAWING;
+            if (aOfficeName)
+                return SfxResId(aOfficeName) + OUString::number(pImpl->nVisualDocumentNumber);
             // Append number
             return aNoName + " " + OUString::number(pImpl->nVisualDocumentNumber);
         }

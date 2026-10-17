@@ -312,6 +312,31 @@ static OUString getURLFromModel(const css::uno::Reference< css::frame::XModel3 >
     return {};
 }
 
+// Hillyard Office: a new document is named as Office names it ("Document1",
+// "Book1", "Presentation1"); other modules keep "Untitled 1".
+static OUString lcl_officeUntitledPrefix(const css::uno::Reference<css::uno::XComponentContext>& xContext,
+                                         const css::uno::Reference<css::frame::XModel3>& xModel)
+{
+    OUString sModule;
+    try
+    {
+        sModule = css::frame::ModuleManager::create(xContext)->identify(xModel);
+    }
+    catch (const css::uno::Exception&)
+    {
+        return OUString();
+    }
+    if (sModule == "com.sun.star.text.TextDocument")
+        return FwkResId(STR_UNTITLED_TEXT);
+    if (sModule == "com.sun.star.sheet.SpreadsheetDocument")
+        return FwkResId(STR_UNTITLED_SPREADSHEET);
+    if (sModule == "com.sun.star.presentation.PresentationDocument")
+        return FwkResId(STR_UNTITLED_PRESENTATION);
+    if (sModule == "com.sun.star.drawing.DrawingDocument")
+        return FwkResId(STR_UNTITLED_DRAWING);
+    return OUString();
+}
+
 void TitleHelper::impl_updateTitleForModel (const css::uno::Reference< css::frame::XModel3 >& xModel, bool init)
 {
     css::uno::Reference< css::uno::XInterface >         xOwner;
@@ -370,10 +395,13 @@ void TitleHelper::impl_updateTitleForModel (const css::uno::Reference< css::fram
         if (nLeasedNumber == css::frame::UntitledNumbersConst::INVALID_NUMBER)
             nLeasedNumber = xNumbers->leaseNumber (xOwner);
 
+        OUString sPrefix = lcl_officeUntitledPrefix(m_xContext, xModel);
+        if (sPrefix.isEmpty())
+            sPrefix = xNumbers->getUntitledPrefix();
         if (nLeasedNumber != css::frame::UntitledNumbersConst::INVALID_NUMBER)
-            sTitle = xNumbers->getUntitledPrefix() + OUString::number(nLeasedNumber);
+            sTitle = sPrefix + OUString::number(nLeasedNumber);
         else
-            sTitle = xNumbers->getUntitledPrefix() + "?";
+            sTitle = sPrefix + "?";
     }
 
     bool     bChanged;
