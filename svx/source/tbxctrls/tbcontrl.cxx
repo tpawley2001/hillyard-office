@@ -346,6 +346,9 @@ private:
     FontOptionsListener m_aHistory;
 
 protected:
+    // font option changes must not reach the box once its widget is gone
+    void StopListening() { m_xListener->dispose(); }
+
     SvxFontNameToolBoxControl& m_rCtrl;
 
     std::unique_ptr<FontNameBox>   m_xWidget;
@@ -445,6 +448,7 @@ public:
 
     virtual void dispose() override
     {
+        StopListening();
         m_xWidget.reset();
         InterimItemWindow::dispose();
     }
@@ -1935,6 +1939,9 @@ void SvxFontNameBox_Base::ReleaseFocus_Impl()
 
 void SvxFontNameBox_Base::EnableControls()
 {
+    if (!IsAlive())
+        return;
+
     bool bEnableMRU = m_aHistory.get();
     sal_uInt16 nEntries = bEnableMRU ? MAX_MRU_FONTNAME_ENTRIES : 0;
 
