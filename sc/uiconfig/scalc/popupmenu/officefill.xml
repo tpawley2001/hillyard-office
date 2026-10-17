@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of the LibreOffice project.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+<menu:menupopup xmlns:menu="http://openoffice.org/2001/menu">
+  <menu:menuitem menu:id=".uno:FillDown" menu:label="Down"/>
+  <menu:menuitem menu:id=".uno:FillRight" menu:label="Right"/>
+  <menu:menuitem menu:id=".uno:FillUp" menu:label="Up"/>
+  <menu:menuitem menu:id=".uno:FillLeft" menu:label="Left"/>
+  <menu:menuitem menu:id=".uno:FillTable" menu:label="Across Worksheets..."/>
+  <menu:menuitem menu:id=".uno:FillSeries" menu:label="Series..."/>
+</menu:menupopup>

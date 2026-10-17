@@ -220,6 +220,11 @@ interface CellSelection
     SID_TOGGLE_REL                      [ ExecMethod = ExecuteEdit; StateMethod = GetState; ]
     SID_POPUP_CONDFRMT                  []
     SID_POPUP_EASY_CONDITIONAL_FORMAT   []
+    SID_POPUP_OFFICE_FILL                []
+    SID_POPUP_OFFICE_CLEAR               []
+    SID_POPUP_OFFICE_SORTFILTER          []
+    SID_POPUP_OFFICE_FINDSELECT          []
+    SID_POPUP_OFFICE_CELLSTYLES          []
     SfxVoidItem ConditionalFormatEasy SID_EASY_CONDITIONAL_FORMAT_DIALOG
     (
         SfxInt16Item FormatRule FN_PARAM_1

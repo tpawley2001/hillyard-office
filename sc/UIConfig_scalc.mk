@@ -32,6 +32,15 @@ $(eval $(call gb_UIConfig_add_popupmenufiles,modules/scalc,\
 	sc/uiconfig/scalc/popupmenu/graphic \
 	sc/uiconfig/scalc/popupmenu/media \
 	sc/uiconfig/scalc/popupmenu/notebookbar \
+	sc/uiconfig/scalc/popupmenu/officeautosum \
+	sc/uiconfig/scalc/popupmenu/officecellstyles \
+	sc/uiconfig/scalc/popupmenu/officeclear \
+	sc/uiconfig/scalc/popupmenu/officedelete \
+	sc/uiconfig/scalc/popupmenu/officefill \
+	sc/uiconfig/scalc/popupmenu/officefindselect \
+	sc/uiconfig/scalc/popupmenu/officeformat \
+	sc/uiconfig/scalc/popupmenu/officeinsert \
+	sc/uiconfig/scalc/popupmenu/officesortfilter \
 	sc/uiconfig/scalc/popupmenu/oleobject \
 	sc/uiconfig/scalc/popupmenu/pagebreak \
 	sc/uiconfig/scalc/popupmenu/pivot \

@@ -643,6 +643,12 @@ static_assert(SID_PREVIEW_END < SID_KEYFUNC_START, "calc slots ids trampling inf
 #define SID_INSERT_CALCTABLE        (SID_NEW_SLOTS+120)
 #define SID_REMOVE_CALCTABLE        (SID_NEW_SLOTS+121)
 #define SID_TABLE_STYLES            (SID_NEW_SLOTS+122)
+// Office ribbon drop-down buttons (menus only)
+#define SID_POPUP_OFFICE_FILL        (SID_NEW_SLOTS+123)
+#define SID_POPUP_OFFICE_CLEAR       (SID_NEW_SLOTS+124)
+#define SID_POPUP_OFFICE_SORTFILTER  (SID_NEW_SLOTS+125)
+#define SID_POPUP_OFFICE_FINDSELECT  (SID_NEW_SLOTS+126)
+#define SID_POPUP_OFFICE_CELLSTYLES  (SID_NEW_SLOTS+127)
 
 // idl parameter
 

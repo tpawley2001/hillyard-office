@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of the LibreOffice project.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+<menu:menupopup xmlns:menu="http://openoffice.org/2001/menu">
+  <menu:menuitem menu:id=".uno:SortAscending" menu:label="Sort A to Z"/>
+  <menu:menuitem menu:id=".uno:SortDescending" menu:label="Sort Z to A"/>
+  <menu:menuitem menu:id=".uno:DataSort" menu:label="Custom Sort..."/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:DataFilterAutoFilter" menu:label="Filter"/>
+  <menu:menuitem menu:id=".uno:DataFilterRemoveFilter" menu:label="Clear"/>
+  <menu:menuitem menu:id=".uno:DataFilterSpecialFilter" menu:label="Advanced..."/>
+</menu:menupopup>

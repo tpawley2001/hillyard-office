@@ -333,6 +333,132 @@
           <value>changecase</value>
         </prop>
       </node>
+      <node oor:name="OfficeCalcInsertCells" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeInsertCellsMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officeinsert</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcDeleteCells" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeDeleteCellsMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officedelete</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcFormatCells" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeFormatCellsMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officeformat</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcAutoSum" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeAutoSumMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officeautosum</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcFill" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeFillMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officefill</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcClear" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeClearMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officeclear</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcSortFilter" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeSortFilterMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officesortfilter</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcFindSelect" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeFindSelectMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officefindselect</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcCellStyles" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeCellStylesMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.ResourceMenuController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>officecellstyles</value>
+        </prop>
+      </node>
       <node oor:name="c27" oor:op="replace">
         <prop oor:name="Command">
           <value>.uno:InsertFieldCtrl</value>
@@ -2025,6 +2151,174 @@
         </prop>
         <prop oor:name="Value">
           <value>.uno:TransliterateMenu</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcInsertCellController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:InsertCell</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>.uno:OfficeInsertCellsMenu</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcDeleteCellController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:DeleteCell</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>.uno:OfficeDeleteCellsMenu</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcFormatCellDialogController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:FormatCellDialog</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>.uno:OfficeFormatCellsMenu</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcAutoSumController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:AutoSum</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>.uno:OfficeAutoSumMenu</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcFillController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeFillMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value/>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcClearController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeClearMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value/>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcSortFilterController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeSortFilterMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value/>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcFindSelectController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeFindSelectMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value/>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcCellStylesController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:OfficeCellStylesMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value/>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcPrintAreaController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:DefinePrintArea</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>.uno:PrintRangesMenu</value>
+        </prop>
+      </node>
+      <node oor:name="OfficeCalcStatisticsController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:StatisticsMenu</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.sheet.SpreadsheetDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value/>
+        </prop>
+      </node>
+      <node oor:name="OfficeImpressOpenController" oor:op="replace">
+        <prop oor:name="Command">
+          <value>.uno:Open</value>
+        </prop>
+        <prop oor:name="Module">
+          <value>com.sun.star.presentation.PresentationDocument</value>
+        </prop>
+        <prop oor:name="Controller">
+          <value>com.sun.star.comp.framework.GenericPopupToolbarController</value>
+        </prop>
+        <prop oor:name="Value">
+          <value>.uno:RecentFileList</value>
         </prop>
       </node>
       <node oor:name="OfficeHeaderController" oor:op="replace">

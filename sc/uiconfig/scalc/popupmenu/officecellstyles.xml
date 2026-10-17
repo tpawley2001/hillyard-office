@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of the LibreOffice project.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+<menu:menupopup xmlns:menu="http://openoffice.org/2001/menu">
+  <menu:menuitem menu:id=".uno:DefaultCellStyles" menu:label="Normal"/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:GoodCellStyles" menu:label="Good"/>
+  <menu:menuitem menu:id=".uno:BadCellStyles" menu:label="Bad"/>
+  <menu:menuitem menu:id=".uno:NeutralCellStyles" menu:label="Neutral"/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:ErrorCellStyles" menu:label="Error"/>
+  <menu:menuitem menu:id=".uno:WarningCellStyles" menu:label="Warning Text"/>
+  <menu:menuitem menu:id=".uno:NoteCellStyles" menu:label="Note"/>
+  <menu:menuitem menu:id=".uno:FootnoteCellStyles" menu:label="Footnote"/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:Heading1CellStyles" menu:label="Heading 1"/>
+  <menu:menuitem menu:id=".uno:Heading2CellStyles" menu:label="Heading 2"/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:Accent1CellStyles" menu:label="Accent1"/>
+  <menu:menuitem menu:id=".uno:Accent2CellStyles" menu:label="Accent2"/>
+  <menu:menuitem menu:id=".uno:Accent3CellStyles" menu:label="Accent3"/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:StyleNewByExample" menu:label="New Cell Style..."/>
+  <menu:menuitem menu:id=".uno:DesignerDialog" menu:label="Manage Styles"/>
+</menu:menupopup>

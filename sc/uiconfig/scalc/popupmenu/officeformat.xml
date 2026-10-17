@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of the LibreOffice project.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+<menu:menupopup xmlns:menu="http://openoffice.org/2001/menu">
+  <menu:menuitem menu:id=".uno:RowHeight" menu:label="Row Height..."/>
+  <menu:menuitem menu:id=".uno:SetOptimalRowHeight?aExtraHeight:short=0" menu:label="AutoFit Row Height"/>
+  <menu:menuitem menu:id=".uno:ColumnWidth" menu:label="Column Width..."/>
+  <menu:menuitem menu:id=".uno:SetOptimalColumnWidthDirect" menu:label="AutoFit Column Width"/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:HideRow" menu:label="Hide Rows"/>
+  <menu:menuitem menu:id=".uno:HideColumn" menu:label="Hide Columns"/>
+  <menu:menuitem menu:id=".uno:Hide" menu:label="Hide Sheet"/>
+  <menu:menuitem menu:id=".uno:ShowRow" menu:label="Unhide Rows"/>
+  <menu:menuitem menu:id=".uno:ShowColumn" menu:label="Unhide Columns"/>
+  <menu:menuitem menu:id=".uno:Show" menu:label="Unhide Sheet..."/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:RenameTable" menu:label="Rename Sheet..."/>
+  <menu:menuitem menu:id=".uno:Move" menu:label="Move or Copy Sheet..."/>
+  <menu:menuitem menu:id=".uno:SetTabBgColor" menu:label="Tab Color..."/>
+  <menu:menuseparator/>
+  <menu:menuitem menu:id=".uno:Protect" menu:label="Protect Sheet..."/>
+  <menu:menuitem menu:id=".uno:FormatCellDialog" menu:label="Format Cells..."/>
+</menu:menupopup>
