@@ -2895,8 +2895,14 @@ void SwEditShell::AutoFormat( const SvxSwAutoFormatFlags* pAFlags, bool bCurrent
     else if (bCurrentParagraphOnly)
     {
         pCursor->SetMark();
-        SwAutoFormat aFormat( this, std::move(aAFFlags), &pCursor->GetMark()->GetNode(),
-                                &pCursor->GetPoint()->GetNode() );
+        {
+            SwAutoFormat aFormat( this, std::move(aAFFlags), &pCursor->GetMark()->GetNode(),
+                                    &pCursor->GetPoint()->GetNode() );
+        }
+        // The mark only gave SwAutoFormat its range. Left in place, it turns
+        // the caret into a selection: after "* " became a bullet, the arrow
+        // keys selected text and Enter or typing replaced it.
+        pCursor->DeleteMark();
     }
     else
     {
