@@ -2402,12 +2402,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="sfxlo-PriorityMergedHBox" id="pmhbFile">
+                  <object class="sfxlo-PriorityMergedHBox" id="pmhbFile2">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <!-- n-columns=3 n-rows=3 -->
-                      <object class="GtkGrid" id="gdFileNew">
+                      <object class="GtkGrid" id="gdFileFile2">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="margin-start">6</property>
@@ -2417,28 +2416,7 @@
                         <property name="row-spacing">3</property>
                         <property name="column-spacing">3</property>
                         <child>
-                          <object class="GtkLabel" id="lbFileNew">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="valign">end</property>
-                            <property name="vexpand">True</property>
-                            <property name="label" translatable="yes" context="TabbedWriter|labelFileNew">New</property>
-                            <attributes>
-                              <attribute name="style" value="italic"/>
-                              <attribute name="scale" value="0.9"/>
-                            </attributes>
-                            <accessibility>
-                              <relation type="label-for" target="gdFileNew"/>
-                            </accessibility>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">2</property>
-                            <property name="width">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileAddDirect">
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileFile">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="valign">center</property>
@@ -2447,9 +2425,10 @@
                             <property name="show-arrow">False</property>
                             <property name="icon_size">3</property>
                             <child>
-                              <object class="GtkMenuToolButton" id="btnFileAddDirect">
+                              <object class="GtkMenuToolButton" id="btnFileFileAddDirect">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonNew">New</property>
                                 <property name="action-name">.uno:AddDirect</property>
                               </object>
                               <packing>
@@ -2465,67 +2444,178 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileSearchDialog">
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileFile2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="toolbar-style">both-horiz</property>
+                            <property name="valign">center</property>
+                            <property name="vexpand">True</property>
+                            <property name="toolbar-style">both</property>
                             <property name="show-arrow">False</property>
+                            <property name="icon_size">3</property>
                             <child>
-                              <object class="GtkToolButton" id="btnFileNewDoc">
+                              <object class="GtkMenuToolButton" id="btnFileFileOpenFromWriter">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="action-name">.uno:NewDoc</property>
-                                <property name="use-underline">True</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonOpen">Open</property>
+                                <property name="action-name">.uno:OpenFromWriter</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="homogeneous">False</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
                             <property name="left-attach">1</property>
                             <property name="top-attach">0</property>
+                            <property name="height">2</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileSaveAsTemplate">
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileFile3">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="vexpand">True</property>
+                            <property name="toolbar-style">both</property>
+                            <property name="show-arrow">False</property>
+                            <property name="icon_size">3</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnFileFileSetDocumentProperties">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonInfo">Info</property>
+                                <property name="action-name">.uno:SetDocumentProperties</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">2</property>
+                            <property name="top-attach">0</property>
+                            <property name="height">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileFile4">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="vexpand">True</property>
+                            <property name="toolbar-style">both</property>
+                            <property name="show-arrow">False</property>
+                            <property name="icon_size">3</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnFileFileSave">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonSave">Save</property>
+                                <property name="action-name">.uno:Save</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">3</property>
+                            <property name="top-attach">0</property>
+                            <property name="height">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileFile5">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="vexpand">True</property>
+                            <property name="toolbar-style">both</property>
+                            <property name="show-arrow">False</property>
+                            <property name="icon_size">3</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnFileFileSaveAs">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonSaveAs">Save As</property>
+                                <property name="action-name">.uno:SaveAs</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">4</property>
+                            <property name="top-attach">0</property>
+                            <property name="height">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileFile6">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="toolbar-style">both-horiz</property>
                             <property name="show-arrow">False</property>
                             <child>
-                              <object class="GtkToolButton" id="btnFileSaveAsTemplate">
+                              <object class="GtkToolButton" id="btnFileFileSaveAsTemplate">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonSaveasTemplate">Save as Template</property>
                                 <property name="action-name">.uno:SaveAsTemplate</property>
-                                <property name="use-underline">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="homogeneous">False</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">1</property>
+                            <property name="left-attach">5</property>
+                            <property name="top-attach">0</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSeparator">
+                          <object class="GtkLabel" id="lbFileFile2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="valign">end</property>
+                            <property name="vexpand">True</property>
+                            <property name="label" translatable="yes" context="TabbedWriter|groupFile">File</property>
+                            <attributes>
+                              <attribute name="scale" value="0.9"/>
+                            </attributes>
+                            <accessibility>
+                              <relation type="label-for" target="gdFileFile2"/>
+                            </accessibility>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">2</property>
+                            <property name="width">6</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSeparator" id="sepFileFile">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="halign">end</property>
+                            <property name="margin-top">5</property>
+                            <property name="margin-bottom">5</property>
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">2</property>
+                            <property name="left-attach">6</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
                         </child>
                         <accessibility>
-                          <relation type="labelled-by" target="lbFileNew"/>
+                          <relation type="labelled-by" target="lbFileFile2"/>
                         </accessibility>
                       </object>
                       <packing>
@@ -2535,8 +2625,7 @@
                       </packing>
                     </child>
                     <child>
-                      <!-- n-columns=5 n-rows=3 -->
-                      <object class="GtkGrid" id="gdFileFile">
+                      <object class="GtkGrid" id="gdFilePrint2">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="margin-start">3</property>
@@ -2546,28 +2635,7 @@
                         <property name="row-spacing">3</property>
                         <property name="column-spacing">3</property>
                         <child>
-                          <object class="GtkLabel" id="lbFileFile">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="valign">end</property>
-                            <property name="vexpand">True</property>
-                            <property name="label" translatable="yes" context="TabbedWriter|labelFileFile">File</property>
-                            <attributes>
-                              <attribute name="style" value="italic"/>
-                              <attribute name="scale" value="0.9"/>
-                            </attributes>
-                            <accessibility>
-                              <relation type="label-for" target="gdFileFile"/>
-                            </accessibility>
-                          </object>
-                          <packing>
-                            <property name="left-attach">0</property>
-                            <property name="top-attach">2</property>
-                            <property name="width">4</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileOpen">
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFilePrint2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="valign">center</property>
@@ -2576,15 +2644,15 @@
                             <property name="show-arrow">False</property>
                             <property name="icon_size">3</property>
                             <child>
-                              <object class="GtkToolButton" id="btnFileOpen">
+                              <object class="GtkToolButton" id="btnFilePrintPrint">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="action-name">.uno:Open</property>
-                                <property name="use-underline">True</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonPrint">Print</property>
+                                <property name="action-name">.uno:Print</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="homogeneous">False</property>
                               </packing>
                             </child>
                           </object>
@@ -2595,146 +2663,66 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileSave">
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFilePrint3">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="valign">center</property>
-                            <property name="vexpand">True</property>
-                            <property name="toolbar-style">both</property>
+                            <property name="toolbar-style">both-horiz</property>
                             <property name="show-arrow">False</property>
-                            <property name="icon_size">3</property>
                             <child>
-                              <object class="GtkToolButton" id="btnFileSave">
+                              <object class="GtkToolButton" id="btnFilePrintPrintPreview">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="action-name">.uno:Save</property>
-                                <property name="use-underline">True</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonPrintPreview">Print Preview</property>
+                                <property name="action-name">.uno:PrintPreview</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="homogeneous">False</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
                             <property name="left-attach">1</property>
                             <property name="top-attach">0</property>
-                            <property name="height">2</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileExportTo">
+                          <object class="GtkLabel" id="lbFilePrint2">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="valign">center</property>
-                            <property name="margin-start">3</property>
+                            <property name="valign">end</property>
                             <property name="vexpand">True</property>
-                            <property name="toolbar-style">both</property>
-                            <property name="show-arrow">False</property>
-                            <property name="icon_size">3</property>
-                            <child>
-                              <object class="GtkToolButton" id="btnFileExportTo">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:ExportTo</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
+                            <property name="label" translatable="yes" context="TabbedWriter|groupPrint">Print</property>
+                            <attributes>
+                              <attribute name="scale" value="0.9"/>
+                            </attributes>
+                            <accessibility>
+                              <relation type="label-for" target="gdFilePrint2"/>
+                            </accessibility>
                           </object>
                           <packing>
-                            <property name="left-attach">2</property>
-                            <property name="top-attach">0</property>
-                            <property name="height">2</property>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">2</property>
+                            <property name="width">2</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileExportPDF">
+                          <object class="GtkSeparator" id="sepFilePrint">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="toolbar-style">both-horiz</property>
-                            <property name="show-arrow">False</property>
-                            <child>
-                              <object class="GtkToolButton" id="btnFileExportDirectToPDF">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:ExportDirectToPDF</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkToolButton" id="btnFileExportToPDF">
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:ExportToPDF</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left-attach">3</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileExportEPUB">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="toolbar-style">both-horiz</property>
-                            <property name="show-arrow">False</property>
-                            <child>
-                              <object class="GtkToolButton" id="btnFileExportDirectToEPUB">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:ExportDirectToEPUB</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkToolButton" id="btnFileExportToEPUB">
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:ExportToEPUB</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left-attach">3</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
+                            <property name="halign">end</property>
+                            <property name="margin-top">5</property>
+                            <property name="margin-bottom">5</property>
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">4</property>
+                            <property name="left-attach">2</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
                         </child>
                         <accessibility>
-                          <relation type="labelled-by" target="lbFileFile"/>
+                          <relation type="labelled-by" target="lbFilePrint2"/>
                         </accessibility>
                       </object>
                       <packing>
@@ -2744,8 +2732,7 @@
                       </packing>
                     </child>
                     <child>
-                      <!-- n-columns=3 n-rows=3 -->
-                      <object class="GtkGrid" id="gdFilePrint">
+                      <object class="GtkGrid" id="gdFileShareExport">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="margin-start">3</property>
@@ -2755,7 +2742,7 @@
                         <property name="row-spacing">3</property>
                         <property name="column-spacing">3</property>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFilePrint">
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileShareExport">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="valign">center</property>
@@ -2764,15 +2751,15 @@
                             <property name="show-arrow">False</property>
                             <property name="icon_size">3</property>
                             <child>
-                              <object class="GtkToolButton" id="btFilePrint">
+                              <object class="GtkToolButton" id="btnFileShareExportSendMail">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="action-name">.uno:Print</property>
-                                <property name="use-underline">True</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonShare">Share</property>
+                                <property name="action-name">.uno:SendMail</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="homogeneous">False</property>
                               </packing>
                             </child>
                           </object>
@@ -2783,18 +2770,73 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="lbFilePrint">
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileShareExport2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="vexpand">True</property>
+                            <property name="toolbar-style">both</property>
+                            <property name="show-arrow">False</property>
+                            <property name="icon_size">3</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnFileShareExportExportTo">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonExport">Export</property>
+                                <property name="action-name">.uno:ExportTo</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                            <property name="height">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileShareExport3">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="vexpand">True</property>
+                            <property name="toolbar-style">both</property>
+                            <property name="show-arrow">False</property>
+                            <property name="icon_size">3</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnFileShareExportExportDirectToPDF">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonCreatePDF">Create PDF</property>
+                                <property name="action-name">.uno:ExportDirectToPDF</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">2</property>
+                            <property name="top-attach">0</property>
+                            <property name="height">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="lbFileShareExport">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="valign">end</property>
                             <property name="vexpand">True</property>
-                            <property name="label" translatable="yes" context="TabbedWriter|labelFilePrint">Print</property>
+                            <property name="label" translatable="yes" context="TabbedWriter|groupShareExport">Share &amp; Export</property>
                             <attributes>
-                              <attribute name="style" value="italic"/>
                               <attribute name="scale" value="0.9"/>
                             </attributes>
                             <accessibility>
-                              <relation type="label-for" target="gdFilePrint"/>
+                              <relation type="label-for" target="gdFileShareExport"/>
                             </accessibility>
                           </object>
                           <packing>
@@ -2804,67 +2846,22 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFilePrintDefault">
+                          <object class="GtkSeparator" id="sepFileShareExport">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="toolbar-style">both-horiz</property>
-                            <property name="show-arrow">False</property>
-                            <child>
-                              <object class="GtkToolButton" id="btnFilePrintDefault">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:PrintDefault</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFilePrintPreview">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="toolbar-style">both-horiz</property>
-                            <property name="show-arrow">False</property>
-                            <child>
-                              <object class="GtkToolButton" id="btnFilePrintPreview">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:PrintPreview</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
+                            <property name="halign">end</property>
+                            <property name="margin-top">5</property>
+                            <property name="margin-bottom">5</property>
                             <property name="orientation">vertical</property>
                           </object>
                           <packing>
-                            <property name="left-attach">2</property>
+                            <property name="left-attach">3</property>
                             <property name="top-attach">0</property>
                             <property name="height">3</property>
                           </packing>
                         </child>
                         <accessibility>
-                          <relation type="labelled-by" target="lbFilePrint"/>
+                          <relation type="labelled-by" target="lbFileShareExport"/>
                         </accessibility>
                       </object>
                       <packing>
@@ -2874,18 +2871,120 @@
                       </packing>
                     </child>
                     <child>
-                      <!-- n-columns=3 n-rows=3 -->
-                      <object class="GtkGrid" id="gdFileProperties">
+                      <object class="GtkGrid" id="gdFileProtect">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="margin-start">3</property>
-                        <property name="margin-end">6</property>
+                        <property name="margin-end">3</property>
                         <property name="margin-top">6</property>
                         <property name="margin-bottom">6</property>
                         <property name="row-spacing">3</property>
                         <property name="column-spacing">3</property>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileSetDocumentProperties">
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileProtect">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnFileProtectSignature">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonDigitalSignatures">Digital Signatures</property>
+                                <property name="action-name">.uno:Signature</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileProtect2">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="toolbar-style">both-horiz</property>
+                            <property name="show-arrow">False</property>
+                            <child>
+                              <object class="GtkToolButton" id="btnFileProtectSignPDF">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonSignPDF">Sign PDF</property>
+                                <property name="action-name">.uno:SignPDF</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="homogeneous">False</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="lbFileProtect">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="valign">end</property>
+                            <property name="vexpand">True</property>
+                            <property name="label" translatable="yes" context="TabbedWriter|groupProtect">Protect</property>
+                            <attributes>
+                              <attribute name="scale" value="0.9"/>
+                            </attributes>
+                            <accessibility>
+                              <relation type="label-for" target="gdFileProtect"/>
+                            </accessibility>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">2</property>
+                            <property name="width">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSeparator" id="sepFileProtect">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="halign">end</property>
+                            <property name="margin-top">5</property>
+                            <property name="margin-bottom">5</property>
+                            <property name="orientation">vertical</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                            <property name="height">3</property>
+                          </packing>
+                        </child>
+                        <accessibility>
+                          <relation type="labelled-by" target="lbFileProtect"/>
+                        </accessibility>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkGrid" id="gdFileClose">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="margin-start">3</property>
+                        <property name="margin-end">3</property>
+                        <property name="margin-top">6</property>
+                        <property name="margin-bottom">6</property>
+                        <property name="row-spacing">3</property>
+                        <property name="column-spacing">3</property>
+                        <child>
+                          <object class="sfxlo-NotebookbarToolBox" id="bxFileClose">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="valign">center</property>
@@ -2894,15 +2993,15 @@
                             <property name="show-arrow">False</property>
                             <property name="icon_size">3</property>
                             <child>
-                              <object class="GtkToolButton" id="btnFileSetDocumentProperties">
+                              <object class="GtkToolButton" id="btnFileCloseCloseDoc">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="action-name">.uno:SetDocumentProperties</property>
-                                <property name="use-underline">True</property>
+                                <property name="label" translatable="yes" context="TabbedWriter|ribbonClose">Close</property>
+                                <property name="action-name">.uno:CloseDoc</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="homogeneous">False</property>
                               </packing>
                             </child>
                           </object>
@@ -2913,94 +3012,48 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileSignature">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="toolbar-style">both-horiz</property>
-                            <property name="show-arrow">False</property>
-                            <child>
-                              <object class="GtkToolButton" id="btnFileSignature">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:Signature</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="sfxlo-NotebookbarToolBox" id="bxFileSignPDF">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="toolbar-style">both-horiz</property>
-                            <property name="show-arrow">False</property>
-                            <child>
-                              <object class="GtkToolButton" id="btnFileSignPDF">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="action-name">.uno:SignPDF</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left-attach">1</property>
-                            <property name="top-attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="orientation">vertical</property>
-                          </object>
-                          <packing>
-                            <property name="left-attach">2</property>
-                            <property name="top-attach">0</property>
-                            <property name="height">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="lbFileProperties">
+                          <object class="GtkLabel" id="lbFileClose">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="valign">end</property>
                             <property name="vexpand">True</property>
-                            <property name="label" translatable="yes" context="TabbedWriter|labelFileProperties">Properties</property>
+                            <property name="label" translatable="yes" context="TabbedWriter|groupClose">Close</property>
                             <attributes>
-                              <attribute name="style" value="italic"/>
                               <attribute name="scale" value="0.9"/>
                             </attributes>
                             <accessibility>
-                              <relation type="label-for" target="gdFileProperties"/>
+                              <relation type="label-for" target="gdFileClose"/>
                             </accessibility>
                           </object>
                           <packing>
                             <property name="left-attach">0</property>
                             <property name="top-attach">2</property>
-                            <property name="width">3</property>
+                            <property name="width">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSeparator" id="sepFileClose">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="halign">end</property>
+                            <property name="margin-top">5</property>
+                            <property name="margin-bottom">5</property>
+                            <property name="orientation">vertical</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                            <property name="height">3</property>
                           </packing>
                         </child>
                         <accessibility>
-                          <relation type="labelled-by" target="lbFileProperties"/>
+                          <relation type="labelled-by" target="lbFileClose"/>
                         </accessibility>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                     <child>
@@ -3083,7 +3136,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">4</property>
+                        <property name="position">5</property>
                       </packing>
                     </child>
                   </object>
@@ -3166,7 +3219,7 @@
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="FileLabel">
+              <object class="GtkLabel" id="FileLabel2">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes" context="TabbedWriter|FileTabLabel">~File</property>
