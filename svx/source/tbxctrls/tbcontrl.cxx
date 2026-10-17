@@ -3696,12 +3696,27 @@ void SvxColorToolBoxControl::statusChanged( const css::frame::FeatureStateEvent&
             pToolBox->EnableItem( nId, rEvent.IsEnabled );
     }
 
+    // initialize() makes the button updater only if the item is already on
+    // its toolbox; a toolbar built later (the Tabbed UI's) gets here without
+    // one, which crashed opening a second spreadsheet window on Windows.
+    if (!m_xBtnUpdater && pToolBox)
+    {
+        auto aProperties = vcl::CommandInfoProvider::GetCommandProperties(getCommandURL(), getModuleName());
+        m_xBtnUpdater.reset(new svx::VclToolboxButtonColorUpdater(
+            m_nSlotId, nId, pToolBox, !m_bSplitButton,
+            vcl::CommandInfoProvider::GetLabelForCommand(aProperties), m_aCommandURL, m_xFrame));
+        pToolBox->SetItemBits(nId, pToolBox->GetItemBits(nId) | (m_bSplitButton ? ToolBoxItemBits::DROPDOWN : ToolBoxItemBits::DROPDOWNONLY));
+        if (m_xPaletteManager)
+            m_xPaletteManager->SetBtnUpdater(m_xBtnUpdater.get());
+    }
+
     bool bValue;
     if ( !m_bSplitButton )
     {
         SolarMutexGuard aSolarMutexGuard;
         m_aColorStatus.statusChanged( rEvent );
-        m_xBtnUpdater->Update( m_aColorStatus.GetColor() );
+        if (m_xBtnUpdater)
+            m_xBtnUpdater->Update( m_aColorStatus.GetColor() );
     }
     else if ( rEvent.State >>= bValue )
     {
@@ -3728,6 +3743,9 @@ void SvxColorToolBoxControl::execute(sal_Int16 /*nSelectModifier*/)
         }
         return;
     }
+
+    if (!m_xBtnUpdater)
+        return;
 
     OUString aCommand = m_aCommandURL;
     Color aColor = m_xBtnUpdater->GetCurrentColor();
@@ -3759,7 +3777,8 @@ sal_Bool SvxColorToolBoxControl::opensSubToolbar()
 
 void SvxColorToolBoxControl::updateImage()
 {
-    m_xBtnUpdater->Update(m_xBtnUpdater->GetCurrentColor(), true);
+    if (m_xBtnUpdater)
+        m_xBtnUpdater->Update(m_xBtnUpdater->GetCurrentColor(), true);
 }
 
 OUString SvxColorToolBoxControl::getSubToolbarName()
