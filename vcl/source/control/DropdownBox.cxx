@@ -60,8 +60,16 @@ void DropdownBox::HideContent()
         for (int i = 0; i < GetChildCount(); i++)
             GetChild(i)->Hide();
 
+        if (!m_aGroupName.isEmpty())
+        {
+            m_pButton->SetText(m_aGroupName);
+            m_pButton->SetSymbol(SymbolType::SPIN_DOWN);
+            m_pButton->SetSymbolAlign(SymbolAlign::RIGHT);
+            m_pButton->set_width_request(-1);
+            m_pButton->set_width_request(m_pButton->get_preferred_size().Width() + 8);
+        }
         m_pButton->Show();
-        SetOutputSizePixel(Size(m_pButton->GetSizePixel().Width(), GetSizePixel().Height()));
+        SetOutputSizePixel(Size(m_pButton->get_preferred_size().Width(), GetSizePixel().Height()));
     }
 }
 
@@ -76,6 +84,17 @@ void DropdownBox::ShowContent()
 
         m_pButton->Hide();
     }
+}
+
+bool DropdownBox::set_property(const OUString& rKey, const OUString& rValue)
+{
+    if (rKey == "tooltip-text")
+    {
+        m_aGroupName = rValue;
+        m_pButton->SetQuickHelpText(rValue);
+        return true;
+    }
+    return VclHBox::set_property(rKey, rValue);
 }
 
 IMPL_LINK(DropdownBox, PBClickHdl, Button*, /*pButton*/, void)

@@ -29,6 +29,7 @@ class DropdownBox final : public VclHBox, public vcl::IPrioritable
 {
 private:
     bool m_bInFullView;
+    OUString m_aGroupName;
     VclPtr<PushButton> m_pButton;
     VclPtr<NotebookbarPopup> m_pPopup;
 
@@ -39,6 +40,10 @@ public:
 
     void HideContent() override;
     void ShowContent() override;
+
+    /// "tooltip-text" names the group: a collapsed group is a button with
+    /// this name and an arrow, as in Office's ribbon.
+    virtual bool set_property(const OUString& rKey, const OUString& rValue) override;
 
 private:
     DECL_LINK(PBClickHdl, Button*, void);
