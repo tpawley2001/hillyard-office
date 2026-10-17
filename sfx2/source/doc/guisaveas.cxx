@@ -53,6 +53,10 @@
 #include <com/sun/star/frame/XTitle.hpp>
 #include <com/sun/star/util/XModifiable.hpp>
 #include <com/sun/star/lang/XMultiServiceFactory.hpp>
+#include <com/sun/star/lang/XServiceInfo.hpp>
+#include <com/sun/star/container/XEnumerationAccess.hpp>
+#include <com/sun/star/text/XTextDocument.hpp>
+#include <com/sun/star/text/XTextRange.hpp>
 
 #include <com/sun/star/util/XCloneable.hpp>
 
@@ -1350,6 +1354,66 @@ OUString ModelData_Impl::GetRecommendedExtension( const OUString& aTypeName )
     return OUString();
 }
 
+/// Word's suggestion for an unsaved document: its Title property, or else the
+/// opening words of its first paragraph, up to the end of the first sentence.
+static OUString lcl_GetFirstLineName(const uno::Reference<frame::XModel>& xModel)
+{
+    try
+    {
+        uno::Reference<document::XDocumentPropertiesSupplier> xPropsSupplier(xModel, uno::UNO_QUERY);
+        if (xPropsSupplier.is())
+        {
+            OUString aTitle = xPropsSupplier->getDocumentProperties()->getTitle().trim();
+            if (!aTitle.isEmpty())
+                return aTitle;
+        }
+
+        uno::Reference<text::XTextDocument> xTextDoc(xModel, uno::UNO_QUERY);
+        if (!xTextDoc.is())
+            return OUString();
+        uno::Reference<container::XEnumerationAccess> xParas(xTextDoc->getText(), uno::UNO_QUERY_THROW);
+        uno::Reference<container::XEnumeration> xEnum = xParas->createEnumeration();
+        // a few paragraphs are enough; a long empty opening is not worth a scan
+        for (int i = 0; i < 20 && xEnum->hasMoreElements(); ++i)
+        {
+            uno::Reference<lang::XServiceInfo> xInfo(xEnum->nextElement(), uno::UNO_QUERY);
+            if (!xInfo.is() || !xInfo->supportsService(u"com.sun.star.text.Paragraph"_ustr))
+                continue;
+            uno::Reference<text::XTextRange> xRange(xInfo, uno::UNO_QUERY_THROW);
+            const OUString aText = xRange->getString();
+            OUStringBuffer aName;
+            bool bSpace = false;
+            for (sal_Int32 n = 0; n < aText.getLength(); ++n)
+            {
+                const sal_Unicode c = aText[n];
+                if (c == '.' || c == '!' || c == '?' || c == '\n' || c == '\r')
+                    break;
+                if (c < 0x20 || OUString(u"\\/:*\"<>|"_ustr).indexOf(c) >= 0 || c == ' ' || c == 0xa0)
+                {
+                    bSpace = !aName.isEmpty();
+                    continue;
+                }
+                if (bSpace)
+                    aName.append(' ');
+                bSpace = false;
+                aName.append(c);
+            }
+            // keep it a usable length, cut at a word
+            if (aName.getLength() > 60)
+            {
+                sal_Int32 nCut = OUString(aName).lastIndexOf(' ', 60);
+                aName.setLength(nCut > 20 ? nCut : 60);
+            }
+            if (!aName.isEmpty())
+                return aName.makeStringAndClear();
+        }
+    }
+    catch (const uno::Exception&)
+    {
+    }
+    return OUString();
+}
+
 OUString ModelData_Impl::GetRecommendedName( const OUString& aSuggestedName, const OUString& aTypeName )
 {
     // the last used name might be provided by aSuggestedName from the old selection, or from the MediaDescriptor
@@ -1358,6 +1422,8 @@ OUString ModelData_Impl::GetRecommendedName( const OUString& aSuggestedName, con
 
     OUString aRecommendedName{ INetURLObject(GetStorable()->getLocation())
                                    .GetLastName(INetURLObject::DecodeMechanism::WithCharset) };
+    if ( aRecommendedName.isEmpty() )
+        aRecommendedName = lcl_GetFirstLineName( GetModel() );
     if ( aRecommendedName.isEmpty() )
     {
         try {
