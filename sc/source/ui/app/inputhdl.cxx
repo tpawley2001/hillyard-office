@@ -4640,7 +4640,11 @@ IMPL_LINK_NOARG( ScInputHandler, DelayTimer, Timer*, void )
         bInOwnChange = true; // disable ModifyHdl (reset below)
 
         pActiveViewSh = nullptr;
-        mpEditEngine->SetTextCurrentDefaults( OUString() );
+        // The edit engine is created on first input; a view that closes, or a
+        // new one still loading, can fire this timer before that (crashed on
+        // Windows when a second spreadsheet window opened).
+        if (mpEditEngine)
+            mpEditEngine->SetTextCurrentDefaults( OUString() );
         if ( pInputWin )
         {
             pInputWin->SetPosString( OUString() );
