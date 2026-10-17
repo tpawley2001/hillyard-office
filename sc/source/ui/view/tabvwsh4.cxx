@@ -1323,7 +1323,8 @@ bool ScTabViewShell::TabKeyInput(const KeyEvent& rKEvt)
             switch ( nCode )
             {
                 case KEY_RETURN:
-                    bIsType = bControl && !bAlt;        // Control, Shift-Control-Return
+                    // Control, Shift-Control-Return; Alt-Return is Excel's new line
+                    bIsType = (bControl && !bAlt) || (bAlt && !bControl && !bShift);
                     if ( !bIsType && nModi == 0 )
                     {
                         // Does the Input Handler also want a simple Return?

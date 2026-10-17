@@ -3988,9 +3988,10 @@ bool ScInputHandler::KeyInput( const KeyEvent& rKEvt, bool bStartEdit /* = false
     switch ( nCode )
     {
         case KEY_RETURN:
-            // New line when in the input line and Shift/Ctrl-Enter is pressed,
-            // or when in a cell and Ctrl-Enter is pressed.
-            if ((pInputWin && bInputLine && bControl != bShift) || (!bInputLine && bControl && !bShift))
+            // Hillyard Office: Excel's keys. Alt-Enter starts a new line, in a
+            // cell or in the input line; Ctrl-Enter enters into every selected
+            // cell and keeps the cursor where it is.
+            if (bAlt && !bControl && !bShift && (pInputWin || !bInputLine))
             {
                 bDoEnter = true;
             }
@@ -4009,11 +4010,11 @@ bool ScInputHandler::KeyInput( const KeyEvent& rKEvt, bool bStartEdit /* = false
                 ScEnterMode nMode = ScEnterMode::NORMAL;
                 if ( bShift && bControl )
                     nMode = ScEnterMode::MATRIX;
-                else if ( bAlt )
+                else if ( bControl )
                     nMode = ScEnterMode::BLOCK;
                 EnterHandler( nMode );
 
-                if (pActiveViewSh)
+                if (pActiveViewSh && nMode != ScEnterMode::BLOCK)
                     pActiveViewSh->MoveCursorEnter( bShift && !bControl );
 
                 ScModule* pScMod = ScModule::get();
