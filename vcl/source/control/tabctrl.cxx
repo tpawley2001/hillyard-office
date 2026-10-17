@@ -2209,8 +2209,12 @@ void NotebookbarTabControlBase::SetContext( vcl::EnumContext::Context eContext )
 
         SetPageVisible(nPageId, pPage->HasContext(eContext) || pPage->HasContext(vcl::EnumContext::Context::Any));
 
+        // As in Office, entering a table or selecting a picture shows its tab
+        // but stays on the current one; only print preview takes over.
         if (eContext != vcl::EnumContext::Context::Any
-            && (!bHandled || !pPage->HasContext(vcl::EnumContext::Context::Any))
+            && (!bHandled
+                || (!pPage->HasContext(vcl::EnumContext::Context::Any)
+                    && eContext == vcl::EnumContext::Context::Printpreview))
             && pPage->HasContext(eContext))
         {
             SetCurPageId(nPageId);

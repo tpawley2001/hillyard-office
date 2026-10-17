@@ -1681,6 +1681,11 @@ VclPtr<vcl::Window> VclBuilder::makeObject(vcl::Window *pParent, const OUString 
             {
                 pToolBox->InsertItem(aCommand, m_xFrame, nBits, extractSizeRequest(rMap));
                 nItemId = pToolBox->GetItemId(aCommand);
+                // A label in the .ui file replaces the command's own label, so a
+                // ribbon button can say "Margins" where a menu says "Page Margins".
+                OUString sLabel(extractLabel(rMap));
+                if (!sLabel.isEmpty())
+                    pToolBox->SetItemText(nItemId, BuilderUtils::convertMnemonicMarkup(sLabel));
             }
             else
             {
