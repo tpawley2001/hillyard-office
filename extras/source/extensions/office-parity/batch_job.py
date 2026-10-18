@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 r"""Batch replacement job for Writer and Calc.
 
 A menu invocation passes no arguments and opens the rules dialog for the

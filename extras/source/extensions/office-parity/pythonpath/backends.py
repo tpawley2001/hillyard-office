@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 """Application backends for the batch replacement command.
 
 Writer and Calc expose the same user-facing capability over different document

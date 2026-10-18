@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 """Interactive rules dialog for the batch replacement engine.
 
 Preview is mandatory: applying always uses a plan built against the document's

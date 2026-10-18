@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 """Literal batch replacement through Writer's document model.
 
 Preview freezes the original matches. Application runs from the end of each

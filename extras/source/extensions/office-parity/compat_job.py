@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 r"""Office compatibility check: a menu command and an after-save check.
 
 CompatCheckJob is the menu command (Office Parity > Check Office

@@ -1,10 +1,9 @@
 # -*- Mode: makefile-gmake; tab-width: 4; indent-tabs-mode: t -*-
 #
-# This file is part of the LibreOffice project.
+# This file is part of Hillyard Office.
 #
-# This Source Code Form is subject to the terms of the Mozilla Public
-# License, v. 2.0. If a copy of the MPL was not distributed with this
-# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+# Copyright (c) 2026 Hillyard Tech
+# SPDX-License-Identifier: MIT
 #
 # Hillyard Office's Office Parity extension (Batch Replace, Office
 # compatibility check), shipped as a bundled extension. The tracked copy is

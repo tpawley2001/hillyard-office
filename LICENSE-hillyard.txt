@@ -1,0 +1,39 @@
+Hillyard Office licensing
+=========================
+
+Hillyard Office is LibreOffice 26.8 with changes by Hillyard Tech.
+
+* Files from LibreOffice, including the ones Hillyard Tech changed, keep their
+  upstream licences (mostly MPL-2.0; see COPYING, COPYING.MPL, COPYING.LGPL).
+* Files Hillyard Tech wrote outright say "SPDX-License-Identifier: MIT" in
+  their header and are under the MIT licence below. This covers the bundled
+  Office Parity and Office Defaults extensions
+  (extras/source/extensions/office-parity, office-defaults), the Backstage
+  (sfx2/source/notebookbar/Backstage.cxx and friends, sfx2/uiconfig/ui/
+  backstage.ui), sc/source/core/inc/lambdatoken.hxx, the office*.xml and
+  changecase.xml popup menus, the extras/Package_*hillyard*/office* makefiles
+  and codes_hillyard.txt.
+* The Hillyard fonts in extras/source/truetype/hillyard are derived from
+  other fonts and keep those licences (LICENSE-*.txt beside them).
+
+MIT License
+
+Copyright (c) 2026 Hillyard Tech
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

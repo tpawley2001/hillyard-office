@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 """Rule input and reporting for the batch replacement engine.
 
 This module imports no UNO modules, so its parsing and formatting can be

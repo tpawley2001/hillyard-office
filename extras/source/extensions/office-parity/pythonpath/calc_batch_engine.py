@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 """Checked batch replacement for Calc, through the spreadsheet document model.
 
 Rules mirror the options Excel's Find and Replace offers: "Match case" and

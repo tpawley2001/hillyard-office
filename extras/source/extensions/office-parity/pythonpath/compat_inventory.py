@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 """What a document contains, so a saved copy can be checked for losses.
 
 inventory(document) walks a loaded Writer, Calc or Impress document through

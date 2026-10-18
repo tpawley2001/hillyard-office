@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hillyard Tech
 """Run the compatibility check on an open document.
 
 check(ctx, document) saves a temporary copy in the Office format the document

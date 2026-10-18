@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- SPDX-License-Identifier: MPL-2.0
+<!-- SPDX-License-Identifier: MIT
      Check every save in a Microsoft format for losses (compat_job.SaveCheckJob). -->
 <oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Jobs" oor:package="org.openoffice.Office">
   <node oor:name="Jobs">
