@@ -4454,8 +4454,9 @@ sal_Int32 ScTableSheetsObj::importSheet(
         throw lang::IndexOutOfBoundsException();
 
     // Transfer Tab
-    pDocShell->TransferTab(
-        *pDocShellSrc, nIndexSrc, nIndexDest, true/*bInsertNew*/, true/*bNotifyAndPaint*/ );
+    if (pDocShell->TransferTab(
+        *pDocShellSrc, nIndexSrc, nIndexDest, true/*bInsertNew*/, true/*bNotifyAndPaint*/ ))
+        rDocDest.TransferPivotTables(pDocShellSrc->GetDocument(), { { nIndexSrc, nIndexDest } });
 
     return nIndexDest;
 }

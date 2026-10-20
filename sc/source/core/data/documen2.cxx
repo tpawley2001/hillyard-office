@@ -100,6 +100,9 @@
 #include <docpool.hxx>
 #include <config_features.h>
 #include <tablestyle.hxx>
+#include <dpshttab.hxx>
+#include <o3tl/string_view.hxx>
+#include <algorithm>
 
 using namespace com::sun::star;
 
@@ -984,6 +987,110 @@ bool ScDocument::CopyTab( SCTAB nOldPos, SCTAB nNewPos, const ScMarkData* pOnlyM
     }
 
     return bValid;
+}
+
+void ScDocument::TransferPivotTables(const ScDocument& rSrcDoc,
+                                     const std::vector<std::pair<SCTAB, SCTAB>>& rTabs)
+{
+    const ScDPCollection* pSrcDPs = rSrcDoc.GetDPCollection();
+    if (!pSrcDPs || !pSrcDPs->GetCount() || &rSrcDoc == this)
+        return;
+
+    auto lcl_DestTab = [&rTabs](SCTAB nSrcTab) -> SCTAB {
+        for (const auto& [nSrc, nDest] : rTabs)
+            if (nSrc == nSrcTab)
+                return nDest;
+        return -1;
+    };
+
+    // A sheet copied from rSrcDoc by an earlier, separate transfer: same name
+    // (or the name with "_<n>" added by CreateValidTabName) and identical
+    // cells in rRange. Anything less certain keeps the pivot table as values.
+    auto lcl_EarlierCopy = [this, &rSrcDoc, &rTabs](const ScRange& rRange) -> SCTAB {
+        const SCTAB nSrcTab = rRange.aStart.Tab();
+        OUString aSrcName;
+        if (!rSrcDoc.GetName(nSrcTab, aSrcName))
+            return -1;
+        const SCSIZE nCells = static_cast<SCSIZE>(rRange.aEnd.Col() - rRange.aStart.Col() + 1)
+                              * (rRange.aEnd.Row() - rRange.aStart.Row() + 1);
+        if (nCells > 100000)
+            return -1;
+        SCTAB nFound = -1;
+        for (SCTAB nTab = 0; nTab < GetTableCount(); ++nTab)
+        {
+            if (std::any_of(rTabs.begin(), rTabs.end(),
+                            [nTab](const auto& rPair) { return rPair.second == nTab; }))
+                continue;
+            OUString aName;
+            GetName(nTab, aName);
+            if (aName != aSrcName
+                && !(aName.startsWith(OUString(aSrcName + "_"))
+                     && o3tl::toInt32(aName.subView(aSrcName.getLength() + 1)) > 1))
+                continue;
+            bool bSame = true;
+            for (SCCOL nCol = rRange.aStart.Col(); bSame && nCol <= rRange.aEnd.Col(); ++nCol)
+                for (SCROW nRow = rRange.aStart.Row(); bSame && nRow <= rRange.aEnd.Row(); ++nRow)
+                    bSame = GetString(nCol, nRow, nTab)
+                            == rSrcDoc.GetString(nCol, nRow, nSrcTab);
+            if (!bSame)
+                continue;
+            if (nFound >= 0)
+                return -1; // ambiguous
+            nFound = nTab;
+        }
+        return nFound;
+    };
+
+    ScDPCollection* pDPs = GetDPCollection();
+    for (size_t i = 0; i < pSrcDPs->GetCount(); ++i)
+    {
+        const ScDPObject& rSrcObj = (*pSrcDPs)[i];
+        const ScSheetSourceDesc* pSrcDesc = rSrcObj.GetSheetDesc();
+        if (!pSrcDesc)
+            continue; // database and service sources are not handled
+
+        ScRange aOut = rSrcObj.GetOutRange();
+        ScRange aSource = pSrcDesc->GetSourceRange();
+        if (aSource.aStart.Tab() != aSource.aEnd.Tab())
+            continue;
+        SCTAB nOutTab = lcl_DestTab(aOut.aStart.Tab());
+        SCTAB nSourceTab = lcl_DestTab(aSource.aStart.Tab());
+        if (nOutTab < 0 && nSourceTab < 0)
+            continue;
+        if (nOutTab < 0)
+            nOutTab = lcl_EarlierCopy(aOut);
+        else if (nSourceTab < 0)
+            nSourceTab = lcl_EarlierCopy(aSource);
+        // Without its source sheet the pivot table keeps only its values, as before.
+        if (nOutTab < 0 || nSourceTab < 0)
+            continue;
+
+        aOut.aStart.SetTab(nOutTab);
+        aOut.aEnd.SetTab(nOutTab);
+        aSource.aStart.SetTab(nSourceTab);
+        aSource.aEnd.SetTab(nSourceTab);
+
+        bool bExists = false;
+        for (size_t j = 0; j < pDPs->GetCount() && !bExists; ++j)
+            bExists = (*pDPs)[j].GetOutRange() == aOut;
+        if (bExists)
+            continue;
+
+        ScSheetSourceDesc aDesc(this);
+        aDesc.SetSourceRange(aSource);
+        ScQueryParam aQuery = pSrcDesc->GetQueryParam();
+        aQuery.nTab = nSourceTab;
+        aDesc.SetQueryParam(aQuery);
+
+        auto pNew = std::make_unique<ScDPObject>(rSrcObj, this);
+        pNew->SetSheetDesc(aDesc);
+        pNew->SetOutRange(aOut);
+        if (pDPs->GetByName(rSrcObj.GetName()))
+            pNew->SetName(pDPs->CreateNewName());
+        pDPs->InsertNewTable(std::move(pNew));
+        ApplyFlagsTab(aOut.aStart.Col(), aOut.aStart.Row(), aOut.aEnd.Col(), aOut.aEnd.Row(),
+                      nOutTab, ScMF::DpTable);
+    }
 }
 
 bool ScDocument::TransferTab( ScDocument& rSrcDoc, SCTAB nSrcPos,

@@ -1158,6 +1158,11 @@ public:
                                             bool bInsertNew = true,
                                             bool bResultsOnly = false );
     SC_DLLPUBLIC void           TransferDrawPage(const ScDocument& rSrcDoc, SCTAB nSrcPos, SCTAB nDestPos);
+    /** Recreate rSrcDoc's pivot tables whose output and source sheets were both
+        transferred (rTabs: source sheet -> destination sheet). Call after the
+        sheets' contents are in place. */
+    SC_DLLPUBLIC void           TransferPivotTables(const ScDocument& rSrcDoc,
+                                                    const std::vector<std::pair<SCTAB, SCTAB>>& rTabs);
     SC_DLLPUBLIC void           SetVisible( SCTAB nTab, bool bVisible );
     SC_DLLPUBLIC bool           IsVisible( SCTAB nTab ) const;
     bool                        IsStreamValid( SCTAB nTab ) const;

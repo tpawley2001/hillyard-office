@@ -345,6 +345,16 @@ ScDPObject::ScDPObject(const ScDPObject& rOther)
     // mxSource (and mpOutput) is not copied
 }
 
+ScDPObject::ScDPObject(const ScDPObject& rOther, ScDocument* pDocument)
+    : ScDPObject(rOther)
+{
+    mpDocument = pDocument;
+    // these refer to rOther's document
+    mpSheetDescription.reset();
+    mpImportDescription.reset();
+    mpServiceDescription.reset();
+}
+
 ScDPObject::~ScDPObject()
 {
     Clear();

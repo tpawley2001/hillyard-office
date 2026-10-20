@@ -50,6 +50,9 @@
 
 #include <orcusfilters.hxx>
 #include <filter.hxx>
+#include <dpobject.hxx>
+#include <dpshttab.hxx>
+#include <docuno.hxx>
 
 #include <com/sun/star/drawing/XDrawPageSupplier.hpp>
 #include <com/sun/star/drawing/XControlShape.hpp>
@@ -1782,6 +1785,73 @@ CPPUNIT_TEST_FIXTURE(ScFiltersTest4, testHillyardImportSheetWithFunnelChart)
     xSheets->importSheet(xSourceDoc, aName, 1);
     xSource->dispose();
     CPPUNIT_ASSERT(xSheets->hasByName(aName));
+}
+
+CPPUNIT_TEST_FIXTURE(ScFiltersTest4, testHillyardImportSheetKeepsPivotTable)
+{
+    // Copying a sheet into another document dropped its pivot tables, leaving
+    // only their values.
+    createScDoc();
+    uno::Reference<lang::XComponent> xSource = mxDesktop->loadComponentFromURL(
+        createFileURL(u"xlsx/pivottable_outline_mode.xlsx"), u"_blank"_ustr, 0,
+        { comphelper::makePropertyValue(u"Hidden"_ustr, true) });
+    uno::Reference<sheet::XSpreadsheetDocument> xSourceDoc(xSource, UNO_QUERY_THROW);
+    uno::Reference<sheet::XSpreadsheetDocument> xDoc(mxComponent, UNO_QUERY_THROW);
+    uno::Reference<sheet::XSpreadsheets2> xSheets(xDoc->getSheets(), UNO_QUERY_THROW);
+    const OUString aName = xSourceDoc->getSheets()->getElementNames()[0];
+
+    // The source data is on the same sheet as the pivot table.
+    xSheets->importSheet(xSourceDoc, aName, 1);
+    ScDocument* pDoc = getScDoc();
+    ScDPCollection* pDPs = pDoc->GetDPCollection();
+    CPPUNIT_ASSERT_EQUAL(size_t(1), pDPs->GetCount());
+    CPPUNIT_ASSERT_EQUAL(SCTAB(1), (*pDPs)[0].GetOutRange().aStart.Tab());
+    CPPUNIT_ASSERT_EQUAL(SCTAB(1), (*pDPs)[0].GetSheetDesc()->GetSourceRange().aStart.Tab());
+    xSource->dispose();
+
+    // The source data is on another sheet that is copied with it.
+    xSource = mxDesktop->loadComponentFromURL(
+        createFileURL(u"xlsx/pivot/Pivot1_Row.xlsx"), u"_blank"_ustr, 0,
+        { comphelper::makePropertyValue(u"Hidden"_ustr, true) });
+    ScDocument& rSrc
+        = *comphelper::getFromUnoTunnel<ScModelObj>(xSource)->GetDocument();
+    const ScDPObject& rSrcObj = (*rSrc.GetDPCollection())[0];
+    const SCTAB nSrcOut = rSrcObj.GetOutRange().aStart.Tab();
+    const SCTAB nSrcData = rSrcObj.GetSheetDesc()->GetSourceRange().aStart.Tab();
+    CPPUNIT_ASSERT(nSrcOut != nSrcData);
+    OUString aDataName, aOutName;
+    rSrc.GetName(nSrcData, aDataName);
+    rSrc.GetName(nSrcOut, aOutName);
+
+    // Copied one sheet at a time, data first: nothing to recreate yet.
+    // Named the way a sheet copy names them: "Sheet1" exists, so "Sheet1_2".
+    pDoc->CreateValidTabName(aDataName);
+    pDoc->CreateValidTabName(aOutName);
+    CPPUNIT_ASSERT(pDoc->InsertTab(2, aDataName));
+    pDoc->TransferTab(rSrc, nSrcData, 2, false);
+    pDoc->TransferPivotTables(rSrc, { { nSrcData, 2 } });
+    CPPUNIT_ASSERT_EQUAL(size_t(1), pDPs->GetCount());
+    // Then the pivot sheet: the earlier copy of the data sheet is recognised.
+    CPPUNIT_ASSERT(pDoc->InsertTab(3, aOutName));
+    pDoc->TransferTab(rSrc, nSrcOut, 3, false);
+    pDoc->TransferPivotTables(rSrc, { { nSrcOut, 3 } });
+    CPPUNIT_ASSERT_EQUAL(size_t(2), pDPs->GetCount());
+    // Transferring again does not duplicate it.
+    pDoc->TransferPivotTables(rSrc, { { nSrcData, 2 }, { nSrcOut, 3 } });
+    CPPUNIT_ASSERT_EQUAL(size_t(2), pDPs->GetCount());
+    const ScDPObject& rCopy = (*pDPs)[1];
+    CPPUNIT_ASSERT_EQUAL(SCTAB(3), rCopy.GetOutRange().aStart.Tab());
+    CPPUNIT_ASSERT_EQUAL(SCTAB(2), rCopy.GetSheetDesc()->GetSourceRange().aStart.Tab());
+    // A pivot sheet whose data sheet was edited after copying keeps only values.
+    pDoc->SetString(rCopy.GetSheetDesc()->GetSourceRange().aStart, u"edited"_ustr);
+    OUString aOutName2 = aOutName;
+    pDoc->CreateValidTabName(aOutName2);
+    CPPUNIT_ASSERT(pDoc->InsertTab(4, aOutName2));
+    pDoc->TransferTab(rSrc, nSrcOut, 4, false);
+    pDoc->TransferPivotTables(rSrc, { { nSrcOut, 4 } });
+    CPPUNIT_ASSERT_EQUAL(size_t(2), pDPs->GetCount());
+    CPPUNIT_ASSERT(rCopy.GetName() != (*pDPs)[0].GetName());
+    xSource->dispose();
 }
 
 CPPUNIT_PLUGIN_IMPLEMENT();

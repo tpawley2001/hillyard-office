@@ -2800,6 +2800,13 @@ void ScViewFunc::ImportTables( ScDocShell* pSrcShell,
         }
 
     }
+    if (!bError)
+    {
+        std::vector<std::pair<SCTAB, SCTAB>> aTabs;
+        for (i = 0; i < nCount; i++)
+            aTabs.emplace_back(pSrcTabs[i], nTab + i);
+        rDoc.TransferPivotTables(rSrcDoc, aTabs);
+    }
 
     if (bLink)
     {
@@ -2985,11 +2992,15 @@ void ScViewFunc::MoveTable(sal_uInt16 nDestDocNo, SCTAB nDestTab, bool bCopy,
         if ( bValid )
         {
             nDestTab1 = nDestTab;
+            std::vector<std::pair<SCTAB, SCTAB>> aPivotTabs;
             for(SCTAB nTab : TheTabs)
             {
                 bValid = pDestShell->TransferTab( *pDocShell, nTab, nDestTab1, false, false );
+                aPivotTabs.emplace_back(nTab, nDestTab1);
                 nDestTab1++;
             }
+            if (bValid)
+                rDestDoc.TransferPivotTables(rDoc, aPivotTabs);
         }
         if (!bNewDoc && bUndo)
         {

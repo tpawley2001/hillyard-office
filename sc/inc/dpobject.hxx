@@ -151,6 +151,8 @@ private:
 public:
     SC_DLLPUBLIC ScDPObject(ScDocument* pD);
     ScDPObject(const ScDPObject& r);
+    /// Copy into another document; the caller must set a new source description.
+    ScDPObject(const ScDPObject& r, ScDocument* pDocument);
     SC_DLLPUBLIC ~ScDPObject();
 
     ScDPObject& operator= (const ScDPObject& r);
