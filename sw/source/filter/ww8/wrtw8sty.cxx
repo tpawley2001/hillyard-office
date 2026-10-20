@@ -1960,6 +1960,10 @@ void MSWordExportBase::SectionProperties( const WW8_SepInfo& rSepInfo, WW8_PdAtt
         }
     }
 
+    // The format whose first-page header/footer is written (a stashed one when
+    // "different first page" is off).
+    const SwFrameFormat* pFirstHeaderFooterFormat = pPdFirstPgFormat;
+
     // Ensure that headers are written if section is first paragraph
     if (nBreakCode != 0 || (rSepInfo.pSectionFormat && rSepInfo.bIsFirstParagraph))
     {
@@ -1971,11 +1975,27 @@ void MSWordExportBase::SectionProperties( const WW8_SepInfo& rSepInfo, WW8_PdAtt
         }
         else
         {
-            if ( pPd->GetStashedFrameFormat(true, true, true) && pPdLeftHeaderFormat && pPdLeftHeaderFormat->GetHeader().GetHeaderFormat() )
+            // Hillyard: Word keeps a first-page header/footer while "different
+            // first page" is off; the importer stashes it, so write it back
+            // instead of losing it on save.
+            const SwFrameFormat* pStashedFirstHeader = pPd->GetStashedFrameFormat(true, false, true);
+            const SwFrameFormat* pStashedFirstFooter = pPd->GetStashedFrameFormat(false, false, true);
+            if (pStashedFirstHeader && pStashedFirstHeader->GetHeader().GetHeaderFormat())
+            {
+                MSWordSections::SetHeaderFlag(nHeadFootFlags, *pStashedFirstHeader, WW8_HEADER_FIRST);
+                pFirstHeaderFooterFormat = pStashedFirstHeader;
+            }
+            else if ( pPd->GetStashedFrameFormat(true, true, true) && pPdLeftHeaderFormat && pPdLeftHeaderFormat->GetHeader().GetHeaderFormat() )
             {
                 MSWordSections::SetHeaderFlag( nHeadFootFlags, *pPdLeftHeaderFormat, WW8_HEADER_FIRST );
             }
-            if ( pPd->GetStashedFrameFormat(false, true, true) && pPdLeftFooterFormat && pPdLeftFooterFormat->GetFooter().GetFooterFormat() )
+            if (pStashedFirstFooter && pStashedFirstFooter->GetFooter().GetFooterFormat())
+            {
+                MSWordSections::SetFooterFlag(nHeadFootFlags, *pStashedFirstFooter, WW8_FOOTER_FIRST);
+                if (pFirstHeaderFooterFormat == pPdFirstPgFormat)
+                    pFirstHeaderFooterFormat = pStashedFirstFooter;
+            }
+            else if ( pPd->GetStashedFrameFormat(false, true, true) && pPdLeftFooterFormat && pPdLeftFooterFormat->GetFooter().GetFooterFormat() )
             {
                 MSWordSections::SetFooterFlag( nHeadFootFlags, *pPdLeftFooterFormat, WW8_FOOTER_FIRST );
             }
@@ -2033,7 +2053,7 @@ void MSWordExportBase::SectionProperties( const WW8_SepInfo& rSepInfo, WW8_PdAtt
         MSWordSections::SetFooterFlag(nHeadFootFlags, *pPdFormat, WW8_FOOTER_ODD);
     }
 
-    WriteHeadersFooters( nHeadFootFlags, *pPdFormat, *pPdLeftHeaderFormat, *pPdLeftFooterFormat, *pPdFirstPgFormat, nBreakCode, bEvenAndOddHeaders && bEvenAndOddFooters );
+    WriteHeadersFooters( nHeadFootFlags, *pPdFormat, *pPdLeftHeaderFormat, *pPdLeftFooterFormat, *pFirstHeaderFooterFormat, nBreakCode, bEvenAndOddHeaders && bEvenAndOddFooters );
 
     SetHdFtPageRoot( pOldPageRoot );
 

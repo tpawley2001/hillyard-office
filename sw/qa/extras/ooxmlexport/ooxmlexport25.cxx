@@ -587,6 +587,33 @@ CPPUNIT_TEST_FIXTURE(Test, testTdf170908_delText)
     CPPUNIT_ASSERT_GREATER(nRunsBeforeDelText, nRunsBeforeAnchor);
 }
 
+CPPUNIT_TEST_FIXTURE(Test, testHillyardFirstHeaderWithoutTitlePage)
+{
+    // Given a Word document with a first-page header but "different first page" off
+    // (no w:titlePg): Word keeps that header and shows it again when the option is on.
+    createSwDoc("tdf128156.docx");
+
+    // When exporting that to DOCX:
+    save(TestFilter::DOCX);
+
+    // Then the first-page header is written back, still without w:titlePg:
+    xmlDocUniquePtr pXmlDoc = parseExport(u"word/document.xml"_ustr);
+    // (The first section is the one without w:titlePg; the second section has its own.)
+    assertXPath(pXmlDoc, "(//w:sectPr)[1]/w:titlePg", 0);
+    const OUString aRelId
+        = getXPath(pXmlDoc, "(//w:sectPr)[1]/w:headerReference[@w:type='first']", "id");
+    xmlDocUniquePtr pRels = parseExport(u"word/_rels/document.xml.rels"_ustr);
+    const OUString aTarget
+        = getXPath(pRels,
+                   OUStringToOString(
+                       Concat2View("/rels:Relationships/rels:Relationship[@Id='" + aRelId + "']"),
+                       RTL_TEXTENCODING_UTF8),
+                   "Target");
+    xmlDocUniquePtr pHeader = parseExport("word/" + aTarget);
+    // Without the fix the reference (and the header text) was missing.
+    CPPUNIT_ASSERT(getXPathContent(pHeader, "string(/w:hdr)").startsWith(u"A jelentést a Kormány"));
+}
+
 CPPUNIT_TEST_FIXTURE(Test, testTdf170908_delText_sdt)
 {
     // Given a document with a deleted, exported-with-WritePendingPlaceholder sdt

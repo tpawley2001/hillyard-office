@@ -3445,6 +3445,23 @@ void SwXPageStyle::setPropertyValue(const OUString& rPropertyName, const uno::An
     // store the old ones in time for later use.
     const bool bIsHeader = rPropertyName == UNO_NAME_HEADER_IS_SHARED;
     const bool bIsFooter = rPropertyName == UNO_NAME_FOOTER_IS_SHARED;
+    // Hillyard: likewise keep a distinct first-page header/footer when the
+    // importer turns "different first page" off (DOCX without w:titlePg), so
+    // export can write it back instead of losing it.
+    if (rPropertyName == UNO_NAME_FIRST_IS_SHARED && rValue == uno::Any(true))
+    {
+        for (size_t i = 0; i < GetDoc()->GetPageDescCnt(); i++)
+        {
+            auto pPageDesc = &GetDoc()->GetPageDesc(i);
+            if (pPageDesc->GetName() != GetStyleUIName() || pPageDesc->IsFirstShared())
+                continue;
+            const SwFrameFormat& rFirst = pPageDesc->GetFirstMaster();
+            if (rFirst.GetHeader().GetHeaderFormat() && !pPageDesc->HasStashedFormat(true, false, true))
+                pPageDesc->StashFrameFormat(rFirst, true, false, true);
+            if (rFirst.GetFooter().GetFooterFormat() && !pPageDesc->HasStashedFormat(false, false, true))
+                pPageDesc->StashFrameFormat(rFirst, false, false, true);
+        }
+    }
     if ((bIsFooter || bIsHeader) && rValue == uno::Any(true))
     {
         // Find the matching page descriptor

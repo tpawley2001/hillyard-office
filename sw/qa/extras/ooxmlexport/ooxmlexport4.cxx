@@ -472,18 +472,17 @@ CPPUNIT_TEST_FIXTURE(Test, testChartInFooter)
     CPPUNIT_ASSERT_EQUAL(1, getShapes());
 
     // tdf#168977: MS Word reports corrupt if same embeddings/file referred to by multiple charts
-    // Currently, we duplicate a chart into the first page footer (from the 'default' footer)
     xmlDocUniquePtr pXmlChart1Rels = parseExport(u"word/charts/_rels/chart1.xml.rels"_ustr);
     assertXPath(pXmlChart1Rels,
         "//rels:Relationship[@Target='../embeddings/Microsoft_Excel_Worksheet1.xlsx']");
 
+    // Hillyard W-RT-01: the document's own first-page footer (footer3.xml, no chart; there is
+    // no w:titlePg) is written back instead of a copy of the default footer, so there is no
+    // duplicated second chart any more.
     uno::Reference<packages::zip::XZipFileAccess2> xNameAccess
         = packages::zip::ZipFileAccess::createWithURL(comphelper::getComponentContext(m_xSFactory),
                                                       maTempFile.GetURL());
-    CPPUNIT_ASSERT(xNameAccess->hasByName(u"word/charts/chart2.xml"_ustr)); // first page footer
-    // without the fix, this was true; both charts referred to the same 'Microsoft_Excel_Worksheet1'
-    CPPUNIT_ASSERT_EQUAL(false,
-                         bool(xNameAccess->hasByName(u"word/charts/_rels/chart2.xml.rels"_ustr)));
+    CPPUNIT_ASSERT_EQUAL(false, bool(xNameAccess->hasByName(u"word/charts/chart2.xml"_ustr)));
 
 }
 
