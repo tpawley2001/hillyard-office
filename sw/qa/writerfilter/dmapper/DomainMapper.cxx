@@ -10,6 +10,8 @@
 #include <swmodeltestbase.hxx>
 
 #include <com/sun/star/text/XTextDocument.hpp>
+#include <com/sun/star/text/XTextFieldsSupplier.hpp>
+#include <com/sun/star/lang/XServiceInfo.hpp>
 #include <com/sun/star/beans/XPropertySet.hpp>
 #include <com/sun/star/beans/PropertyValues.hpp>
 #include <com/sun/star/drawing/XDrawPageSupplier.hpp>
@@ -172,6 +174,21 @@ CPPUNIT_TEST_FIXTURE(Test, testTdf158360)
 {
     // just test that doc with annotation in TOC doesn't crash/assert
     loadFromFile(u"tdf158360.docx");
+
+    // and that the annotation keeps its text
+    uno::Reference<text::XTextFieldsSupplier> xTextFieldsSupplier(mxComponent, uno::UNO_QUERY);
+    uno::Reference<container::XEnumeration> xFields
+        = xTextFieldsSupplier->getTextFields()->createEnumeration();
+    OUString aContent;
+    while (xFields->hasMoreElements())
+    {
+        uno::Reference<lang::XServiceInfo> xField(xFields->nextElement(), uno::UNO_QUERY);
+        if (xField->supportsService(u"com.sun.star.text.textfield.Annotation"_ustr))
+            uno::Reference<beans::XPropertySet>(xField, uno::UNO_QUERY_THROW)
+                ->getPropertyValue(u"Content"_ustr)
+                >>= aContent;
+    }
+    CPPUNIT_ASSERT_EQUAL(u"Coloca links clic\u00e1veis"_ustr, aContent);
 }
 
 CPPUNIT_TEST_FIXTURE(Test, testTableStyleParaBorder)

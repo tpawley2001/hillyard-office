@@ -3552,7 +3552,8 @@ void DomainMapper_Impl::appendTextPortion( const OUString& rString, const Proper
         {
             if (IsInTOC() || m_bStartIndex || m_bStartBibliography || m_nStartGenericField != 0)
             {
-                if (IsInHeaderFooter() && !m_bStartTOCHeaderFooter)
+                // A comment anchored inside the TOC has its own text: append to it as usual.
+                if ((IsInHeaderFooter() && !m_bStartTOCHeaderFooter) || IsInComments())
                 {
                     xTextRange = xTextAppend->appendTextPortion(rString, aValues);
                 }
@@ -3566,10 +3567,7 @@ void DomainMapper_Impl::appendTextPortion( const OUString& rString, const Proper
                     {
                         xTOCTextCursor->goLeft(1, false);
                     }
-                    if (IsInComments())
-                        xTextRange = xTextAppend->finishParagraphInsert(aValues, xTOCTextCursor);
-                    else
-                        xTextRange = xTextAppend->insertTextPortion(rString, aValues, xTOCTextCursor);
+                    xTextRange = xTextAppend->insertTextPortion(rString, aValues, xTOCTextCursor);
                     SAL_WARN_IF(!xTextRange.is(), "writerfilter.dmapper", "insertTextPortion failed");
                     if (!xTextRange.is())
                         throw uno::Exception(u"insertTextPortion failed"_ustr, nullptr);
