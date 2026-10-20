@@ -2797,7 +2797,10 @@ void MSWordExportBase::OutputTextNode( SwTextNode& rNode )
                             AttrOutput().EndRun(&rNode, nCurrentPos, nLen);
                             nLen = 0;
                             nCurrentPos = nEnd;
-                            AttrOutput().StartRun(pRedlineData, nCurrentPos, bSingleEmptyRun);
+                            // Hillyard: the last run's tracked change may end before the
+                            // anchors; use the one in effect at the paragraph end, or an
+                            // undeleted text box is written inside w:del.
+                            AttrOutput().StartRun(aAttrIter.GetRunLevelRedline(nEnd), nCurrentPos, bSingleEmptyRun);
                         }
                         aAttrIter.OutFlys(nEnd);
                         // insert final bookmarks if any before CR and after flys
@@ -2857,7 +2860,8 @@ void MSWordExportBase::OutputTextNode( SwTextNode& rNode )
                         AttrOutput().EndRun(&rNode, nCurrentPos, nLen);
                         nLen = 0;
                         nCurrentPos = nEnd;
-                        AttrOutput().StartRun(pRedlineData, nCurrentPos, bSingleEmptyRun);
+                        // Hillyard: as above, use the tracked change at the paragraph end.
+                        AttrOutput().StartRun(aAttrIter.GetRunLevelRedline(nEnd), nCurrentPos, bSingleEmptyRun);
                     }
                     aAttrIter.OutFlys(nEnd);
                     // insert final bookmarks if any before CR and after flys

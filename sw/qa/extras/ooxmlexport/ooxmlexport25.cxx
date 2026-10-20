@@ -585,6 +585,10 @@ CPPUNIT_TEST_FIXTURE(Test, testTdf170908_delText)
 
     // The text should be in a separate (preceding) run from the floating stuff
     CPPUNIT_ASSERT_GREATER(nRunsBeforeDelText, nRunsBeforeAnchor);
+
+    // Hillyard W-RT-01: the text box anchored after the deletion is not deleted
+    // itself; its run must not be written inside a w:del.
+    assertXPath(pXmlDoc, "//w:del//mc:AlternateContent", 0);
 }
 
 CPPUNIT_TEST_FIXTURE(Test, testHillyardFirstHeaderWithoutTitlePage)
