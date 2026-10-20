@@ -17,9 +17,12 @@ from com.sun.star.beans import PropertyValue
 
 import compat_inventory
 
+# Formats checked for documents not already in an Office format: the current
+# Word/Excel formats (in 26.8 "MS Word 2007 XML" and "Calc MS Excel 2007 XML" are
+# the 2007-only filters, which cap Word's compatibilityMode at 12).
 OFFICE_FILTERS = {
-    "writer": ("MS Word 2007 XML", ".docx", "Word"),
-    "calc": ("Calc MS Excel 2007 XML", ".xlsx", "Excel"),
+    "writer": ("Office Open XML Text", ".docx", "Word"),
+    "calc": ("Calc Office Open XML", ".xlsx", "Excel"),
     "impress": ("Impress MS PowerPoint 2007 XML", ".pptx", "PowerPoint"),
 }
 # Filters for which a save is checked automatically, with the name shown.

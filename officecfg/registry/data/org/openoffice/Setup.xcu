@@ -63,7 +63,7 @@
           <value>calc8_template</value>
         </prop>
         <prop oor:name="ooSetupFactoryDefaultFilter">
-          <value>Calc MS Excel 2007 XML</value>
+          <value>Calc Office Open XML</value>
         </prop>
         <prop oor:name="ooSetupFactoryEmptyDocumentURL" oor:finalized="true">
           <value>private:factory/scalc</value>
@@ -281,7 +281,7 @@
           <value>writer8_template</value>
         </prop>
         <prop oor:name="ooSetupFactoryDefaultFilter">
-          <value>MS Word 2007 XML</value>
+          <value>Office Open XML Text</value>
         </prop>
         <prop oor:name="ooSetupFactoryEmptyDocumentURL" oor:finalized="true">
           <value>private:factory/swriter</value>
